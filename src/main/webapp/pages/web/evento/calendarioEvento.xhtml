@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head></h:head>
+    <h:body>
+        <ui:composition  template="../../template/template.xhtml">
+            <ui:define name="bodyleft">
+                <div class="info">
+                    
+                </div>
+            </ui:define>
+            <ui:define name="bodycenter">
+                <div class="calendario">
+                    <p:dataGrid value="#{eventoCalendarioMB.listaEvento}" var="evento" columns="1" layout="grid" rows="8" lazy="true" emptyMessage="No hay eventos" 
+                                rowsPerPageTemplate="4,8,16" paginatorAlwaysVisible="false" paginator="true" paginatorPosition="bottom">
+                        <p:panel header="#{evento.titulo}">
+                            <h:panelGrid columns="1">
+                                <p:graphicImage value="D:/ASOCIATE/evento/#{evento.imagen}"/>
+                                <h:outputText value="#{evento.fhinicio}">
+                                    <f:convertDateTime parent="dd/MM/yyyy"/>
+                                </h:outputText>
+                                <p:commandButton value="Detalles" action="#{eventoCalendarioMB.irAEvento(evento.idEvento)}"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:dataGrid>
+                </div>
+            </ui:define>
+            <ui:define name="bodyright">
+                <div class="banner">
+                    
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

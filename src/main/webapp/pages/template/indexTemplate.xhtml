@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      itemscope='itemscope' itemtype='http://schema.org/Article'>
+
+
+    <h:head>
+        <f:facet name="first">
+            <ui:insert name="metatags">
+                  <meta charset="UTF-8"/>
+                <meta http-equiv="Pragma" content="no-cache" />
+                <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
+                <meta http-equiv="Expires" content="-1" />
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <link rel="shortcut icon" type="image/x-icon"
+                      href="#{request.contextPath}/resources/img/favicon.ico" />
+                <title><h:outputText value="#{msg.tituloBienvenida}"/> 
+                    <h:outputText value="#{sesionMB.nombre} #{sesionMB.apellido}" rendered="#{sesionMB.esAsociacion}"/>
+                    <h:outputText value="#{sesionMB.razonsocial}" rendered="#{sesionMB.esAsociacion}"/></title>
+                <meta name="description" content="Descripcion de pagina. No sueperar los 155 caracteres." />
+
+
+
+                <!-- Schema.org markup for Google+ -->
+                <meta itemprop="name" content="Titulo"/>
+                <meta itemprop="description" content="Descripcion"/>
+                <meta itemprop="image" content="http://www.example.com/image.jpg'" />
+
+                <!-- Twitter Card data -->
+                <meta name="twitter:card" content="summary_large_image"/>
+                <meta name="twitter:site" content="@publisher_handle"/>
+                <meta name="twitter:title" content="Titulo"/>
+                <meta name="twitter:description" content="Descripcion que no supere los 200 caracteres"/>
+                <meta name="twitter:creator" content="@author_handle"/>
+                <!-- Twitter summary card with large image que no supere los 280x150px -->
+                <meta name="twitter:image:src" content="http://www.example.com/image.html" />
+                <!-- Open Graph data -->
+                <meta property="og:title" content="Titulo" />
+                <meta property="og:type" content="article" />
+                <meta property="og:url" content=" http://www.example.com/" />
+                <meta property="og:image" content=" http://example.com/image.jpg" />
+                <meta property="og:description" content="Descripcion" />
+                <meta property="og:site_name" content="Nombre de la web, i.e. Moz" />
+                <meta property="article:published_time" content="2013-09-17T05:59:00+01:00" />
+                <meta property="article:modified_time" content="2013-09-16T19:08:47+01:00" />
+                <meta property="article:section" content="Seción de la web" />
+                <meta property="article:tag" content="Article Tag" />
+                <meta property="fb:admins" content="ID de Facebook " />
+            </ui:insert>
+
+            <ui:insert name="titulo">
+                <title><h:outputText value="#{msg.titulo}"/></title>
+            </ui:insert>
+
+            <ui:insert name="estilos">
+                <h:outputStylesheet library="css" name="ui.css"/>
+                <h:outputStylesheet library="css" name="estructura.css"/>
+                <h:outputStylesheet library="css" name="tema.css"/>
+                <h:outputStylesheet library="css" name="estilo.css"/>
+            </ui:insert>
+        </f:facet>
+        <f:facet name="last">
+
+        </f:facet>
+    </h:head>
+    <h:body>
+        <header class="">
+            <div>
+                <ui:insert name="header">
+
+                </ui:insert>
+            </div>
+        </header>
+
+        <main>
+            <ui:insert name="bodyleft">
+
+            </ui:insert>
+            <ui:insert name="bodyright">
+
+            </ui:insert>
+            <ui:insert name="descripcion">
+
+            </ui:insert>
+        </main>
+
+        <footer>
+            <ui:insert name="footer">
+
+            </ui:insert>
+        </footer>
+
+    </h:body>
+</html>

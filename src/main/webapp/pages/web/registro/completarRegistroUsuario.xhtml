@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head></h:head>
+    <h:body>
+        <ui:composition  template="../../template/template.xhtml">
+            <ui:define name="userHeader">
+                <p></p>
+            </ui:define>
+            <ui:define name="bodycenter">
+                <h2><h:outputText value="#{msg.elegirAsoc}"/></h2>
+                <h:form>
+                    <p:selectOneMenu value="#{accesoMB.idPersonaAsoc}" >
+                        <f:selectItem itemLabel="#{msg.elegirDes}"></f:selectItem>
+                        <f:selectItems value="#{accesoMB.listAsociacion}" var="aso" itemLabel="#{aso.razonsocial}" itemValue="#{aso.idAsociacion}">
+                        </f:selectItems>
+
+                    </p:selectOneMenu>
+                    <p:commandButton disabled="#{accesoMB.idPersonaAsoc eq null}" action="#{accesoMB.completarRegistroPersona()}"/>
+                    <p:commandButton action="#{accesoMB.atras}" onstart="" oncomplete=""/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

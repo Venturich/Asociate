@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head></h:head>
+    <h:body>
+        <ui:composition  template="../../template/template.xhtml">
+            <ui:define name="bodyleft">
+                <div>
+                <p:gmap  widgetVar="geoMap" center="#{eventoMB.evento.posicion}" zoom="15" type="HYBRID" model="#{geocodeView.geoModel}" style="width:100%;height:400px">
+                    </div>
+                
+            </ui:define>
+            <ui:define name="bodycenter">
+                <div>
+                    <p:graphicImage name="D:/ASOCIATE/evento/#{eventoMB.evento.imagen}" alt="#{eventoMB.evento.titulo}"/>
+                </div>
+                <div>
+                                <h:outputText value="Titulo:"/>
+                                <h:outputText value="#{eventoMB.evento.titulo}"/>
+                                <h:outputText value="Fecha de inicio:"/>
+                                <h:outputText value="#{eventoMB.evento.fhinicio}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>                                          
+                                <h:outputText value="Hora de inicio:"/>
+                                <h:outputText value="#{eventoMB.evento.horainicio}">
+                                    <f:convertDateTime pattern="hh:mm" />
+                                </h:outputText>        
+                                <h:outputText value="Descripcion:"/>
+                                <h:outputText  value="#{eventoMB.evento.descripcion}" />
+                </div>
+                <div>
+                    <p:commandButton action="#{eventoMB.volver}" value="Volver"/>
+                </div>
+            </ui:define>
+            <ui:define name="bodyright">
+                <div>
+                    <p:panel>
+                        <p:dataList value="#{eventoMB.listaAsistente}" var="asistente">
+                            <p:commandLink action="#{eventoMB.irAPerfil(asistente.idPersona)}">
+                                <h:outputText value="#{asistente.nombre} #{asistente.apellidop}"/>
+                                <f:facet name="description">
+                                    <p:graphicImage value="D:ASOCIATE/usuario/#{asistente.idUsuario.idUsuario}/perfil.jpg"/> 
+                                </f:facet>
+                            </p:commandLink>
+                        </p:dataList>
+                    </p:panel>
+                </div>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

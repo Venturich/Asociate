@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head></h:head>
+    <h:body>
+        <ui:composition  template="../../../template/template.xhtml">
+            <ui:define name="bodycenter">
+                <div>
+                    <p:message id="avisosMensaje"/>
+                </div>
+                <div>
+                    <h:form id="nuevoMensaje">
+                        <p:commandButton value="Nuevo mensaje" oncomplete="PF('nuevo').show()" actionListener="#{mensajesMB.nuevoMensaje}" update="nuevo" ></p:commandButton>
+                        <p:dialog widgetVar="nuevoMensaje" modal="true" focus="autocompletar" >
+                            <p:autoComplete id="autocompletar" maxResults="5" minQueryLength="3" maxlength="50" 
+                                            scrollHeight="200" queryDelay="500" completeMethod="#{mensajesMB.buscarContacto}" size="50" 
+                                            valueChangeListener="#{mensajesMB.cargarDatosContacto}" var="cc"
+                                            itemLabel="#{cc.persona.nombre} #{cc.persona.apellidop}" itemValue="#{cc.idUsuario}" 
+                                            value="#{mensajesMB.idDestinoNuevo}"/>
+                            <p:outputPanel  id="nuevo" rendered="#{mensajesMB.mensajeNuevo ne null}">
+                                <p:editor widgetVar="editor" value="#{mensajesMB.mensajeNuevo.texto}" required="true" requiredMessage="El mensaje no puede estar vacio" />
+                                <p:commandButton value="Cancelar" oncomplete="PF('nuevoMensaje').hide()" actionListener="#{mensajesMB.setMensajeNuevo(null)}" update="nuevoMensaje"/>
+                                <p:commandButton value="Enviar" actionListener="#{mensajesMB.enviarMensaje()}" oncomplete="if(!args.validationfailed){PF('nuevoMensaje').hide()}"/>
+                            </p:outputPanel>
+                        </p:dialog>
+                    </h:form>
+                </div>
+                <div>
+                    <h:form>
+                        <p:dataList value="#{mensajesMB.mensajesPendientes}" var="mp" type="ordered" emptyMessage="Sin mensajes..." paginatorAlwaysVisible="false" paginatorPosition="top" paginator="true" widgetVar="mensajesPendientes">
+                            <p:commandLink update=":form:leerMensaje" oncomplete="PF('leerMensaje').show()">
+                                <h:outputText value="#{mp.idOrigen.persona.nombre} #{mp.idOrigen.persona.nombre} " rendered="#{mp.idOrigen.persona ne null}"/>
+                                <h:outputText value="#{mp.idOrigen.asociacion.razonsocial}" rendered="#{mp.idOrigen.asociacion ne null}"/>                        
+                                <h:outputText value="- #{mp.fhenvio}" >
+                                    <f:convertDateTime parent="dd/MM/yyyy"/>
+                                </h:outputText>
+                                <f:setPropertyActionListener value="mp" target="#{mensajesMB.mensajeLeer}"/>
+                            </p:commandLink>
+                        </p:dataList>
+                        <p:commandButton actionListener="#{mensajesMB.setVerHistorico(true)}" rendered="#{!mensajesMB.verHistorico}" update="panelHistorico"/>
+                        <p:panel id="panelHistorico" rendered="#{mensajesMB.verHistorico}">
+                            <p:dataList id="historico" value="#{mensajesMB.mensajesHistorico}" var="mh" type="ordered" emptyMessage="Sin mensajes..." paginatorAlwaysVisible="false" paginatorPosition="top" paginator="true" widgetVar="mensajesHistorico" >
+                                <p:commandLink update=":form:leerMensaje" oncomplete="PF('leerMensaje').show()">
+                                    <h:outputText value="#{mh.idOrigen.persona.nombre} #{mh.idOrigen.persona.nombre} " rendered="#{mh.idOrigen.persona ne null}"/>
+                                    <h:outputText value="#{mh.idOrigen.asociacion.razonsocial}" rendered="#{mh.idOrigen.asociacion ne null}"/>                        
+                                    <h:outputText value="- #{mh.fhenvio}" >
+                                        <f:convertDateTime parent="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                    <f:setPropertyActionListener value="mp" target="#{mensajesMB.mensajeLeer}"/>
+                                </p:commandLink>
+                            </p:dataList>
+                        </p:panel>
+                        <p:dialog widgetVar="leerMensaje">
+                            <p:outputPanel>
+                                <h:outputText value="#{mensajesMB.mensajeLeer.texto}"/>
+                                <p:commandButton value="Responder" actionListener="#{mensajesMB.crearMensaje}" update="editor">
+                                </p:commandButton>
+                            </p:outputPanel>
+                            <p:outputPanel  id="redactar" rendered="#{mensajesMB.mensajeNuevo ne null}">
+                                <p:editor widgetVar="editor" value="#{mensajesMB.mensajeNuevo.texto}" />
+                                <p:commandButton value="Cancelar" oncomplete="PF('leerMensaje').hide()" actionListener="#{mensajesMB.setMensajeNuevo(null)}" update="leerMensaje"/>
+                                <p:commandButton value="Enviar" actionListener="#{mensajesMB.enviarMensaje()}" oncomplete="if(!args.validationfailed){PF('leerMensaje').hide()}"/>
+                            </p:outputPanel>
+                        </p:dialog>
+                    </h:form>
+                </div>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

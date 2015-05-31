@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head></h:head>
+    <h:body>
+        <ui:composition  template="../../template/template.xhtml">
+            <h:form id="form1">
+                <ui:define name="bodyleft">
+                    <div class="bodyleft">
+
+                        <p:graphicImage value="#{perfilMB.tieneFPerfil}" rendered="#{perilMB.tieneFPerfil ne '' }" id="imgPerfil"/>
+                        <p:graphicImage value="" rendered="#{perilMB.tieneFPerfil eq '' }" id="imgBasica"/>
+                        <p:commandButton rendered="#{perfilMB.tieneFPerfil eq ''}" onclick="PF('subirFPerfil').show()" value="Subir foto perfil" icon="ui-icon-pencil"/>
+                        <p:dialog widgetVar="subirFPerfil">
+                            <h:outputLabel for='subeFoto' value='#{msg.subeFoto}'>
+                            </h:outputLabel>
+                            <p:fileUpload id="subeFoto" 
+                                          auto="false" mode="simple" 
+                                          cancelLabel="#{msg.cancelar}" uploadLabel="#{msg.subir}"
+                                          dragDropSupport="true" required="true"
+                                          allowTypes="/(\.|\/)(JPG|jpg)$/">
+                            </p:fileUpload>
+                            <p:commandButton action="#{perfilMB.actualizarFPerfil()}" actionListener="#{sesionMB.subirFotoPerfil}" ajax="true" value="#{msg.confirmar}" update="form1"/>
+                        </p:dialog> <!-- puede ser oncomplete en vez de action -->
+                </ui:define>
+                <ui:define name="bodycenter">
+                    <div class="bodycenter">
+                        <p:panel id="datosPersona" rendered="#{!sessionMB.esAsociacion}">
+                            <p:panelGrid columns="2">
+                                <h:outputText value="#{msg.nombre}:"/>
+                                <p:commandButton actionListener="#{perfilMB.setEditarDatos(!editarDatos)}" update="datosPersona" icon="ui-icon-pencil"/>
+                                <h:outputText value="#{perfilMB.user.persona.nombre}"/>
+                                <f:verbatim/>
+                                <h:outputText value="#{msg.apellidop}:"/>
+                                <p:commandButton actionListener="#{perfilMB.setEditarDatos(!editarDatos)}" update="datosPersona" icon="ui-icon-pencil"/>
+                                <h:outputText value="#{perfilMB.user.persona.apellidop}"/>
+                                <f:verbatim/>
+                                <h:outputText value="#{msg.apellidom}:"/>
+                                <p:commandButton actionListener="#{perfilMB.setEditarDatos(!editarDatos)}" update="datosPersona" icon="ui-icon-pencil"/>
+                                <h:outputText value="#{perfilMB.user.persona.apellidom}" rendered="#{!perfilMB.editarDatos}"/>
+                                <p:inputText value="#{perfilMB.user.persona.apellidom}" id="modApM" rendered="#{perfilMB.editarDatos}"/>
+                                <p:message for="modApM"/>
+                                <h:outputText value="Nick:"/>
+                                <p:commandButton actionListener="#{perfilMB.setEditarDatos(!editarDatos)}" update="datosPersona" icon="ui-icon-pencil"/>
+                                <h:outputText value="#{perfilMB.user.persona.alias}" rendered="#{!perfilMB.editarDatos}"/>
+                                <p:inputText value="#{perfilMB.user.persona.alias}" id="modAli" rendered="#{perfilMB.editarDatos}"/>
+                                <p:message for="modAli"/>
+                            </p:panelGrid>
+                            <p:commandButton value="#{msg.confirmar}" actionListener="#{perfilMB.guardarCambios}" 
+                                             update="datosPersona" process="datosPersona"
+                                             rendered="#{perfilMB.editarDatos}"/>
+                        </p:panel>
+                        <p:panel id="datosAsoc" rendered="#{sesionMB.esAsociacion}">
+                            <p:panelGrid columns="2">
+                                <h:outputText value="Descripcion:"/>
+                                <p:commandButton actionListener="#{perfilMB.setEditarDatos(!editarDatos)}" update="datosAsoc" />
+                                <h:outputText value="#{perfilMB.user.asociacion.descripcion}" rendered="#{!perfilMB.editarDatos}"/>
+                                <p:inputText value="#{perfilMB.user.asociacion.descripcion}" id="modDes" rendered="#{perfilMB.editarDatos}"/>
+                                <p:message for="modDes"/>
+                                <h:outputText value="Email:"/>
+                                <p:commandButton actionListener="#{perfilMB.setEditarDatos(!editarDatos)}" update="datosAsoc"  icon="ui-icon-pencil" />
+                                <h:outputText value="#{perfilMB.user.asociacion.email}"  rendered="#{!perfilMB.editarDatos}"/>
+                                <p:inputText value="#{perfilMB.user.asociacion.email}" id="modDirD" rendered="#{perfilMB.editarDatos}"/>
+                                <p:message for="modDirD"/>
+                                <h:outputText value="Fecha de formación:"/>
+                                <p:commandButton actionListener="#{perfilMB.setEditarDatos(!editarDatos)}" update="datosAsoc" icon="ui-icon-pencil"/>
+                                <h:outputText value="#{perfilMB.user.asociacion.fhcreacion}"  rendered="#{!perfilMB.editarDatos}">
+                                    <f:convertDateTime parent="dd/mm/yyyy"/>
+                                </h:outputText>
+                                <p:calendar id="modFh" yearRange="c-100" pattern="dd/mm/yyyy" timeControlType="select" disabledWeekends="true"  showOn="button" value="#{perfilMB.user.asociacion.email}" rendered="#{perfilMB.editarDatos}"/>
+                                <p:message for="modFh"/>
+                                <h:outputText value="Telefono:"/>
+                                <p:commandButton actionListener="#{perfilMB.setEditarDatos(!editarDatos)}" update="datosAsoc" icon="ui-icon-pencil"/>
+                                <h:outputText value="#{perfilMB.user.asociacion.telefono}"  rendered="#{!perfilMB.editarDatos}"/>
+                                <p:inputText value="#{perfilMB.user.asociacion.telefono}" id="modTlf" rendered="#{perfilMB.editarDatos}"/>
+                                <p:message for="modTlf"/>
+                            </p:panelGrid>
+                            <p:commandButton value="#{msg.confirmar}" actionListener="#{perfilMB.guardarCambios}" 
+                                             update="datosPersona" process="datosAsoc"
+                                             rendered="#{perfilMB.editarDatos}"/>
+                        </p:panel>
+
+
+                    </div>
+
+
+                    </div>
+                </ui:define>
+            </h:form>
+            <ui:define name="bodyright">
+                <div class="bodyright">
+                    <h:form>
+                        <p:panelGrid columns="1">
+                            <p:commandButton value="Amigos (#{perfilMB.amigos.size()})"  action="#{perfilMB.irListaAmigos()}" immediate="true" rendered="#{!sesionMB.esAsociacion}"/>
+                            <p:commandButton value="Socios (#{perfilMB.socios.size()})"  action="#{perfilMB.irListaSocios()}" immediate="true" rendered="#{sesionMB.esAsociacion}"/>
+                            <p:commandButton value="Ver eventos" action="#{perfilMB.irListaEvento()}" immediate="true"/>
+                            <p:commandButton value="Nuevo evento" action="#{perfilMB.irNuevoEvento()}" immediate="true"/>
+                            <p:commandButton value="Ir al foro"  action="#{perfilMB.irForo()}" immediate="true" rendered="false"/>
+                            <p:commandButton value="Acceso al directorio" rendered="#{perfilMB.tieneDirectorio and false}" action="#{perfilMB.irDirectorio()}" immediate="true"/>
+                        </p:panelGrid>
+                    </h:form>
+                </div>
+
+            </ui:define>
+
+
+
+        </ui:composition>
+    </h:body>
+</html>
