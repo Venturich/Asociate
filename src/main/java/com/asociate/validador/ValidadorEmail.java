@@ -6,6 +6,7 @@
 package com.asociate.validador;
 
 
+import com.asociate.dao.UsuarioDAO;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
@@ -64,8 +65,8 @@ public class ValidadorEmail implements Validator {
     }
 
     private boolean existeEmail(String value) {
-       // UsuarioDAO usdao = new UsuarioDAO();
-    //    return usdao.comprobarEmail(value);
-        return false;
+        UsuarioDAO usdao = new UsuarioDAO();
+        return usdao.comprobarEmail(value);
+        
     }
 }

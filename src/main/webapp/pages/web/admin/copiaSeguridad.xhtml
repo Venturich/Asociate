@@ -1,16 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head></h:head>
+    <h:body>
+        <ui:composition  template="../../template/adminTemplate.xhtml">
+            <script type="text/javascript">
+                function start() {
+                    PF('statusDialog').show();
+                }
+
+                function stop() {
+                    PF('statusDialog').hide();
+                }
+            </script>
+            <ui:insert name="admin">
+                <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
+                    <p:graphicImage name=".gif" library="css/images"/>
+                </p:dialog>
+                <div>
+                    <h:form>
+                        <h3 style="text-align: center">Copia seguridad de la base de datos</h3>
+
+                        <div>
+                            <p><h:outputText value="#{copiaSeguridadMB.resultado}"/></p>
+                            <p:commandButton value="Crear nueva copia " icon="ui-icon-disk" actionListener="#{copiaSeguridadMB.crearCopia()}" update=":form:listaArchivos" onstart="start()" oncomplete="stop()"/>
+                        </div>
+                        <div>
+                            <p:dataList value="#{copiaSeguridadMB.ficheros}"  var="file" id="listaArchivos" emptyMessage="No hay archivos">
+                                <p><h:outputText value="#{file}"/></p>
+                                <div>
+                                    <p:commandButton value="Eliminar" actionListener="#{copiaSeguridadMB.borrarCopia(file)}" update=":from:listaArchivos" onstart="start()" oncomplete="stop()"/>
+                                    <p:commandButton value="Restaurar" disabled="true" onstart="start()" oncomplete="stop()"/></div>
+                            </p:dataList>
+                        </div>
+                        <p:commandButton value="Volver" disabled="false" action="#{copiaSeguridadMB.volver()}" onstart="start()" oncomplete="stop()" immediate="true"/></div>
+                    </h:form>
+
+
+
+                </div>
+            </ui:insert>
+        </ui:composition>
+    </h:body>
 </html>

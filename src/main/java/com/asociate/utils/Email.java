@@ -25,8 +25,8 @@ public class Email {
     public static String username = "vepreciado@gmail.com";
     public static String password = "gnidrqhhibztctfb";
 
-    public void SendMail(String mensage, String to, String subject) {
-        
+    public static void SendMail(String mensage, String to, String subject) {
+
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -47,7 +47,8 @@ public class Email {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(to));
             message.setSubject(subject);
-            message.setText(mensage);
+            message.setContent(mensage, "text/html");
+            //        message.setText(mensage);
 
             Transport.send(message);
 
@@ -55,10 +56,39 @@ public class Email {
             throw new RuntimeException(e);
         }
     }
-    
-    public static String getMensajeDePlantilla(int tipo){
-    
-        return null;
+
+    public static String getMensajeDePlantilla(int tipo, String[] params) {
+        
+        StringBuffer sb = new StringBuffer();
+        sb.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n"
+                + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"es\" lang=\"es\">\n"
+                + "<body>\n"
+                + "\n"
+                + "<h1>Asociate</h1>\n"
+                + "<br>\n"
+                + "<br>\n"
+        );
+
+        switch (tipo) {
+            case 1://registro
+                sb.append("<p>Gracias por registrarte en ASOCIATE,"+params[0]+", pronto podrás acceder con el usuario con el que te has registrado</p>");
+                break;
+            case 2://alta asociacion
+                sb.append("<p>Gracias por registrarte en ASOCIATE, pronto un administrador dará de alta tu asociación ("+params[0]+") y podras descubrir las posibilidades que te ofrecemos.</p>");
+                break;
+            case 3://
+                break;
+
+        }
+        sb.append("<br/>\n"
+                + "<br/>\n"
+                + "\n"
+                + "<a href='#'>ASOCIATE.</a>\n"
+                + "\n"
+                + "</body>\n"
+                + "</html>");
+        return sb.toString();
+
     }
 
 }

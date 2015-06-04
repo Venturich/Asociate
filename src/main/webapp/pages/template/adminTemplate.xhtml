@@ -19,8 +19,7 @@
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
                 <link rel="shortcut icon" type="image/x-icon"
                       href="#{request.contextPath}/resources/css/images/favicon.ico" />
-                <title><h:outputText value="#{msg.tituloBienvenida}"/> 
-                   </title>
+                <title><h:outputText value="#{msg.tituloBienvenida}"/> </title>
                 <meta name="description" content="Descripcion de pagina. No sueperar los 155 caracteres." />
 
 
@@ -68,22 +67,24 @@
         </f:facet>
     </h:head>
     <h:body>
+        <p:growl globalOnly="true"/>
         <header class="">
             <div>
                 <ui:insert name="header">
-
+                    <div class="menuAdmin">
+                        <h:form>
+                            <p:commandButton action="#{adminGeneralMB.altaAsociacion}" value="Nuevas asociaciones: #{adminGeneralMB.listaAsocPendiente.size()}" immediate="true"></p:commandButton>
+                            <p:commandButton action="#{adminGeneralMB.bloquearUsuarios}" value="Administrar usuarios" immediate="true"></p:commandButton>
+                            <p:commandButton action="#{adminGeneralMB.copiaSeguridad}" value="Backup base de datos" immediate="true"></p:commandButton>
+                            <p:commandButton action="#{sesionMB.logout()}" value="Cerrar Sesion" immediate="true"></p:commandButton>
+                        </h:form>
+                    </div>
                 </ui:insert>
             </div>
         </header>
 
         <main>
-            <ui:insert name="bodyleft">
-
-            </ui:insert>
-            <ui:insert name="bodyright">
-
-            </ui:insert>
-            <ui:insert name="descripcion">
+            <ui:insert name="admin">
 
             </ui:insert>
         </main>

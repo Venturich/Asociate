@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.asociate.managedbean;
 
 import java.io.File;
@@ -12,28 +7,39 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
+ * Bean encargado de las copias de seguridad de la base de datos
  *
  * @author Ventura
  */
 @ManagedBean(name = "copiaSeguridadMB")
-@ViewScoped
-public class CopiaSeguridadManagedBean  implements Serializable {
+@SessionScoped
+public class CopiaSeguridadManagedBean extends AsociateError implements Serializable {
+
+    private String goToMenu = "menuPrincipal";
+
+    private Log logger = LogFactory.getLog(this.getClass().getName());
+    private Flash flash;
 
     private final String comando = "mysqldump";
     private final String database = "ASOCIATE";
     private final String usuario = "userjava";
     private final String pass = "2015";
-    private final String ruta = "D:\\ASOCIATE\\copiaSeguridad";
+    private final String ruta = "D:\\ASOCIATE\\copiasSeguridad";
     private String[] ficheros;
     private String resultado;
 
     /**
-     * Creates a new instance of CopiaSeguridadManagedBean
+     * Crea una nueva instancia de CopiaSeguridad
      */
     public CopiaSeguridadManagedBean() {
+
     }
 
     /**
@@ -41,6 +47,7 @@ public class CopiaSeguridadManagedBean  implements Serializable {
      */
     @PostConstruct
     public void init() {
+        flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
         //this.ruta = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/copiasSeguridad");
         ficheros = new File(ruta).list();
 
@@ -67,7 +74,7 @@ public class CopiaSeguridadManagedBean  implements Serializable {
             } else {
                 resultado = "¡Error en el volcado de la base de datos!";
             }
-
+            addInfo(resultado);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -112,6 +119,11 @@ public class CopiaSeguridadManagedBean  implements Serializable {
         }
     }
 
+    public String volver() {
+        flash.put("Destino", goToMenu);
+        return goToMenu;
+    }
+
     /**
      *
      * @return
@@ -143,5 +155,4 @@ public class CopiaSeguridadManagedBean  implements Serializable {
     public void setFicheros(String[] ficheros) {
         this.ficheros = ficheros;
     }
-
 }

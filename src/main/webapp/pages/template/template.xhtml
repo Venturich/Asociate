@@ -8,7 +8,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       itemscope='itemscope' itemtype='http://schema.org/Article'>
 
-
+    
     <h:head>
         <f:facet name="first">
             <ui:insert name="metatags">
@@ -18,8 +18,11 @@
                 <meta http-equiv="Expires" content="-1" />
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
                 <link rel="shortcut icon" type="image/x-icon"
-                      href="#{request.contextPath}/resources/img/favicon.ico" />
-                <title><h:outputText value="#{msg.titulo}"/></title>
+                      href="#{request.contextPath}/resources/css/images/favicon.ico" />
+                <title><h:outputText value="#{msg.titulo} "/>
+                    <h:outputText value="#{sesionMB.usuarioLogeado.persona.nombre} #{sesionMB.usuarioLogeado.persona.apellidop} " rendered="#{sesionMB.esAsociacion}"/>
+                    <h:outputText value="#{sesionMB.usuarioLogeado.asociacion.razonsocial} " rendered="#{sesionMB.esAsociacion}"/>
+                </title>
                 <meta name="description" content="Descripcion de pagina. No sueperar los 155 caracteres." />
 
 
@@ -53,8 +56,8 @@
 
             <ui:insert name="titulo">
                 <title><h:outputText value="#{msg.titulo}"/>
-                    <h:outputText value="#{sesionMB.razonsocial}" rendered="#{sesionMB.esAsociacion}"/>
-                    <h:outputText value="#{sesionMB.nombre}" rendered="#{!sesionMB.esAsociacion}"/>
+                    <h:outputText value="#{sesionMB.usuarioLogeado.asociacion.razonsocial}" rendered="#{sesionMB.esAsociacion}"/>
+                    <h:outputText value="#{sesionMB.usuarioLogeado.persona.nombre}" rendered="#{!sesionMB.esAsociacion}"/>
                 </title>
             </ui:insert>
 
@@ -82,10 +85,10 @@
                         break;
                         case 'INPUT':
                         preventKeyPress = d.readOnly || d.disabled ||
-                        (d.attributes["type"] & amp; & amp; $.inArray(d.attributes["type"].value.toLowerCase(), ["radio", "checkbox", "submit", "button"]) >= 0);
+                        (d.attributes["type"] &amp; &amp; $.inArray(d.attributes["type"].value.toLowerCase(), ["radio", "checkbox", "submit", "button"]) >= 0);
                         break;
                         case 'DIV':
-                        preventKeyPress = d.readOnly || d.disabled || !(d.attributes["contentEditable"] & amp; & amp; d.attributes["contentEditable"].value == "true");
+                        preventKeyPress = d.readOnly || d.disabled || !(d.attributes["contentEditable"] &amp; &amp; d.attributes["contentEditable"].value == "true");
                         break;
                         default:
                         preventKeyPress = true;
@@ -102,10 +105,10 @@
         <ui:insert name="userHeader">
             <p:growl />
             <header class="menu top">
-                <ui:composition template="./menuTemplate"/>
+                <ui:composition template="menuTemplate.xhtml"/>
                 
 
-                
+              
             </header>
            
         </ui:insert>

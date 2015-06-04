@@ -18,7 +18,7 @@
 }
 .ui-widget-content {
 	border: 1px solid #154CC1;
-	background: #ffffff url("images/ui-bg_highlight-hard_100_ffffff_1x100.png") 50% top repeat-x;
+	background: #ffffff url("./images/ui-bg_highlight-hard_100_ffffff_1x100.png") 50% top repeat-x;
 	color: #040404;
 }
 .ui-widget-content a {

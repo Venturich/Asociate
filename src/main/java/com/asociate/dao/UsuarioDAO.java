@@ -8,6 +8,8 @@ package com.asociate.dao;
 import com.asociate.modelo.Usuario;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -16,7 +18,7 @@ import org.hibernate.Session;
  * @author Ventura
  */
 public class UsuarioDAO {
-
+       private Log logger = LogFactory.getLog(this.getClass().getName());
     /**
      * Comprueba que un email no esté en la base de datos
      *
@@ -24,9 +26,10 @@ public class UsuarioDAO {
      * @return true si existe el email
      */
     public boolean comprobarEmail(String email) {
+        logger.info("comprobar");
         boolean existe = false;
         Session sesion = HibernateUtil.getSessionFactory().openSession();
-        Query qu = sesion.createQuery("Select u.email from Usuario u where email=:email").setString("email", email);
+        Query qu = sesion.createQuery("Select U.login from Usuario U where U.login=:email").setString("email", email);
         Object salida = qu.uniqueResult();
 
         if (salida != null) {
@@ -34,6 +37,7 @@ public class UsuarioDAO {
         }
         sesion.flush();
         sesion.close();
+        logger.info("fin comprobar "+ existe);
         return existe;
     }
 
@@ -48,7 +52,7 @@ public class UsuarioDAO {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         try {
 
-            Query qu = sesion.createQuery("Select u from Usuario u where login=:email AND password=:clave")
+            Query qu = sesion.createQuery("Select u from Usuario u where u.login=:email AND u.password=:clave")
                     .setString("email", usuario.getLogin())
                     .setString("clave", usuario.getPassword());//OJO
             Object salida = qu.uniqueResult();
@@ -161,6 +165,23 @@ public class UsuarioDAO {
             
             
         
+        return salida;
+    }
+
+    public List<Usuario> getTodos() {
+          List<Usuario> salida = new ArrayList();
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        
+        try {
+            Query qu = sesion.createQuery("Select U from Usuario U where U.tipo<>'A' and U.asociacion is null");
+            salida = qu.list();
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        } finally {
+            sesion.flush();
+            sesion.close();
+        }
         return salida;
     }
 }

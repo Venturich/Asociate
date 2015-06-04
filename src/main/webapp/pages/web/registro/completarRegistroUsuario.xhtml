@@ -8,22 +8,24 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head></h:head>
     <h:body>
-        <ui:composition  template="../../template/template.xhtml">
-            <ui:define name="userHeader">
-                <p></p>
+        <ui:composition  template="../../template/indexTemplate.xhtml">
+            <ui:define name="header">
+                <p>Completa el registro de tu usuario</p>
             </ui:define>
-            <ui:define name="bodycenter">
+            <ui:define name="bodyleft">
+                <div>
                 <h2><h:outputText value="#{msg.elegirAsoc}"/></h2>
                 <h:form>
-                    <p:selectOneMenu value="#{accesoMB.idPersonaAsoc}" >
+                    <p:selectOneMenu value="#{completarRegistroUserMB.idPersonaAsoc}"  >
                         <f:selectItem itemLabel="#{msg.elegirDes}"></f:selectItem>
-                        <f:selectItems value="#{accesoMB.listAsociacion}" var="aso" itemLabel="#{aso.razonsocial}" itemValue="#{aso.idAsociacion}">
+                        <f:selectItems value="#{completarRegistroUserMB.listAsociacion}" var="aso" itemLabel="#{aso.razonsocial}" itemValue="#{aso.idAsociacion}">
                         </f:selectItems>
-
+                        <p:ajax event="change" update="continuar"/>
                     </p:selectOneMenu>
-                    <p:commandButton disabled="#{accesoMB.idPersonaAsoc eq null}" action="#{accesoMB.completarRegistroPersona()}"/>
-                    <p:commandButton action="#{accesoMB.atras}" onstart="" oncomplete=""/>
+                    <p:commandButton disabled="#{completarRegistroUserMB.idPersonaAsoc eq null}" action="#{completarRegistroMB.completarRegistroPersona()}" id="continuar" value="Continuar"/>
+                    <p:commandButton action="#{completarRegistroUserMB.atras}" onstart="" oncomplete="" value="Atras"/>
                 </h:form>
+                </div>
             </ui:define>
         </ui:composition>
     </h:body>

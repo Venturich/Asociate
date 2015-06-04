@@ -7,6 +7,7 @@ package com.asociate.dao;
 
 import com.asociate.modelo.Asociacion;
 import com.asociate.modelo.Persona;
+import java.util.List;
 import org.hibernate.JDBCException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -69,6 +70,76 @@ public class AsociacionDAO {
         }
         
         return salida;
+    }
+
+    public List<Asociacion> getListaAsociaciones() {
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+         List<Asociacion> salida=null;
+        try {
+            
+            salida= sesion.createQuery("Select A from Asociacion A where A.completa = 'S'").list();
+            
+        } catch (JDBCException c) {
+            c.printStackTrace();
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+        } finally {
+            sesion.flush();
+            sesion.close();
+
+        }
+        
+        return salida;
+    }
+
+    public List<Asociacion> getListaAsocPendiente() {
+      Session sesion = HibernateUtil.getSessionFactory().openSession();
+         List<Asociacion> salida=null;
+        try {
+            
+            salida= sesion.createQuery("Select A from Asociacion A where A.completa = 'N'").list();
+            
+        } catch (JDBCException c) {
+            c.printStackTrace();
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+        } finally {
+            sesion.flush();
+            sesion.close();
+
+        }
+        
+        return salida;
+    }
+
+   
+
+    public void actualizarAsociacion(String cif, String estado) {
+         Session sesion = HibernateUtil.getSessionFactory().openSession();
+         
+        try {
+            
+             sesion.createQuery("Update Asociacion A set A.completa=:es, A.idUsuario.bloqueado=:es where A.cif=:cif")
+                     .setParameter("es", estado).setParameter("es", estado).setParameter("cif", cif).executeUpdate();
+            
+        } catch (JDBCException c) {
+            c.printStackTrace();
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+        } finally {
+            sesion.flush();
+            sesion.close();
+
+        }
     }
 
 }

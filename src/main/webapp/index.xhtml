@@ -7,211 +7,208 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head></h:head>
     <h:body>
-    <ui:composition  template="/pages/template/indexTemplate.xhtml">
+        <ui:composition  template="/pages/template/indexTemplate.xhtml">
 
-        <ui:define name="header"> <!-- login -->
-            <div>
-                <p:spacer width="50%"/>
-                <h:form id="login">
-                    <h:outputText value="#{msg.usuario}:"/>
-                    <p:inputText value="#{accesoMB.logEmail}" validator="validadorEmail" maxlength="150" placeholder="Email@email.com" label="#{msg.usuario}"/>
+            <ui:define name="header"> <!-- login -->
+                <div>
+                    <!--<p:spacer width="50%"/>-->
+                    <h:form id="login">
+                        <h:outputText value="#{msg.usuario}:"/>
+                        <p:inputText value="#{accesoMB.logEmail}" validator="validadorEmail" maxlength="150" placeholder="Email@email.com" label="#{msg.usuario}"/>
                         <h:outputText value="#{msg.contras}:"/>
                         <p:password value="#{accesoMB.logPass}" maxlength="150" label="#{msg.contras}" />
                         <p:commandButton action="#{accesoMB.login}" value="#{msg.inic}" onstart="" oncomplete="" />
-                </h:form>
-            </div>
-        </ui:define>
+                    </h:form>
+                </div>
+            </ui:define>
 
-        <ui:define name="bodyleft" >
-            <div>
-                <h:form>
-                    <p:panel>
-                        <p:commandButton type="button" onclick="PF('regAsoc').show();" value="#{msg.regAsoc}" onstart="" onsuccess="" styleClass="botonG regAsoc" id='regAsoc' ajax="true"/>
+            <ui:define name="bodyleft" >
+                <div>
+                    <h:form>
+                        <p:panel>
+                            <p:commandButton type="button" onclick="PF('regAsoc').show();" value="#{msg.regAsoc}" onstart="" onsuccess="" styleClass="botonG regAsoc" id='regAsoc' ajax="true"/>
 
-                    </p:panel>
-                </h:form>
+                        </p:panel>
+                    </h:form>
                     <p:dialog widgetVar="regAsoc" id="panelRegAsoc">
                         <h:form id="registro">
-                        <div>
-                            <p><h:outputText value='#{msg.cabAsoc}'/></p>
-                            <p:panelGrid>
-                                <p:column>
-                                    <h:outputLabel for='deno' value="#{msg.denominacion}">
+                            <div>
+                                <p><h:outputText value='#{msg.cabAsoc}'/></p>
+                                <p:panelGrid columns="3">
+                                    <p:column>
+                                        <h:outputLabel for='deno' value="#{msg.denominacion}">
+                                        </h:outputLabel>
+                                        <h:outputLabel for='cif' value='#{msg.CIF}'>
+                                        </h:outputLabel>
+                                        <h:outputLabel for='tipo' value="#{msg.ambito}">
+                                        </h:outputLabel>
+                                        <h:outputLabel for='emailAsoc' value='#{msg.email}'>
+                                        </h:outputLabel>
+
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText id='deno' value='#{accesoMB.regAsoc.razonsocial}' required="true" requiredMessage="#{msg.campoReq}" maxlength="300">
+
+                                        </p:inputText>
+                                        <p:inputText id='cif' value='#{accesoMB.regAsoc.cif}' required="true" maxlength="9">
+                                            <f:validateRegex pattern="([G]\d{7}[a-jA-J0-9]{1}$)?"/>
+                                        </p:inputText>
+                                        <p:selectOneMenu id="tipo" required="true" value='#{accesoMB.regAsoc.ambito}'  >
+                                            <f:selectItems value="#{accesoMB.ambitos}" var="amb" itemValue="#{amb.valor}" itemLabel="#{amb}" noSelectionValue="O">
+                                            </f:selectItems>
+                                        </p:selectOneMenu>
+                                        <p:inputText id='emailAsoc' value='#{accesoMB.regAsoc.email}' required="true" maxlength="150">
+                                            <f:validator validatorId="validadorEmail"/>
+                                        </p:inputText>
+
+                                    </p:column>
+                                    <p:column>
+                                        <p:message for="deno"  ></p:message>
+                                        <p:message for="cif"  ></p:message>
+                                        <p:message for="tipo"  ></p:message>
+                                        <p:message for="emailAsoc"  ></p:message>
+
+                                    </p:column>
+                                </p:panelGrid>
+                            </div>
+                            <div>
+                                <p><h:outputText value='#{msg.cabAcceso}'/></p>
+                                <p:panelGrid columns="3">
+                                    <p:column>
+                                        <h:outputLabel for='emailAcc' value="#{msg.emAc}">
+                                        </h:outputLabel>
+                                        <h:outputLabel for='pass' value='#{msg.pass}'>
+                                        </h:outputLabel>
+                                        <h:outputLabel for='reppass' value="#{msg.cpass}">
+                                        </h:outputLabel>
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText id='emailAcc' value='#{accesoMB.regUser.login}' required="true" requiredMessage="#{msg.campoReq}" placeholder="Email" maxlength="150">
+                                            <f:validator validatorId="validadorEmail"/>
+                                        </p:inputText>
+                                        <p:password  id='pass' value='#{accesoMB.regUser.password}' required="true" requiredMessage="#{msg.campoReq}" match="reppass"  feedback="true" weakLabel="#{msg.pDebil}" strongLabel="#{msg.pFuerte}" goodLabel="#{msg.pBuena}" label="#{msg.pass}" maxlength="20" promptLabel="Introduce la contraseña"/>
+                                        <p:password  id='reppass' value='#{accesoMB.password}' required="true" requiredMessage="#{msg.campoReq}" label="Confirmar"/> 
+                                    </p:column>
+                                    <p:column>
+                                        <p:message for="emailAcc"  ></p:message>
+                                        <p:message for="pass"   ></p:message>
+                                        <p:message for="reppass"  ></p:message>
+                                    </p:column>
+                                </p:panelGrid>
+                            </div>
+                            <div>
+                                <p:commandButton oncomplete="PF('regAsoc').hide();" id="btnCNLR" resetValues="true" actionListener="#{accesoMB.resetear}"
+                                                 value="#{msg.cancelar}" styleClass="boton botonform" update="registro" ajax="true"
+                                                 >
+                                    <!-- Cancelar-->
+                                </p:commandButton>
+                                <p:commandButton  id="btnGA" action="#{accesoMB.registrarAsociacion}"  ajax="false"
+                                                  value="#{msg.confirmar}" styleClass="boton botonform" >
+                                    <!-- Guardar-->
+                                </p:commandButton>
+                            </div>
+                        </h:form>
+                    </p:dialog>
+
+                </div>
+            </ui:define>
+            <ui:define name="bodyright">
+                <div>
+
+                    <h:form>
+                        <p:panel>
+                            <p:commandButton type="button" ajax="true" onclick="PF('regUser').show();" value="#{msg.regUser}"  styleClass="botonG regAsoc" id='regUser'/>
+                        </p:panel>
+                    </h:form>
+                    <p:dialog widgetVar="regUser" >
+                        <h:form id="registro2">
+                            <div>
+                                <p><h:outputText value='#{msg.cabPersona}'/></p>
+                                <p:panelGrid columns="3">
+                                    <p:column>
+                                        <h:outputLabel for='nombre' value="#{msg.nombre}">
+                                        </h:outputLabel>
+                                        <h:outputLabel for='apellidop' value='#{msg.apellidop}'>
+                                        </h:outputLabel>
+                                        <h:outputLabel for='apellidom' value="#{msg.apellidom}">
+                                        </h:outputLabel>
+                                        <h:outputLabel for='pais' value="#{msg.pais}">
+                                        </h:outputLabel>
+                                        <h:outputLabel for='provincia' value="#{msg.provincia}">
+                                        </h:outputLabel>
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText id='nombre' value='#{accesoMB.regPersona.nombre}' required="true" requiredMessage="#{msg.campoReq}" maxlength="100">
+                                        </p:inputText>
+                                        <p:inputText id='apellidop' value='#{accesoMB.regPersona.apellidop}' required="true" maxlength="9" requiredMessage="#{msg.campoReq}">
+                                        </p:inputText>
+                                        <p:inputText id='apellidom' value='#{accesoMB.regPersona.apellidom}' maxlength="9">
+                                        </p:inputText>
+                                        <p:selectOneMenu id="pais" required="true" requiredMessage="#{msg.campoReq}" value="#{accesoMB.pais}">
+                                            <f:selectItems itemLabel="#{pai.nombre}" itemValue="#{pai.codigo}" value="#{accesoMB.paises}" var="pai"/>
+                                        </p:selectOneMenu>
+                                        <p:selectOneMenu  id="provincia" value="#{accesoMB.provincia}">
+                                            <f:selectItems   value="#{accesoMB.provincias}" var="pr" itemValue="#{pr.codigo}" itemLabel="#{pr.nombre}" ></f:selectItems>
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                    <p:column>
+                                        <p:message for="nombre"  ></p:message>
+                                        <p:message for="apellidop"  ></p:message>
+                                        <p:message for="apellidom"  ></p:message>
+                                        <p:message for="pais"  ></p:message>
+                                        <p:message for="provincia"  ></p:message>
+                                       
+                                    </p:column>
+                                </p:panelGrid>
+                            </div>
+                            <div>
+                                <p><h:outputText value='#{msg.cabAcceso}'/></p>
+                                <p:panelGrid columns="3">  
+                                    <h:outputLabel for='emailAcc' value='#{msg.email}'>
                                     </h:outputLabel>
-                                    <h:outputLabel for='cif' value='#{msg.CIF}'>
-                                    </h:outputLabel>
-                                    <h:outputLabel for='tipo' value="#{msg.ambito}">
-                                    </h:outputLabel>
-                                    <h:outputLabel for='emailAsoc' value='#{msg.email}'>
-                                    </h:outputLabel>
-                                    
-                                </p:column>
-                                <p:column>
-                                    <p:inputText id='deno' value='#{accesoMB.regAsoc.razonsocial}' required="true" requiredMessage="#{msg.campoReq}" maxlength="300">
-                                    
-                                    </p:inputText>
-                                    <p:inputText id='cif' value='#{accesoMB.regAsoc.cif}' required="true" maxlength="9">
-                                        <f:validateRegex pattern="([G]\d{7}[a-jA-J0-9]{1}$)?"/>
-                                    </p:inputText>
-                                    <p:selectOneMenu id="tipo" required="true" value='#{accesoMB.regAsoc.ambito}'  >
-                                        <f:selectItems value="#{accesoMB.ambitos}" var="amb" itemValue="#{amb.valor}" itemLabel="#{amb}" noSelectionValue="O">
-                                        </f:selectItems>
-                                    </p:selectOneMenu>
-                                    <p:inputText id='emailAsoc' value='#{accesoMB.regAsoc.email}' required="true" maxlength="150">
-                                        <f:validator validatorId="validadorEmail"/>
-                                    </p:inputText>
-                                      
-                                </p:column>
-                                <p:column>
-                                    <p:message for="deno"  ></p:message>
-                                    <p:message for="cif"  ></p:message>
-                                    <p:message for="tipo"  ></p:message>
-                                    <p:message for="emailAsoc"  ></p:message>
-                                 
-                                </p:column>
-                            </p:panelGrid>
-                        </div>
-                        <div>
-                            <p><h:outputText value='#{msg.cabAcceso}'/></p>
-                            <p:panelGrid>
-                                <p:column>
-                                    <h:outputLabel for='emailAcc' value="#{msg.emAc}">
-                                    </h:outputLabel>
-                                    <h:outputLabel for='pass' value='#{msg.pass}'>
-                                    </h:outputLabel>
-                                    <h:outputLabel for='reppass' value="#{msg.cpass}">
-                                    </h:outputLabel>
-                                </p:column>
-                                <p:column>
                                     <p:inputText id='emailAcc' value='#{accesoMB.regUser.login}' required="true" requiredMessage="#{msg.campoReq}" placeholder="Email" maxlength="150">
                                         <f:validator validatorId="validadorEmail"/>
                                     </p:inputText>
-                                    <p:password  id='pass' value='#{accesoMB.regUser.password}' required="true" requiredMessage="#{msg.campoReq}" match="reppass"  feedback="true" weakLabel="#{msg.pDebil}" strongLabel="#{msg.pFuerte}" goodLabel="#{msg.pBuena}" label="#{msg.pass}" maxlength="20" promptLabel="Introduce la contraseña"/>
-                                    <p:password  id='reppass' value='#{accesoMB.password}' required="true" requiredMessage="#{msg.campoReq}" label="Confirmar"/> 
-                                </p:column>
-                                <p:column>
                                     <p:message for="emailAcc"  ></p:message>
-                                    <p:message for="pass"   ></p:message>
+                                    <h:outputLabel for='pass' value='#{msg.pass}'>
+                                    </h:outputLabel>
+                                    <p:password  id='pass' value='#{accesoMB.regUser.password}' required="true" requiredMessage="#{msg.campoReq}"  match="reppass" feedback="true" weakLabel="#{msg.pDebil}" strongLabel="#{msg.pFuerte}" goodLabel="#{msg.pBuena}" maxlength="20"/>
+                                    <p:message for="pass"  ></p:message>
+                                    <h:outputLabel for='reppass' value="#{msg.cpass}">
+                                    </h:outputLabel>
+                                    <p:password  id='reppass' value='#{accesoMB.password}' required="true" requiredMessage="#{msg.campoReq}" /> 
                                     <p:message for="reppass"  ></p:message>
-                                </p:column>
-                            </p:panelGrid>
-                        </div>
-                        <div>
-                            <p:commandButton oncomplete="PF('regAsoc').hide();" id="btnCNLR" resetValues="true" actionListener="#{accesoMB.resetear}"
-                                             value="#{msg.cancelar}" styleClass="boton botonform" update="registro" ajax="true"
-                                             >
-                                <!-- Cancelar-->
-                            </p:commandButton>
-                            <p:commandButton  id="btnGA" action="#{accesoMB.registrarAsociacion}"  ajax="false"
-                                             value="#{msg.confirmar}" styleClass="boton botonform" >
-                                <!-- Guardar-->
-                            </p:commandButton>
-                        </div>
+                                </p:panelGrid>
+                            </div>
+                            <div>
+                                <p:commandButton oncomplete="PF('regUser').hide();" id="btnClr" resetValues="true"  actionListener="#{accesoMB.resetear}"
+                                                 value="#{msg.cancelar}" styleClass="boton botonform" update="registro2" ajax="true" immediate="true"
+                                                 >
+                                    <!-- Cancelar-->
+                                </p:commandButton>
+                                <p:commandButton id="btnGP" action="#{accesoMB.registrarPersona}" 
+                                                 value="#{msg.confirmar}" styleClass="boton botonform" ajax="false" process="registro2">
+                                    <!-- Guardar-->
+                                </p:commandButton>
+                            </div>
                         </h:form>
                     </p:dialog>
-                
-            </div>
-        </ui:define>
-        <ui:define name="bodyright">
-            <div>
-                <h:form id="registro2">
-                <p:panel>
-                    <p:commandButton type="button" ajax="true" onclick="PF('regUser').show();" value="#{msg.regUser}"  styleClass="botonG regAsoc" id='regUser'/>
-                </p:panel>
-                <p:dialog widgetVar="regUser">
-                    <div>
-                        <p><h:outputText value='#{msg.cabPersona}'/></p>
-                        <p:panelGrid>
-                            <p:column>
-                                <h:outputLabel for='nombre' value="#{msg.nombre}">
-                                </h:outputLabel>
-                                <h:outputLabel for='apellidop' value='#{msg.apellidop}'>
-                                </h:outputLabel>
-                                <h:outputLabel for='apellidom' value="#{msg.apellidom}">
-                                </h:outputLabel>
-                                <h:outputLabel for='pais' value="#{msg.pais}">
-                                </h:outputLabel>
-                                <h:outputLabel for='provincia' value="#{msg.provincia}">
-                                </h:outputLabel>
-                                <h:outputLabel for='pueblo' value="#{msg.pueblo}">
-                                </h:outputLabel>
-                            </p:column>
-                            <p:column>
-                                <p:inputText id='nombre' value='#{accesoMB.regPersona.nombre}' required="true" requiredMessage="#{msg.campoReq}" maxlength="100">
-                                </p:inputText>
-                                <p:inputText id='apellidop' value='#{accesoMB.regPersona.apellidop}' required="true" maxlength="9" requiredMessage="#{msg.campoReq}">
-                                </p:inputText>
-                                <p:inputText id='apellidom' value='#{accesoMB.regPersona.apellidom}' maxlength="9">
-                                </p:inputText>
-                                <p:selectOneMenu id="pais" required="true" requiredMessage="#{msg.campoReq}" value="#{accesoMB.pais}">
-                                    <f:selectItems itemLabel="#{pai.nombre}" itemValue="#{pai.codigo}" value="#{accesoMB.paises}" var="pai"/>
-                                </p:selectOneMenu>
-                                <p:selectOneMenu  id="provincia" value="#{accesoMB.provincia}">
-                                    <p:ajax update="pueblo" listener="#{accesoMB.asignarPueblos()}"/>
-                                    <f:selectItems   value="#{accesoMB.provincias}" var="pr" itemValue="#{pr.codigo}" itemLabel="#{pr.nombre}" ></f:selectItems>
-                                </p:selectOneMenu>
-                                <p:selectOneMenu  id="pueblo" value="#{accesoMB.pueblo}">
-                                    <f:selectItems value="#{accesoMB.pueblos}" var="pu" itemValue="#{pu.idPueblo.codigo}" itemLabel="#{pu.nombre}" ></f:selectItems>
-                                </p:selectOneMenu>
-                            </p:column>
-                            <p:column>
-                                <p:message for="nombre"  ></p:message>
-                                <p:message for="apellidop"  ></p:message>
-                                <p:message for="apellidom"  ></p:message>
-                                <p:message for="pais"  ></p:message>
-                                <p:message for="provincia"  ></p:message>
-                                <p:message for="pueblo"  ></p:message>
-                            </p:column>
-                        </p:panelGrid>
-                    </div>
-                    <div>
-                        <p><h:outputText value='#{msg.cabAcceso}'/></p>
-                        <p:panelGrid columns="3">  
-                            <h:outputLabel for='emailAcc' value='#{msg.email}'>
-                            </h:outputLabel>
-                            <p:inputText id='emailAcc' value='#{accesoMB.regUser.login}' required="true" requiredMessage="#{msg.campoReq}" placeholder="Email" maxlength="150">
-                                <f:validator validatorId="validadorEmail"/>
-                            </p:inputText>
-                            <p:message for="emailAcc"  ></p:message>
-                            <h:outputLabel for='pass' value='#{msg.pass}'>
-                            </h:outputLabel>
-                            <p:password  id='pass' value='#{accesoMB.regUser.password}' required="true" requiredMessage="#{msg.campoReq}"  match="reppass" feedback="true" weakLabel="#{msg.pDebil}" strongLabel="#{msg.pFuerte}" goodLabel="#{msg.pBuena}" maxlength="20"/>
-                            <p:message for="pass"  ></p:message>
-                            <h:outputLabel for='reppass' value="#{msg.cpass}">
-                            </h:outputLabel>
-                            <p:password  id='reppass' value='#{accesoMB.password}' required="true" requiredMessage="#{msg.campoReq}"  match='pass'/> 
-                            <p:message for="reppass"  ></p:message>
-                        </p:panelGrid>
-                    </div>
-                    <div>
-                        <p:commandButton onstart="" oncomplete="PF('regUser').hide();" id="btnClr" resetValues="true"  actionListener="#{accesoMB.resetear}"
-                                         value="#{msg.cancelar}" styleClass="boton botonform" update="regUser" ajax="true"
-                                         >
-                            <!-- Cancelar-->
-                        </p:commandButton>
-                        <p:commandButton onstart="" oncomplete="" id="btnGP" action="#{accesoMB.registrarPersona}" 
-                                         value="#{msg.confirmar}" styleClass="boton botonform" 
-                                         >
-                            <!-- Guardar-->
-                        </p:commandButton>
-                    </div>
-                </p:dialog>
-                </h:form>
-            </div>
-        </ui:define>
-        <ui:define name="descripcion" rendered="#{accesoMB.verDescripcion}">
-            <!--Un div para cada seccion explicativa -->
-            <div>
 
-            </div>
-            <div>
+                </div>
+            </ui:define>
+            <ui:define name="descripcion" rendered="#{accesoMB.verDescripcion}">
+                <!--Un div para cada seccion explicativa -->
+                <div>
 
-            </div>
-            <div>
+                </div>
+                <div>
 
-            </div>
-        </ui:define>
-    </ui:composition>
+                </div>
+                <div>
+
+                </div>
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 

@@ -1,16 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head></h:head>
+    <h:body>
+        <ui:composition  template="../../template/adminTemplate.xhtml">
+            <script type="text/javascript">
+                function start() {
+                    PF('statusDialog').show();
+                }
+
+                function stop() {
+                    PF('statusDialog').hide();
+                }
+            </script>
+            <ui:insert name="admin">
+                <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
+                    <p:graphicImage name=".gif" library="css/images"/>
+                </p:dialog>
+
+                <div>
+                    <p:dataList value="#{adminGeneralMB.listaAsocPendiente}" var="asoc" paginator="true" paginatorPosition="bottom" paginatorAlwaysVisible="false" pageLinks="5" rows="5" emptyMessage="No hay solicitudes pendientes" type="ordered" >
+                        <p:panel>
+                            <f:facet name="header">
+                                <h:outputText value="#{asoc.razonSocial}"></h:outputText>
+                            </f:facet>
+                            <p:panelGrid columns="2">
+                                <h:outputText value="CIF"/>
+                                <h:outputText value="#{asoc.cif}"/>
+                                <h:outputText value="Descripcion"/>
+                                <p:commandButton onclick="PF('desc#{asoc.cif}').show()" value="Ver"/>
+                                <h:outputText value="Comprobante"/>
+                                <p:commandButton value="Descargar" actionListener="#{adminGeneralMB.descargarComprobante(asoc.cif)}" ajax="false" onstart="start()" oncomplete="stop()">
+                                    <p:fileDownload value="#{adminGeneralMB.descarga}"
+                            </p:commandButton>
+                                <p:commandButton actionListener="#{adminGeneralMB.okAsoc(asoc.cif)}" value="Confirmar" onstart="start()" oncomplete="stop()"/>
+                            <p:commandButton actionListener="#{adminGeneralMB.noAsoc(asoc.cif)}" value="Rechazar" onstart="start()" oncomplete="stop()"/>              
+                            <p:dialog widgetVar="desc#{asoc.cif}" closable="true" modal="true">
+                                <p>
+                                    <span>Descripcion:<br/></span>
+                                    <h:outputText value="#{asoc.descripcion}"/>
+                                </p>
+                            </p:dialog>
+                        </p:panelGrid>
+
+                    </p:panel>
+                </p:dataList>
+            </div>
+        </ui:insert>
+    </ui:composition>
+</h:body>
 </html>

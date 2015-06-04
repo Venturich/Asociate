@@ -8,19 +8,21 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head></h:head>
     <h:body>
-        <ui:composition  template="../../template/template.xhtml">
-              <ui:define name="userHeader">
-                <p></p>
+        <ui:composition  template="../../template/indexTemplate.xhtml">
+            <ui:define name="header">
+                <p>Un último paso para registrar tu asociacion</p>
+                <p:graphicImage name="logo.svg" library="css/images"/>
+
             </ui:define>
-            <ui:define name="bodycenter">
+            <ui:define name="bodyleft">
                 <h:form>
-                    <p:fileUpload value="#{accesoMB.comprobante}" id="subeComprobante"
-                                  mode="simple" 
-                                  dragDropSupport="true" required="true"
-                                  allowTypes="/(\.|\/)(JPG|jpg)$/"   >
+                    <p:fileUpload value="#{completarRegistroAsocMB.comprobante}" id="subeComprobante" fileUploadListener="#{completarRegistroAsocMB.subirComprobante}"
+                                  multiple="false" fileLimit="1" auto="false" mode="advanced"  process="subeComprobante" update="subeComprobante"  allowTypes="/(\.|\/)(JPG|jpg|pdf|PDF|doc|docx|odt)$/"
+                                  cancelLabel="#{msg.cancelar}" uploadLabel="Subir" dragDropSupport="true" requiredMessage="Necesitas subir un documento para completar el registro"  >
+
                     </p:fileUpload>
-                    <p:commandButton action="#{accesoMB.subirComprobante}" onstart="" oncomplete=""/>
-                    <p:commandButton action="#{accesoMB.atras}" onstart="" oncomplete=""/>
+                    <p:commandButton action="#{completarRegistroAsocMB.completarRegistroAsociacion}" actionListener="#{completarRegistroAsocMB.subirComprobante}" value="Confirmar"/>
+                    <p:commandButton action="#{completarRegistroAsocMB.atras}"value="Volver"/>
                 </h:form>
             </ui:define>
         </ui:composition>

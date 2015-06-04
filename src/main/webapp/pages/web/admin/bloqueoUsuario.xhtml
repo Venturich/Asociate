@@ -1,16 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head></h:head>
+    <h:body>
+        <ui:composition  template="../../template/adminTemplate.xhtml">
+            <script type="text/javascript">
+                function start() {
+                    PF('statusDialog').show();
+                }
+
+                function stop() {
+                    PF('statusDialog').hide();
+                }
+            </script>
+            <ui:insert name="admin">
+                <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
+                    <p:graphicImage name=".gif" library="css/images"/>
+                </p:dialog>
+
+                <div>
+
+                    <p:dataGrid value="#{adminGeneralMB.listaUsuarios}" columns="4" var="user" paginator="true" paginatorAlwaysVisible="false" pageLinks="5" 
+                                paginatorPosition="top" rows="12" styleClass="grid-users">
+                        <f:facet name="header">
+                            <h:outputText value="Usuarios"/>
+                        </f:facet>
+                        <p:panel header="usuario: ##{user.idUsuario}"  >
+                            <p:column  headerText="#{txt.email}">
+                                <p> <h:outputText value="#{user.login}"/></p>
+                            </p:column>
+                            <p:column headerText="#{txt.ubloq}">
+                                <p>  <h:outputText value="#{(user.bloqueado eq 's')?txt.ubloq:'No'}"/></p>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton action="#{adminGeneralMB.bloquearUsuario(user.idUsuario, false)}" update="@form" process="@this" value="#{txt.bloq}" rendered="#{user.bloqueado eq 'N'}" onstart="start()"  oncomplete="stop()"/>
+                                <p:commandButton action="#{adminGeneralMB.bloquearUsuario(user.idUsuario,true)}" update="@form" process="@this" value="#{txt.unbloq}" rendered="#{user.bloqueado eq 'S'}" onstart="start()"  oncomplete="stop()"/>
+                            </p:column>
+                        </p:panel>
+
+                    </p:dataGrid>    
+
+                </div>
+            </ui:insert>
+        </ui:composition>
+    </h:body>
 </html>
