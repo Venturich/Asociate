@@ -16,8 +16,10 @@ public class HibernateUtil {
 
     private static SessionFactory sessionFactory;
 
-    
-
+    /**
+     *
+     * @return
+     */
     public static SessionFactory getSessionFactory() {
           Configuration configuration = new Configuration();
             configuration.configure("hibernate.cfg.xml");

@@ -11,16 +11,42 @@ package com.asociate.utils;
  */
 public enum Estados {
 
+    /**
+     *
+     */
     FINALIZADO("S"),
+
+    /**
+     *
+     */
     NO_FINALIZADO("N"),
     
+    /**
+     *
+     */
     PENDIENTE("P"),
+
+    /**
+     *
+     */
     ASISTE("A"),
+
+    /**
+     *
+     */
     NO_ASISTE("N"),
+
+    /**
+     *
+     */
     QUIZA("Q");
 
     private final String valor;
 
+    /**
+     *
+     * @return
+     */
     public String getValor() {
         return valor;
     }

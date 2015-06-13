@@ -29,5 +29,6 @@
         <mapping class="com.asociate.modelo.Provincia"/>
         <mapping class="com.asociate.modelo.Asociacion"/>
         <mapping class="com.asociate.modelo.Evento"/>
+         <mapping class="com.asociate.modelo.Amistad"/>
     </session-factory>
 </hibernate-configuration>

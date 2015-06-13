@@ -17,40 +17,47 @@
                     PF('statusDialog').hide();
                 }
             </script>
-            <ui:insert name="admin">
+            <ui:define name="admin">
                 <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
                     <p:graphicImage name=".gif" library="css/images"/>
                 </p:dialog>
 
-                <div>
-                    <p:dataList value="#{adminGeneralMB.listaAsocPendiente}" var="asoc" paginator="true" paginatorPosition="bottom" paginatorAlwaysVisible="false" pageLinks="5" rows="5" emptyMessage="No hay solicitudes pendientes" type="ordered" >
-                        <p:panel>
-                            <f:facet name="header">
-                                <h:outputText value="#{asoc.razonSocial}"></h:outputText>
-                            </f:facet>
-                            <p:panelGrid columns="2">
-                                <h:outputText value="CIF"/>
-                                <h:outputText value="#{asoc.cif}"/>
-                                <h:outputText value="Descripcion"/>
-                                <p:commandButton onclick="PF('desc#{asoc.cif}').show()" value="Ver"/>
-                                <h:outputText value="Comprobante"/>
-                                <p:commandButton value="Descargar" actionListener="#{adminGeneralMB.descargarComprobante(asoc.cif)}" ajax="false" onstart="start()" oncomplete="stop()">
-                                    <p:fileDownload value="#{adminGeneralMB.descarga}"
-                            </p:commandButton>
-                                <p:commandButton actionListener="#{adminGeneralMB.okAsoc(asoc.cif)}" value="Confirmar" onstart="start()" oncomplete="stop()"/>
-                            <p:commandButton actionListener="#{adminGeneralMB.noAsoc(asoc.cif)}" value="Rechazar" onstart="start()" oncomplete="stop()"/>              
-                            <p:dialog widgetVar="desc#{asoc.cif}" closable="true" modal="true">
-                                <p>
-                                    <span>Descripcion:<br/></span>
-                                    <h:outputText value="#{asoc.descripcion}"/>
-                                </p>
-                            </p:dialog>
-                        </p:panelGrid>
-
-                    </p:panel>
-                </p:dataList>
-            </div>
-        </ui:insert>
-    </ui:composition>
-</h:body>
+                <div class="bodyAdmin">
+                    <div class="adminUser center">
+                        <h:form>
+                            <p:dataList value="#{adminGeneralMB.listaAsocPendiente}" var="asoc" paginator="true" paginatorPosition="bottom" paginatorAlwaysVisible="false" pageLinks="5" rows="5" emptyMessage="No hay solicitudes pendientes" type="ordered" styleClass="pad5" >
+                                <p:panel>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{asoc.razonsocial}"></h:outputText>
+                                    </f:facet>
+                                    <h:panelGrid columns="3">
+                                        <h:outputText value="CIF"/>
+                                        <h:outputText styleClass="margenBoton" value="#{asoc.cif}"/>
+                                        <f:verbatim/>
+                                        <h:outputText value="Descripcion"/>
+                                        <p:commandButton styleClass="botonAncho margenBoton" onclick="PF('desc#{asoc.cif}').show()" value="Ver"/>
+                                        <f:verbatim/>
+                                        <h:outputText value="Comprobante"/>
+                                        <p:commandButton styleClass="botonAncho margenBoton" value="Descargar" actionListener="#{adminGeneralMB.descargarComprobante(asoc.cif)}" ajax="false" onstart="start()" oncomplete="stop()">
+                                            <p:fileDownload value="#{adminGeneralMB.descarga}"/>
+                                        </p:commandButton>
+                                        <f:verbatim/>
+                                        <f:verbatim/>
+                                        <p:commandButton styleClass="botonAncho margenBoton" actionListener="#{adminGeneralMB.noAsoc(asoc.cif)}" value="Rechazar" onstart="start()" oncomplete="stop()"/>              
+                                        <p:commandButton styleClass="botonAncho margenBoton" actionListener="#{adminGeneralMB.okAsoc(asoc.cif)}" value="Confirmar" onstart="start()" oncomplete="stop()"/>
+                                    </h:panelGrid>
+                                    <p:dialog widgetVar="desc#{asoc.cif}" closable="true" modal="true">
+                                        <p>
+                                            <span class="tituloMolon2">Descripcion:<br/></span>
+                                            <h:outputText value="#{asoc.descripcion}"/>
+                                        </p>
+                                    </p:dialog>
+                                </p:panel>
+                            </p:dataList>
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </html>

@@ -16,6 +16,10 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+/**
+ *
+ * @author Ventura
+ */
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "pueblo")
@@ -30,30 +34,57 @@ public class Pueblo implements Serializable {
     @Basic
     private Boolean dc;
 
+    /**
+     *
+     */
     public Pueblo() {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public PuebloPK getIdPueblo() {
         return idPueblo;
     }
 
+    /**
+     *
+     * @param idPueblo
+     */
     public void setIdPueblo(PuebloPK idPueblo) {
         this.idPueblo = idPueblo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return this.nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean isDc() {
         return this.dc;
     }
 
+    /**
+     *
+     * @param dc
+     */
     public void setDc(Boolean dc) {
         this.dc = dc;
     }

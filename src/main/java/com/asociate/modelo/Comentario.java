@@ -20,6 +20,10 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+/**
+ *
+ * @author Ventura
+ */
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name="comentario")
@@ -43,46 +47,89 @@ public class Comentario implements Serializable {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long idComentario;
 
+    /**
+     *
+     */
     public Comentario() {
 
     }
    
+    /**
+     *
+     * @return
+     */
     public Usuario getIdAutor() {
         return this.idAutor;
     }
 
+    /**
+     *
+     * @param idAutor
+     */
     public void setIdAutor(Usuario idAutor) {
         this.idAutor = idAutor;
     }
    
+    /**
+     *
+     * @return
+     */
     public Date getFhpublicacion() {
         return this.fhpublicacion;
     }
 
+    /**
+     *
+     * @param fhpublicacion
+     */
     public void setFhpublicacion(Date fhpublicacion) {
         this.fhpublicacion = fhpublicacion;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getBloqueado() {
         return this.bloqueado;
     }
 
+    /**
+     *
+     * @param bloqueado
+     */
     public void setBloqueado(String bloqueado) {
         this.bloqueado = bloqueado;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getComentario() {
         return this.comentario;
     }
 
+    /**
+     *
+     * @param comentario
+     */
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
    
+    /**
+     *
+     * @return
+     */
     public Long getIdComentario() {
         return this.idComentario;
     }
 
+    /**
+     *
+     * @param idComentario
+     */
     public void setIdComentario(Long idComentario) {
         this.idComentario = idComentario;
     }

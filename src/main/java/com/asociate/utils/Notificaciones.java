@@ -13,17 +13,52 @@ import java.io.Serializable;
  */
 public enum Notificaciones implements Serializable {
 
-   REGASOC("A"),
-   REGUSU("U"),
-   NUEVOEVENTO("E"),
-   EVENTOCOMENTARIO("X"),
-   COMENTARIO("C"),
-   MENSAJE("M"),
-   NUEVOFICHERO("F"),
-   NUEVOAMIGO("L");
+    /**
+     *
+     */
+    REGASOC("A"),
+
+    /**
+     *
+     */
+    REGUSU("U"),
+
+    /**
+     *
+     */
+    NUEVOEVENTO("E"),
+
+    /**
+     *
+     */
+    EVENTOCOMENTARIO("X"),
+
+    /**
+     *
+     */
+    COMENTARIO("C"),
+
+    /**
+     *
+     */
+    MENSAJE("M"),
+
+    /**
+     *
+     */
+    NUEVOFICHERO("F"),
+
+    /**
+     *
+     */
+    NUEVOAMIGO("L");
     
     private final String valor;
 
+    /**
+     *
+     * @return
+     */
     public String getValor() {
         return valor;
     }

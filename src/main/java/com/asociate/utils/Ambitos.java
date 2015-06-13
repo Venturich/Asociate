@@ -13,15 +13,42 @@ import java.io.Serializable;
  */
 public enum Ambitos implements Serializable {
 
+    /**
+     *
+     */
     JUVENIL("J"),
+
+    /**
+     *
+     */
     DEPORTIVA("D"),
+
+    /**
+     *
+     */
     CULTURAL("U"),
+
+    /**
+     *
+     */
     ESTUDIANTIL("E"),
+
+    /**
+     *
+     */
     CLUB("C"),
+
+    /**
+     *
+     */
     OTRO("O");
     
     private final String valor;
 
+    /**
+     *
+     * @return
+     */
     public String getValor() {
         return valor;
     }

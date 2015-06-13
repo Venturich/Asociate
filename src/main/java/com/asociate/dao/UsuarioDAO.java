@@ -92,6 +92,10 @@ public class UsuarioDAO {
         }
     }
 
+    /**
+     *
+     * @param idUsuario
+     */
     public void setRegistroCompleto(Long idUsuario) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
 
@@ -108,6 +112,10 @@ public class UsuarioDAO {
         }
     }
 
+    /**
+     *
+     * @param user
+     */
     public void actualizar(Usuario user) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
 
@@ -122,6 +130,12 @@ public class UsuarioDAO {
         }
     }
 
+    /**
+     *
+     * @param query
+     * @param idUsuario
+     * @return
+     */
     public List<Usuario> buscarContacto(String query, Long idUsuario) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         List<Usuario> salida = new ArrayList<>();
@@ -145,15 +159,18 @@ public class UsuarioDAO {
         return salida;
     }
 
+    /**
+     *
+     * @param busqueda
+     * @return
+     */
     public List<Usuario> buscarUsuarios(String busqueda) {
         List<Usuario> salida = new ArrayList();
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         
         try {
-            Query qu = sesion.createQuery("Select U from Usuario U where U.asociacion.razonsocial like '%:query%' or U.persona.nombre like '%:query%' or U.persona.apellidop like '%:query%' or U.persona.apellidom like '%:query%' ");
+            Query qu = sesion.createQuery("Select U from Usuario U where U.asociacion.razonsocial like '%:query%' or U.persona.nombre like '%"+busqueda+"%' or U.persona.apellidop like '%"+busqueda+"%' or U.persona.apellidom like '%"+busqueda+"%' ");
                     
-                    
-            qu.setParameter("query", busqueda).setParameter("query", busqueda).setParameter("query", busqueda).setParameter("query", busqueda);
             salida = qu.list();
 
         } catch (RuntimeException e) {
@@ -168,12 +185,16 @@ public class UsuarioDAO {
         return salida;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Usuario> getTodos() {
           List<Usuario> salida = new ArrayList();
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         
         try {
-            Query qu = sesion.createQuery("Select U from Usuario U where U.tipo<>'A' and U.asociacion is null");
+            Query qu = sesion.createQuery("Select U from Usuario U");
             salida = qu.list();
 
         } catch (RuntimeException e) {
@@ -183,5 +204,23 @@ public class UsuarioDAO {
             sesion.close();
         }
         return salida;
+    }
+
+    /**
+     *
+     * @param idUsuario
+     */
+    public void guardar(Usuario idUsuario) {
+         Session sesion = HibernateUtil.getSessionFactory().openSession();
+        
+        try {
+            sesion.save(idUsuario);
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        } finally {
+            sesion.flush();
+            sesion.close();
+        }
     }
 }

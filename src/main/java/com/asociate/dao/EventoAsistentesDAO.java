@@ -18,6 +18,11 @@ import org.hibernate.Session;
  */
 public class EventoAsistentesDAO {
 
+    /**
+     *
+     * @param idEvento
+     * @return
+     */
     public List<Persona> getListaEvento(Long idEvento) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         List<Persona> salida = new ArrayList();

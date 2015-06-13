@@ -119,6 +119,10 @@ public class CopiaSeguridadManagedBean extends AsociateError implements Serializ
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public String volver() {
         flash.put("Destino", goToMenu);
         return goToMenu;

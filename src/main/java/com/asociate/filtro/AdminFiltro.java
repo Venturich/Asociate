@@ -27,6 +27,9 @@ public class AdminFiltro implements Filter {
     
     private FilterConfig filterConfig = null;
     
+    /**
+     *
+     */
     public AdminFiltro() {
     }
 
@@ -69,6 +72,7 @@ public class AdminFiltro implements Filter {
 
     /**
      * Metodo Init, configuración inicial del filtro
+     * @param filterConfig
      */
     public void init(FilterConfig filterConfig) {
         this.filterConfig = filterConfig;

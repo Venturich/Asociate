@@ -8,7 +8,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       itemscope='itemscope' itemtype='http://schema.org/Article'>
 
-    
+
     <h:head>
         <f:facet name="first">
             <ui:insert name="metatags">
@@ -20,7 +20,7 @@
                 <link rel="shortcut icon" type="image/x-icon"
                       href="#{request.contextPath}/resources/css/images/favicon.ico" />
                 <title><h:outputText value="#{msg.titulo} "/>
-                    <h:outputText value="#{sesionMB.usuarioLogeado.persona.nombre} #{sesionMB.usuarioLogeado.persona.apellidop} " rendered="#{sesionMB.esAsociacion}"/>
+                    <h:outputText value="#{sesionMB.usuarioLogeado.persona.nombre} #{sesionMB.usuarioLogeado.persona.apellidop} " rendered="#{!sesionMB.esAsociacion}"/>
                     <h:outputText value="#{sesionMB.usuarioLogeado.asociacion.razonsocial} " rendered="#{sesionMB.esAsociacion}"/>
                 </title>
                 <meta name="description" content="Descripcion de pagina. No sueperar los 155 caracteres." />
@@ -69,62 +69,59 @@
             </ui:insert>
         </f:facet>
         <f:facet name="last">
+            <h:outputScript library="js" name="prevent.js"/>
 
         </f:facet>
     </h:head>
     <h:body>
-         <script type="text/javascript">
-                //Previene el ir hacia atras en la página.
-                $(document).keydown(function (e) {
-                var preventKeyPress;
-                        if (e.keyCode == 8) {
-                var d = e.srcElement || e.target;
-                        switch (d.tagName.toUpperCase()) {
-                case 'TEXTAREA':
-                        preventKeyPress = d.readOnly || d.disabled;
-                        break;
-                        case 'INPUT':
-                        preventKeyPress = d.readOnly || d.disabled ||
-                        (d.attributes["type"] &amp; &amp; $.inArray(d.attributes["type"].value.toLowerCase(), ["radio", "checkbox", "submit", "button"]) >= 0);
-                        break;
-                        case 'DIV':
-                        preventKeyPress = d.readOnly || d.disabled || !(d.attributes["contentEditable"] &amp; &amp; d.attributes["contentEditable"].value == "true");
-                        break;
-                        default:
-                        preventKeyPress = true;
-                        break;
-                }
-                } else  if (e.keyCode == 116) {
-                preventKeyPress = true;
-                } else
-                        preventKeyPress = false;
-                        if (preventKeyPress)
-                        e.preventDefault();
-                });
-            </script>
         <ui:insert name="userHeader">
             <p:growl />
-            <header class="menu top">
-                <ui:composition template="menuTemplate.xhtml"/>
-                
-
-              
+            <header class="headerMain">
+                <h:form>
+                    <div class="menuSuperior">
+                        <p:commandLink action="#{perfilMenuMB.irPerfil()}">
+                            <p:commandLink action="perfilPrincipal" immediate="true" ><p:graphicImage name="logo.svg" styleClass="logoMain izq" library="css/images"/></p:commandLink>
+                        </p:commandLink>
+                        <div class="menuSuperiorComp">
+                            <div style="width: 65%; height: 40px"  class="block izq">
+                                <div>
+                                    <p:inputText value="#{perfilMenuMB.busqueda}" maxlength="150" style="width: 90%;height: 33px; padding:0; " styleClass="izq"></p:inputText>
+                                    <p:commandButton action="#{perfilMenuMB.irBuscador()}" icon="ui-icon-search" style=" width:8%;height: 35px;" styleClass="izq"></p:commandButton>
+                                </div>
+                                
+                            </div>
+                            <div style="width: 5%; height: 40px"  class="block izq">
+                                <p:panelMenu model="#{perfilMenuMB.menuNotificaciones}">
+                                    <p:menuitem styleClass="tituloMolon" value="*"></p:menuitem>>
+                                </p:panelMenu>
+                            </div>
+                            <div style="width: 16%; height: 35px"  class="block izq">
+                                <p:panelMenu >
+                                    <p:submenu label="Menu" >
+                                        <p:menuitem action="#{perfilMenuMB.irMensajes()}" icon="fa fa-envelope" value="Sin leer: #{perfilMenuMB.mensajesPendientes.size()}" styleClass="menuItemDesp"/>
+                                        <p:menuitem action="#{perfilMenuMB.irConfiguracion()}" value="Privacidad" icon="fa fa-gears" styleClass="menuItemDesp"/>
+                                        <p:menuitem action="#{sesionMB.logout()}" value="Salir" icon="fa fa-sign-out" styleClass="menuItemDesp"/>
+                                    </p:submenu>
+                                </p:panelMenu>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
             </header>
-           
         </ui:insert>
-      
-            <main>
-                <ui:insert name="bodyleft">
-                 
-                </ui:insert>
-                <ui:insert name="bodycenter">
-                   
-                </ui:insert>
-                <ui:insert name="bodyright">
-                   
-                </ui:insert>
-            </main>
-    
+
+        <main>
+            <ui:insert name="bodyleft">
+
+            </ui:insert>
+            <ui:insert name="bodycenter">
+
+            </ui:insert>
+            <ui:insert name="bodyright">
+
+            </ui:insert>
+        </main>
+
         <ui:insert name="footer">
             <footer>
                 <!-- enlaces y poca cosa-->

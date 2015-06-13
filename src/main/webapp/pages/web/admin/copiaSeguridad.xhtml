@@ -17,33 +17,34 @@
                     PF('statusDialog').hide();
                 }
             </script>
-            <ui:insert name="admin">
+            <ui:define name="admin">
                 <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
                     <p:graphicImage name=".gif" library="css/images"/>
                 </p:dialog>
-                <div>
-                    <h:form>
-                        <h3 style="text-align: center">Copia seguridad de la base de datos</h3>
+                <div class="bodyAdmin">
+                    <div class="adminUser center">
+                        <h:form>
+                            <h3 style="text-align: center" class="tituloMolon">Copia seguridad de la base de datos</h3>
 
-                        <div>
-                            <p><h:outputText value="#{copiaSeguridadMB.resultado}"/></p>
-                            <p:commandButton value="Crear nueva copia " icon="ui-icon-disk" actionListener="#{copiaSeguridadMB.crearCopia()}" update=":form:listaArchivos" onstart="start()" oncomplete="stop()"/>
-                        </div>
-                        <div>
-                            <p:dataList value="#{copiaSeguridadMB.ficheros}"  var="file" id="listaArchivos" emptyMessage="No hay archivos">
-                                <p><h:outputText value="#{file}"/></p>
-                                <div>
-                                    <p:commandButton value="Eliminar" actionListener="#{copiaSeguridadMB.borrarCopia(file)}" update=":from:listaArchivos" onstart="start()" oncomplete="stop()"/>
-                                    <p:commandButton value="Restaurar" disabled="true" onstart="start()" oncomplete="stop()"/></div>
-                            </p:dataList>
-                        </div>
-                        <p:commandButton value="Volver" disabled="false" action="#{copiaSeguridadMB.volver()}" onstart="start()" oncomplete="stop()" immediate="true"/></div>
-                    </h:form>
+                            <div>
+                                <p style="color:white"><h:outputText value="#{copiaSeguridadMB.resultado}"/></p>
+                                <p:commandButton value="Crear nueva copia " icon="ui-icon-disk" actionListener="#{copiaSeguridadMB.crearCopia()}" update="listaArchivos" onstart="start()" oncomplete="stop()" styleClass="margerBoton center margenTB" />
+                            </div>
+                            <div>
+                                <p:dataList value="#{copiaSeguridadMB.ficheros}"  var="file" id="listaArchivos" emptyMessage="No hay archivos">
+                                    <p><h:outputText value="#{file}"/></p>
+                                    <div>
+                                        <p:commandButton value="Eliminar" actionListener="#{copiaSeguridadMB.borrarCopia(file)}" update="listaArchivos" onstart="start()" oncomplete="stop()"/>
+                                        <p:commandButton value="Restaurar" disabled="true" onstart="start()" oncomplete="stop()"/>
+                                    </div>
+                                </p:dataList>
+                            </div>
+                            <p:commandButton value="Volver" disabled="false" action="#{copiaSeguridadMB.volver()}" onstart="start()" oncomplete="stop()" immediate="true" styleClass="margenTB"/>
 
-
-
+                        </h:form>
+                    </div>
                 </div>
-            </ui:insert>
+            </ui:define>
         </ui:composition>
     </h:body>
 </html>

@@ -34,6 +34,9 @@ public class DirectorioManagedBean  implements Serializable  {
     public DirectorioManagedBean() {
     }
 
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
@@ -52,12 +55,21 @@ public class DirectorioManagedBean  implements Serializable  {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public TreeNode getRoot() {
 
         return root;
 
     }
 
+    /**
+     *
+     * @param filename
+     * @param op
+     */
     public void tree(String filename, TreeNode op) {
 
         File file = new File(filename);

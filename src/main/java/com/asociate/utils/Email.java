@@ -22,9 +22,22 @@ import java.util.Properties;
  */
 public class Email {
 
+    /**
+     *
+     */
     public static String username = "vepreciado@gmail.com";
+
+    /**
+     *
+     */
     public static String password = "gnidrqhhibztctfb";
 
+    /**
+     *
+     * @param mensage
+     * @param to
+     * @param subject
+     */
     public static void SendMail(String mensage, String to, String subject) {
 
         Properties props = new Properties();
@@ -57,6 +70,12 @@ public class Email {
         }
     }
 
+    /**
+     *
+     * @param tipo
+     * @param params
+     * @return
+     */
     public static String getMensajeDePlantilla(int tipo, String[] params) {
         
         StringBuffer sb = new StringBuffer();

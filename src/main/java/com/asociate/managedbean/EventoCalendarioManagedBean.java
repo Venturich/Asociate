@@ -40,6 +40,9 @@ public class EventoCalendarioManagedBean {
     public EventoCalendarioManagedBean() {
     }
 
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
@@ -59,16 +62,29 @@ public class EventoCalendarioManagedBean {
         
     }
 
+    /**
+     *
+     * @param idEvento
+     * @return
+     */
     public String irAEvento(Long idEvento) {
         flash.put("idEvento", idEvento);
         flash.put("ListaEvento", this.listaEvento);
         return goToEvento;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Evento> getListaEvento() {
         return listaEvento;
     }
 
+    /**
+     *
+     * @param listaEvento
+     */
     public void setListaEvento(List<Evento> listaEvento) {
         this.listaEvento = listaEvento;
     }

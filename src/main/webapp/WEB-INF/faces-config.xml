@@ -18,6 +18,10 @@
         <validator-id>validadorEmail</validator-id>
         <validator-class>com.asociate.validador.ValidadorEmail</validator-class>
     </validator>
+     <validator>
+        <validator-id>validadorCIF</validator-id>
+        <validator-class>com.asociate.validador.ValidadorCIF</validator-class>
+    </validator>
     <validator>
         <validator-id>validadorNIF</validator-id>
         <validator-class>com.asociate.validador.ValidadorNIF</validator-class>
@@ -35,6 +39,7 @@
         <navigation-case>
             <from-outcome>completarRegistroAsociacion</from-outcome>
             <to-view-id>/pages/web/registro/completarRegistroAsociacion.xhtml</to-view-id>
+            
         </navigation-case>
         <navigation-case>
             <from-outcome>menuPrincipal</from-outcome>
@@ -99,6 +104,10 @@
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>perfilPrincipal</from-outcome>
+            <to-view-id>/pages/web/perfil/perfilPrincipal.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>

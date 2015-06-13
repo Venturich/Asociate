@@ -9,11 +9,16 @@
     <h:body>
         <ui:composition  template="../../template/indexTemplate.xhtml">
             <ui:define name="userHeader">
-                <p></p>
+                <div class="menuTop">
+                   
+                    <p:graphicImage name="logo.svg" library="css/images" styleClass="logoMain"/>
+                    <span class="tituloMolon center" style="display: inline-block ; margin-left: 25px;"><h:outputText value="#{msg.enhorabuena}"/></span>
+                </div>
             </ui:define>
-            <ui:define name="bodycenter">
-                <div class="enhorabuena">
-                    <h:outputText value="#{msg.enhorabuena}"/>
+            <ui:define name="bodyleft">
+                <div class="center panelCentral">
+                    
+                    <p class="tituloMolon2"><h:outputText value="#{exitoRegistroMB.mensaje}"/></p>
                     <!-- mostrar links e incluir el resto de la politica y tals-->
                 </div>
             </ui:define>

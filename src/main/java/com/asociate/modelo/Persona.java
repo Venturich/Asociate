@@ -20,6 +20,10 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+/**
+ *
+ * @author Ventura
+ */
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name="persona",uniqueConstraints=@UniqueConstraint(columnNames={"ID_USUARIO","EMAIL"}))
@@ -55,86 +59,169 @@ public class Persona implements Serializable {
     @Basic
     private String email;
 
+    /**
+     *
+     */
     public Persona() {
 
     }
    
+    /**
+     *
+     * @return
+     */
     public Direccion getIdDireccion() {
         return this.idDireccion;
     }
 
+    /**
+     *
+     * @param idDireccion
+     */
     public void setIdDireccion(Direccion idDireccion) {
         this.idDireccion = idDireccion;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getApellidop() {
         return this.apellidop;
     }
 
+    /**
+     *
+     * @param apellidop
+     */
     public void setApellidop(String apellidop) {
         this.apellidop = apellidop;
     }
    
+    /**
+     *
+     * @return
+     */
     public Usuario getIdUsuario() {
         return this.idUsuario;
     }
 
+    /**
+     *
+     * @param idUsuario
+     */
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getAlias() {
         return this.alias;
     }
 
+    /**
+     *
+     * @param alias
+     */
     public void setAlias(String alias) {
         this.alias = alias;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getApellidom() {
         return this.apellidom;
     }
 
+    /**
+     *
+     * @param apellidom
+     */
     public void setApellidom(String apellidom) {
         this.apellidom = apellidom;
     }
    
+    /**
+     *
+     * @return
+     */
     public Collection<EventoAsistentes> getEventoAsistentesCollection() {
         return this.eventoAsistentesCollection;
     }
 
+    /**
+     *
+     * @param eventoAsistentesCollection
+     */
     public void setEventoAsistentesCollection(Collection<EventoAsistentes> eventoAsistentesCollection) {
         this.eventoAsistentesCollection = eventoAsistentesCollection;
     }
    
+    /**
+     *
+     * @return
+     */
     public Collection<Asociacion> getAsociacionCollection() {
         return this.asociacionCollection;
     }
 
+    /**
+     *
+     * @param asociacionCollection
+     */
     public void setAsociacionCollection(Collection<Asociacion> asociacionCollection) {
         this.asociacionCollection = asociacionCollection;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return this.nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
    
+    /**
+     *
+     * @return
+     */
     public Long getIdPersona() {
         return this.idPersona;
     }
 
+    /**
+     *
+     * @param idPersona
+     */
     public void setIdPersona(Long idPersona) {
         this.idPersona = idPersona;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return this.email;
     }
 
+    /**
+     *
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }

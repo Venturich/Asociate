@@ -23,6 +23,10 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+/**
+ *
+ * @author Ventura
+ */
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name="notificacion")
@@ -59,78 +63,153 @@ public class Notificacion implements Serializable {
     @Basic
     private Boolean visto;
 
+    /**
+     *
+     */
     public Notificacion() {
 
     }
    
+    /**
+     *
+     * @return
+     */
     public String getTexto() {
         return this.texto;
     }
 
+    /**
+     *
+     * @param texto
+     */
     public void setTexto(String texto) {
         this.texto = texto;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getTipoGenerador() {
         return this.tipoGenerador;
     }
 
+    /**
+     *
+     * @param tipoGenerador
+     */
     public void setTipoGenerador(String tipoGenerador) {
         this.tipoGenerador = tipoGenerador;
     }
    
+    /**
+     *
+     * @return
+     */
     public Date getFecha() {
         return this.fecha;
     }
 
+    /**
+     *
+     * @param fecha
+     */
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getTipo() {
         return this.tipo;
     }
 
+    /**
+     *
+     * @param tipo
+     */
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
    
+    /**
+     *
+     * @return
+     */
     public Long getIdNotificacion() {
         return this.idNotificacion;
     }
 
+    /**
+     *
+     * @param idNotificacion
+     */
     public void setIdNotificacion(Long idNotificacion) {
         this.idNotificacion = idNotificacion;
     }
    
+    /**
+     *
+     * @return
+     */
     public Usuario getIdUsuarioOrigen() {
         return this.idUsuarioOrigen;
     }
 
+    /**
+     *
+     * @param idUsuarioOrigen
+     */
     public void setIdUsuarioOrigen(Usuario idUsuarioOrigen) {
         this.idUsuarioOrigen = idUsuarioOrigen;
     }
    
+    /**
+     *
+     * @return
+     */
     public Usuario getIdUsuario() {
         return this.idUsuario;
     }
 
+    /**
+     *
+     * @param idUsuario
+     */
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
     }
    
+    /**
+     *
+     * @return
+     */
     public Long getIdElementoGenerador() {
         return this.idElementoGenerador;
     }
 
+    /**
+     *
+     * @param idElementoGenerador
+     */
     public void setIdElementoGenerador(Long idElementoGenerador) {
         this.idElementoGenerador = idElementoGenerador;
     }
     
+    /**
+     *
+     * @return
+     */
     public Boolean isVisto() {
         return this.visto;
     }
 
+    /**
+     *
+     * @param visto
+     */
     public void setVisto(Boolean visto) {
         this.visto = visto;
     }

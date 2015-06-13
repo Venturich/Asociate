@@ -27,20 +27,31 @@ public class AsociateError implements Serializable {
 
     private Log logger = LogFactory.getLog(this.getClass().getName());
     
-  
-        
+    /**
+     *
+     * @return
+     */
     protected FacesContext getCurrentContext() {
 
         return FacesContext.getCurrentInstance();
 
     }
 
+    /**
+     *
+     * @param msg
+     */
     public void addInfo(String msg) {
 
         addMessage(msg, FacesMessage.SEVERITY_INFO);
 
     }
 
+    /**
+     *
+     * @param sumario
+     * @param detalle
+     */
     public void addInfo(String sumario, String detalle) {
 
         FacesMessage message = new FacesMessage(sumario);
@@ -55,12 +66,21 @@ public class AsociateError implements Serializable {
 
     }
 
+    /**
+     *
+     * @param msg
+     */
     public void addError(String msg) {
 
         addMessage(msg, FacesMessage.SEVERITY_ERROR);
 
     }
 
+    /**
+     *
+     * @param sumario
+     * @param detalle
+     */
     public void addError(String sumario, String detalle) {
 
         FacesMessage message = new FacesMessage(sumario);
@@ -87,6 +107,10 @@ public class AsociateError implements Serializable {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String putStackTrace() {
 
         FacesContext context = FacesContext.getCurrentInstance();

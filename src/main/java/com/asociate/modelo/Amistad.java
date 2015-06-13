@@ -14,6 +14,10 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+/**
+ *
+ * @author Ventura
+ */
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name="amistad")
@@ -36,38 +40,73 @@ public class Amistad implements Serializable {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long idAmistad;
 
+    /**
+     *
+     */
     public Amistad() {
 
     }
    
+    /**
+     *
+     * @return
+     */
     public long getIdAmigo() {
         return this.idAmigo;
     }
 
+    /**
+     *
+     * @param idAmigo
+     */
     public void setIdAmigo(long idAmigo) {
         this.idAmigo = idAmigo;
     }
    
+    /**
+     *
+     * @return
+     */
     public long getIdOrigen() {
         return this.idOrigen;
     }
 
+    /**
+     *
+     * @param idOrigen
+     */
     public void setIdOrigen(long idOrigen) {
         this.idOrigen = idOrigen;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getBloqueado() {
         return this.bloqueado;
     }
 
+    /**
+     *
+     * @param bloqueado
+     */
     public void setBloqueado(String bloqueado) {
         this.bloqueado = bloqueado;
     }
    
+    /**
+     *
+     * @return
+     */
     public Long getIdAmistad() {
         return this.idAmistad;
     }
 
+    /**
+     *
+     * @param idAmistad
+     */
     public void setIdAmistad(Long idAmistad) {
         this.idAmistad = idAmistad;
     }

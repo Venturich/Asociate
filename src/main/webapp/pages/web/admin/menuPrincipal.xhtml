@@ -8,12 +8,18 @@
     <h:head></h:head>
     <h:body>
         <ui:composition  template="../../template/adminTemplate.xhtml">
-            <ui:insert name="admin">
-                <div>
-                    <h2>Bienvenido a la administracion de ASOCIATE</h2>
-                    <p>Elija la acción en el menú superior</p>
+            
+            <ui:define name="admin">
+                <div class="bodyAdmin">
+                    
+                
+                <div class="adminPrincipal center">
+                    <h2 class="tituloMolon">Bienvenido a la administracion de ASOCIATE</h2>
+                    <p style="color:white; text-align: center" class="center">Elija la acción en el menú superior</p>
+                    <p:graphicImage name="logo.svg" library="css/images" class="logoAdmin center"/>
                 </div>
-                </ui:insert>
+                    </div>
+            </ui:define>
         </ui:composition>
     </h:body>
 </html>

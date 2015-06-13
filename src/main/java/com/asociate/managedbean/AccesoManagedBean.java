@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -42,14 +43,14 @@ import org.primefaces.model.UploadedFile;
  * @author Ventura
  */
 @ManagedBean(name = "accesoMB")
-@RequestScoped
+@ViewScoped
 public class AccesoManagedBean extends AsociateError implements Serializable {
 
     private String goToPerfil = "perfilPrincipal";
     private String goToSubirDoc = "completarRegistroAsociacion";
     private String goToElegirAsoc = "completarRegistroUsuario";
 
-    private String goToAdmin = "menuPrincial";
+    private String goToAdmin = "menuPrincipal";
 
     @ManagedProperty(value = "#{sesionMB}")
     private DatosSesion datosSesion;
@@ -86,9 +87,13 @@ public class AccesoManagedBean extends AsociateError implements Serializable {
     public AccesoManagedBean() {
     }
 
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
          flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+         FacesContext.getCurrentInstance().getExternalContext().getFlash().setRedirect(true);
         this.regAsoc = new Asociacion();
         this.regUser = new Usuario();
         this.regPersona = new Persona();
@@ -108,7 +113,7 @@ public class AccesoManagedBean extends AsociateError implements Serializable {
         
         paisP = new Pais();
         paisP.setCodigo("ES");
-        paisP.setNombre("ESPAÃƒâ€˜A");
+        paisP.setNombre("ESPAÑA");
         paisP.setIdPais((short) 01);
         paises.add(paisP);
         regUser = new Usuario();
@@ -117,6 +122,9 @@ public class AccesoManagedBean extends AsociateError implements Serializable {
 
     }
 
+    /**
+     *
+     */
     public void resetear() {
         logger.info("Resetear");
         logEmail = "";
@@ -130,6 +138,9 @@ public class AccesoManagedBean extends AsociateError implements Serializable {
         regUser = new Usuario();
     }
 
+    /**
+     *
+     */
     public void asignarProvincias() {
         provDAO = new ProvinciaDAO();
         provincias = provDAO.getTodas();
@@ -144,12 +155,19 @@ public class AccesoManagedBean extends AsociateError implements Serializable {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String registrarPersona() {
         logger.info("registrar persona");
         this.regUser.setBloqueado("N");
         this.regUser.setConfirmado("S");
         this.regUser.setTipo("U");
+        this.regUser.setFhultimaconexion(new Date());
+        
         regPersona.setIdUsuario(regUser);
+        regPersona.setEmail(regUser.getLogin());
         Direccion direccion = new Direccion();
         direccion.setIdPais(paisP);
         direccion.setIdPueblo(this.pueblo);
@@ -167,191 +185,364 @@ public class AccesoManagedBean extends AsociateError implements Serializable {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String registrarAsociacion() {
         logger.info("Registrando asociacion");
         this.regUser.setBloqueado("N");
         this.regUser.setConfirmado("N");
-        this.regUser.setTipo("U");
+        this.regUser.setTipo("S");
+        this.regUser.setFhultimaconexion(new Date());
+        this.regUser.setFhalta(new Date());
         regAsoc.setIdUsuario(regUser);
         regAsoc.setCompleta("N");
         regAsoc.setIdDirectorio(new Directorio());
         flash.put("Asociacion", this.regAsoc);
         flash.put("Fase", "1");
+        flash.putNow("p", "PPPPPPPPPPPPPPPPP");
+        logger.info(regAsoc.getCif()+" !!!!");
         logger.info(goToSubirDoc);
         return goToSubirDoc;
     }
 
+    /**
+     *
+     * @return
+     */
     public String login() {
         userDAO = new UsuarioDAO();
-        regUser.setLogin(logEmail);
-        regUser.setPassword(logPass);
-        this.regUser = userDAO.comprobarLogin(regUser);
+        Usuario aux= new Usuario();
+        aux.setLogin(logEmail);
+        aux.setPassword(logPass);
+        aux = userDAO.comprobarLogin(aux);
 
-        if (this.regUser != null && "A".equals(this.regUser.getTipo())) {
-            this.flash.put("User", regUser);
+        if (aux != null && "A".equals(aux.getTipo())) {
+            logger.info("Login de admin");
+            aux.setTipo("A");
+            this.datosSesion.setUsuarioLogeado(aux);
+            this.flash.put("User", aux);
             return goToAdmin;
-        } else if (this.regUser != null && "U".equals(this.regUser.getTipo())) {
-            this.flash.put("User", regUser);
+        } else if (aux != null && "U".equals(aux.getTipo())) {
+            logger.info("Login de usuario");
+            this.flash.put("User", aux);
             this.datosSesion.setEsAsociacion(false);
             return goToPerfil;
-        } else if (this.regUser != null && "S".equals(this.regUser.getTipo())) {
-            this.flash.put("User", regUser);
+        } else if (aux != null && "S".equals(aux.getTipo())) {
+            logger.info("Login de asociacion");
+            this.flash.put("User", aux);
             this.datosSesion.setEsAsociacion(true);
             return goToPerfil;
         } else {
+            this.addError("Usuario o contraseña incorrectos");
             return null;
         }
 
     }
 
     //getter y setter
-    public Flash getFlash() {
+
+    /**
+     *
+     * @return
+     */
+        public Flash getFlash() {
         return flash;
     }
 
+    /**
+     *
+     * @param flash
+     */
     public void setFlash(Flash flash) {
         this.flash = flash;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getVerDescripcion() {
         return verDescripcion;
     }
 
+    /**
+     *
+     * @param verDescripcion
+     */
     public void setVerDescripcion(Boolean verDescripcion) {
         this.verDescripcion = verDescripcion;
     }
 
+    /**
+     *
+     * @return
+     */
     public Asociacion getRegAsoc() {
         return regAsoc;
     }
 
+    /**
+     *
+     * @param regAsoc
+     */
     public void setRegAsoc(Asociacion regAsoc) {
         this.regAsoc = regAsoc;
     }
 
+    /**
+     *
+     * @return
+     */
     public Persona getRegPersona() {
         return regPersona;
     }
 
+    /**
+     *
+     * @param regPersona
+     */
     public void setRegPersona(Persona regPersona) {
         this.regPersona = regPersona;
     }
 
+    /**
+     *
+     * @return
+     */
     public Usuario getRegUser() {
         return regUser;
     }
 
+    /**
+     *
+     * @param regUser
+     */
     public void setRegUser(Usuario regUser) {
         this.regUser = regUser;
     }
 
+    /**
+     *
+     * @return
+     */
     public Ambitos[] getAmbitos() {
         return ambitos;
     }
 
+    /**
+     *
+     * @param ambitos
+     */
     public void setAmbitos(Ambitos[] ambitos) {
         this.ambitos = ambitos;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Provincia> getProvincias() {
         return provincias;
     }
 
+    /**
+     *
+     * @param provincias
+     */
     public void setProvincias(List<Provincia> provincias) {
         this.provincias = provincias;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Pueblo> getPueblos() {
         return pueblos;
     }
 
+    /**
+     *
+     * @param pueblos
+     */
     public void setPueblos(List<Pueblo> pueblos) {
         this.pueblos = pueblos;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLogEmail() {
         return logEmail;
     }
 
+    /**
+     *
+     * @param logEmail
+     */
     public void setLogEmail(String logEmail) {
         this.logEmail = logEmail;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLogPass() {
         return logPass;
     }
 
+    /**
+     *
+     * @param logPass
+     */
     public void setLogPass(String logPass) {
         this.logPass = logPass;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getProvincia() {
         return provincia;
     }
 
+    /**
+     *
+     * @param provincia
+     */
     public void setProvincia(int provincia) {
         this.provincia = provincia;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPueblo() {
         return pueblo;
     }
 
+    /**
+     *
+     * @param pueblo
+     */
     public void setPueblo(int pueblo) {
         this.pueblo = pueblo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPais() {
         return pais;
     }
 
+    /**
+     *
+     * @param pais
+     */
     public void setPais(String pais) {
         this.pais = pais;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Pais> getPaises() {
         return paises;
     }
 
+    /**
+     *
+     * @param paises
+     */
     public void setPaises(List<Pais> paises) {
         this.paises = paises;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getIdPersonaAsoc() {
         return idPersonaAsoc;
     }
 
+    /**
+     *
+     * @param idPersonaAsoc
+     */
     public void setIdPersonaAsoc(Long idPersonaAsoc) {
         this.idPersonaAsoc = idPersonaAsoc;
     }
+
+    /**
+     *
+     * @return
+     */
     public DatosSesion getDatosSesion() {
         return datosSesion;
     }
 
+    /**
+     *
+     * @param datosSesion
+     */
     public void setDatosSesion(DatosSesion datosSesion) {
         this.datosSesion = datosSesion;
     }
 
+    /**
+     *
+     * @return
+     */
     public Pais getPaisP() {
         return paisP;
     }
 
+    /**
+     *
+     * @param paisP
+     */
     public void setPaisP(Pais paisP) {
         this.paisP = paisP;
     }
 
+    /**
+     *
+     * @return
+     */
     public UploadedFile getComprobante() {
         return comprobante;
     }
 
+    /**
+     *
+     * @param comprobante
+     */
     public void setComprobante(UploadedFile comprobante) {
         this.comprobante = comprobante;
     }

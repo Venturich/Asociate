@@ -3,4 +3,356 @@
     Created on : 31-may-2015, 18:58:03
     Author     : Ventura
 */
+body{
+    padding: 0;
+    margin: 0;
+    background-color: #D2DFFC;
 
+}
+
+.tituloMolon{
+    text-align: center;
+    display: block;
+    font: 26px sans-serif;
+    color:white;
+    font-weight: 500;
+
+}
+.tituloMolon2{
+    text-align: center;
+    display: block;
+    font: 26px sans-serif;
+    color:black;
+    font-weight: 500;
+
+}
+
+.headerMain{
+    box-shadow: 0 0 5px 4px rgba(0,0,0,0.25);
+    display: block;
+    position: relative;
+    top: 0;
+    height: 64px;
+    max-width: 100%;
+    width: 100%;
+    min-width: 320px;
+    background:  #3165ae;//#D2DFFC;
+}
+
+
+.menuTop{
+    padding: 5px;
+    max-width: 100%;
+    width: 100%;
+    min-width: 320px;
+}
+
+.logoMain{
+    max-height: 50px;
+    background-color: rgba(255,255,255,0.7);
+    border-radius: 10px;
+    position: relative;
+    left: 0;
+}
+
+.loginMain{
+    position: absolute;
+    max-height: 50px;
+    right: 0;
+    top:10px;
+    width: 75%;
+    max-width: 77%;
+    min-width: 400px;
+}
+
+.loginMainBloq{
+    float:left;
+    min-width: 15%;
+    max-width: 38%;
+    height: 35px;
+}
+
+
+
+.loginMainBloq span{
+    font: 18px sans-serif;
+    color: white;
+}
+
+.input50{
+    max-width: 70%;
+}
+
+.bodyrightIndex, .bodyleftIndex{
+    max-width: 49%;
+    min-width: 49%;
+    margin: 10px 0.5%;
+    float: left;
+    display: inline-block;
+    min-height: 600px;
+}
+.asociacion{
+    background-image: url(../../resources/css/images/asociacion.svg) !important; 
+    background-position: center;
+    background-size: contain;
+}
+.socio{
+    background-image: url(../../resources/css/images/socio.svg) !important; 
+    background-position: center;
+    background-size: contain;
+}
+
+.panelIndex{
+    height: 500px;
+    padding: 60px;
+
+}
+
+.panelIndex .panelIndexBoton{
+    position: relative;
+    max-width: 35%;
+    width: 30%;
+    min-width: 30%;
+    left: 35%;
+    top: 120px;
+}
+
+.saberMas{
+    background-color: black;
+    width: 100%;
+    padding-bottom: 5px;
+}
+.saberMas button{
+    margin:0px auto 0px !important;
+    display: block;
+
+}
+
+.dialogoBoton{
+    margin-top: 15px;
+    margin-bottom: 10px;
+
+}
+.panelReg form div{
+    margin: 5px auto;
+    width: 100%
+}
+
+.panelReg form div table{
+    width: 100%;
+}
+.botonUp{
+    width: 60px;
+    margin-left:auto !important;
+    margin-right:auto !important; 
+}
+
+
+.panelCentral{
+
+    max-width: 80%;
+    padding: 15px;
+    position: relative;
+    top:120px;
+    display: block;
+    background-color: white;  
+    min-height: 
+        350px;
+
+}
+.panelCentralMin{
+    max-width: 40%;
+    padding: 15px;
+    position: relative;
+    top:120px;
+    display: block;
+    background-color: white;  
+    min-height: 
+        200px;
+}
+
+.menuAdmin{
+    background-color: #9e0505;
+    padding: 15px;
+    position: fixed;
+    top:0;left:0;
+    width: 100%;
+    display: block;
+    height: 32px;
+    box-shadow: 0 0 5px 4px rgba(0,0,0,0.25);
+
+}
+
+.menuAdmin form button{
+    width: 23%;
+    margin: 0 0.9%;
+    float: left;
+    text-align: center;   
+}
+.menuAdmin form:first-child{
+    margin-left: 1.1%;
+}
+.adminPrincipal {
+    background: #0D1B38;
+    position: relative;
+    top:150px;
+    opacity: 80%;
+    width: 50%;  
+    display: block;   
+    border: 2px solid #9e0505 ;
+}
+
+.adminUser{
+    background: #0D1B38;
+    width: 80%;
+    padding: 15px;
+    position: relative;
+    top:150px;
+    border: 2px solid #9e0505 ;
+
+}
+
+.logoAdmin{
+    height: 60px;
+}
+
+.bodyAdmin{
+    background-image: url(../../resources/css/images/asociacion.svg) !important; 
+    background-repeat: repeat;
+    background-size: 100%;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.menuSuperior{
+    box-shadow: 0 0 5px 4px rgba(0,0,0,0.25);
+    display: block;
+    position: relative;
+    top: 0;
+    height: 54px;
+    max-width: 100%;
+    width: 100%;
+    min-width: 320px;
+    padding: 5px;
+    background: #0D1B38; //154CC1 0A3183 D2DFFC 0D1B38 547CD2
+   
+}
+
+.menuSuperiorComp{
+    display: inline-block;
+    position: absolute;
+    max-height: 50px;
+    right: 0;
+    top:10px;
+    width: 80%;
+    max-width: 95%;
+    min-width: 400px;
+}
+
+.bodyleft, .bodyright, .bodycenter{
+    display: inline-block;
+    margin: 0.5% 1%;
+    float:left;
+}
+
+.bodyleft, .bodyright{
+    width: 23%
+}
+
+.bodycenter{
+    width: 48%
+}
+
+.bodyright{
+    float:right !important;
+}
+.menuItem{
+    max-height: 35px;
+    min-height: 35px;
+}
+.menuItemDesp{
+    max-height: 20px;
+    min-height: 20px;
+}
+
+.fotoPerfil{
+   max-width: 100%;
+   margin: 10px 0 0 0;
+}
+
+.marcoFotoPerfil{
+    width: 95%;
+    padding: 1px;
+    height:330px;
+    margin-top: 10px;
+}
+
+.marcoMenuDer{
+     width: 80%;
+    padding: 1px;
+    height:330px;
+    margin-top: 150px;
+    float: right;
+}
+
+.nuevoMsj{
+    width: 50%;
+    margin: 15px auto;
+    display: block;
+    height: 35px;
+   
+}
+
+.botonAncho{
+    min-width: 150px;
+    max-width: 200px;
+}
+
+.botonAjuste{
+     min-width: 190px;
+    max-width: 190px;
+}
+
+.botonAnchoS{
+    min-width: 50px;
+    max-width: 70px;
+}
+.margenBoton{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.margenTB{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.izq{
+    float: left
+}
+
+.der{
+    float:right ;
+}
+
+.center{
+    margin-left:auto !important;
+    margin-right:auto !important; 
+}
+
+.block{
+    display: block;
+}
+
+.pad5{
+    padding: 5px;
+}
+
+.w90{
+    width: 90%;
+    max-width: 90%;
+}
+.w80{
+    width: 80%;
+    max-width: 80%;
+}

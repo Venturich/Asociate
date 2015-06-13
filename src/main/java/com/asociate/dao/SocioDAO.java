@@ -17,6 +17,11 @@ import org.hibernate.Session;
  */
 public class SocioDAO {
 
+    /**
+     *
+     * @param idAsociacion
+     * @return
+     */
     public List<Socio> getListaSocios(Long idAsociacion) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         List<Socio> lista = new ArrayList();
@@ -33,6 +38,12 @@ public class SocioDAO {
         return lista;
     }
 
+    /**
+     *
+     * @param idAsociacion
+     * @param idPersona
+     * @return
+     */
     public boolean esSocio(Long idAsociacion, Long idPersona) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         boolean salida=false;
@@ -49,6 +60,10 @@ public class SocioDAO {
         return salida;
     }
 
+    /**
+     *
+     * @param socio
+     */
     public void guardar(Socio socio) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

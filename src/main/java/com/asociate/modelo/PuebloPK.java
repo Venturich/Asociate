@@ -24,19 +24,34 @@ public class PuebloPK implements Serializable{
     @Basic
     private short codigoprov;
     
-    
+    /**
+     *
+     * @return
+     */
     public int getCodigo() {
         return this.codigo;
     }
 
+    /**
+     *
+     * @param codigo
+     */
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
    
+    /**
+     *
+     * @return
+     */
     public short getCodigoprov() {
         return this.codigoprov;
     }
 
+    /**
+     *
+     * @param codigoprov
+     */
     public void setCodigoprov(short codigoprov) {
         this.codigoprov = codigoprov;
     }

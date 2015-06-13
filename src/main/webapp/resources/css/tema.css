@@ -18,7 +18,7 @@
 }
 .ui-widget-content {
 	border: 1px solid #154CC1;
-	background: #ffffff url("./images/ui-bg_highlight-hard_100_ffffff_1x100.png") 50% top repeat-x;
+	background: #ffffff url("../../resources/css/images/ui-bg_highlight-hard_100_ffffff_1x100.png") 50% top repeat-x;
 	color: #040404;
 }
 .ui-widget-content a {
@@ -26,7 +26,7 @@
 }
 .ui-widget-header {
 	border: 1px solid #154CC1;
-	background: #0A3183 url("images/ui-bg_flat_8_0A3183_40x100.png") 50% 50% repeat-x;
+	background: #0A3183 url("../../resources/css/images/ui-bg_flat_8_0A3183_40x100.png") 50% 50% repeat-x;
 	color: #ffffff;
 	font-weight: bold;
 }
@@ -40,7 +40,7 @@
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
 	border: 1px solid #0A3183;
-	background: #D2DFFC url("images/ui-bg_inset-hard_60_D2DFFC_1x100.png") 50% 50% repeat-x;
+	background: #D2DFFC url("../../resources/css/images/ui-bg_inset-hard_60_D2DFFC_1x100.png") 50% 50% repeat-x;
 	font-weight: normal;
 	color: #111111;
 }
@@ -57,7 +57,7 @@
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
 	border: 1px solid #021B4F;
-	background: #0D1B38 url("images/ui-bg_highlight-soft_55_0D1B38_1x100.png") 50% 50% repeat-x;
+	background: #0D1B38 url("../../resources/css/images/ui-bg_highlight-soft_55_0D1B38_1x100.png") 50% 50% repeat-x;
 	font-weight: normal;
 	color: #ffffff;
 }
@@ -76,7 +76,7 @@
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
 	border: 1px solid #0A3183;
-	background: #547CD2 url("images/ui-bg_gloss-wave_25_547CD2_500x100.png") 50% 50% repeat-x;
+	background: #547CD2 url("../../resources/css/images/ui-bg_gloss-wave_25_547CD2_500x100.png") 50% 50% repeat-x;
 	font-weight: normal;
 	color: #ffffff;
 }
@@ -93,7 +93,7 @@
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
 	border: 1px solid #ffde2e;
-	background: #154CC1 url("images/ui-bg_flat_55_154CC1_40x100.png") 50% 50% repeat-x;
+	background: #154CC1 url("../../resources/css/images/ui-bg_flat_55_154CC1_40x100.png") 50% 50% repeat-x;
 	color: #ffffff;
 }
 .ui-state-highlight a,
@@ -105,7 +105,7 @@
 .ui-widget-content .ui-state-error,
 .ui-widget-header .ui-state-error {
 	border: 1px solid #9e0505;
-	background: #cd0a0a url("images/ui-bg_inset-soft_15_cd0a0a_1x100.png") 50% bottom repeat-x;
+	background: #cd0a0a url("../../resources/css/images/ui-bg_inset-soft_15_cd0a0a_1x100.png") 50% bottom repeat-x;
 	color: #ffffff;
 }
 .ui-state-error a,
@@ -151,27 +151,27 @@
 }
 .ui-icon,
 .ui-widget-content .ui-icon {
-	background-image: url("images/ui-icons_FFD902_256x240.png");
+	background-image: url("../../resources/css/images/ui-icons_FFD902_256x240.png");
 }
 .ui-widget-header .ui-icon {
-	background-image: url("images/ui-icons_f7cc14_256x240.png");
+	background-image: url("../../resources/css/images/ui-icons_f7cc14_256x240.png");
 }
 .ui-state-default .ui-icon {
-	background-image: url("images/ui-icons_121111_256x240.png");
+	background-image: url("../../resources/css/images/ui-icons_121111_256x240.png");
 }
 .ui-state-hover .ui-icon,
 .ui-state-focus .ui-icon {
-	background-image: url("images/ui-icons_FFE1A5_256x240.png");
+	background-image: url("../../resources/css/images/ui-icons_FFE1A5_256x240.png");
 }
 .ui-state-active .ui-icon {
-	background-image: url("images/ui-icons_222222_256x240.png");
+	background-image: url("../../resources/css/images/ui-icons_222222_256x240.png");
 }
 .ui-state-highlight .ui-icon {
-	background-image: url("images/ui-icons_FFA902_256x240.png");
+	background-image: url("../../resources/css/images/ui-icons_FFA902_256x240.png");
 }
 .ui-state-error .ui-icon,
 .ui-state-error-text .ui-icon {
-	background-image: url("images/ui-icons_ffcf29_256x240.png");
+	background-image: url("../../resources/css/images/ui-icons_ffcf29_256x240.png");
 }
 
 /* positioning */
@@ -384,14 +384,14 @@
 
 /* Overlays */
 .ui-widget-overlay {
-	background: #0D1B38 url("images/ui-bg_flat_40_0D1B38_40x100.png") 50% 50% repeat-x;
+	background: #0D1B38 url("../../resources/css/images/ui-bg_flat_40_0D1B38_40x100.png") 50% 50% repeat-x;
 	opacity: .3;
 	filter: Alpha(Opacity=30); /* support: IE8 */
 }
 .ui-widget-shadow {
 	margin: -8px 0 0 -8px;
 	padding: 8px;
-	background: #7a6d6d url("images/ui-bg_highlight-soft_50_7a6d6d_1x100.png") 50% top repeat-x;
+	background: #7a6d6d url("../../resources/css/images/ui-bg_highlight-soft_50_7a6d6d_1x100.png") 50% top repeat-x;
 	opacity: .32;
 	filter: Alpha(Opacity=32); /* support: IE8 */
 	border-radius: 8px;

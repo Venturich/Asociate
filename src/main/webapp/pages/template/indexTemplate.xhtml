@@ -8,11 +8,11 @@
       xmlns:f="http://java.sun.com/jsf/core"
       itemscope='itemscope' itemtype='http://schema.org/Article'>
 
-    
+
     <h:head>
         <f:facet name="first">
             <ui:insert name="metatags">
-                  <meta charset="UTF-8"/>
+                <meta charset="UTF-8"/>
                 <meta http-equiv="Pragma" content="no-cache" />
                 <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
                 <meta http-equiv="Expires" content="-1" />
@@ -20,7 +20,7 @@
                 <link rel="shortcut icon" type="image/x-icon"
                       href="#{request.contextPath}/resources/css/images/favicon.ico" />
                 <title><h:outputText value="#{msg.tituloBienvenida}"/> 
-                   </title>
+                </title>
                 <meta name="description" content="Descripcion de pagina. No sueperar los 155 caracteres." />
 
 
@@ -57,18 +57,19 @@
             </ui:insert>
 
             <ui:insert name="estilos">
-                <h:outputStylesheet library="css" name="ui.css"/>
                 <h:outputStylesheet library="css" name="estructura.css"/>
                 <h:outputStylesheet library="css" name="tema.css"/>
+                <h:outputStylesheet library="css" name="ui.css"/>
                 <h:outputStylesheet library="css" name="estilo.css"/>
             </ui:insert>
         </f:facet>
         <f:facet name="last">
-
+            <h:outputScript library="js" name="prevent.js"/>
         </f:facet>
     </h:head>
     <h:body>
-        <header class="">
+        <header class="headerMain">
+            <p:growl id="growlGlob"/>
             <div>
                 <ui:insert name="header">
 
@@ -83,13 +84,14 @@
             <ui:insert name="bodyright">
 
             </ui:insert>
-            <ui:insert name="descripcion">
 
-            </ui:insert>
         </main>
 
         <footer>
             <ui:insert name="footer">
+
+            </ui:insert>
+            <ui:insert name="descripcion">
 
             </ui:insert>
         </footer>

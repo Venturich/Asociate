@@ -20,6 +20,11 @@ import org.hibernate.Transaction;
  */
 public class EventoDAO {
 
+    /**
+     *
+     * @param nuevo
+     * @return
+     */
     public Boolean guardarNuevoEvento(Evento nuevo) {
          Boolean error = false;
         Transaction transaccion = null;
@@ -51,6 +56,11 @@ public class EventoDAO {
         return error;
     }
 
+    /**
+     *
+     * @param idEvento
+     * @return
+     */
     public Evento getEvento(Long idEvento) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Evento salida=null;
@@ -74,6 +84,11 @@ public class EventoDAO {
         return salida;
     }
 
+    /**
+     *
+     * @param idPersona
+     * @return
+     */
     public List<Evento> getListaEvento(Long idPersona) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         List<Evento> salida=new ArrayList();
@@ -97,6 +112,11 @@ public class EventoDAO {
         return salida;
     }
 
+    /**
+     *
+     * @param idUsuario
+     * @return
+     */
     public List<Evento> getListaEventoPropio(Long idUsuario) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         List<Evento> salida=new ArrayList();

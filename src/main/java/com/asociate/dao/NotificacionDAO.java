@@ -21,6 +21,15 @@ import org.hibernate.Session;
  */
 public class NotificacionDAO {
 
+    /**
+     *
+     * @param idOrigen
+     * @param tipo
+     * @param idDestino
+     * @param elementoGenerador
+     * @param guardar
+     * @return
+     */
     public Notificacion generarNotificacion(Usuario idOrigen, Notificaciones tipo, Usuario idDestino, Long elementoGenerador, boolean guardar) {
         Notificacion notificacion = new Notificacion();
 
@@ -35,7 +44,7 @@ public class NotificacionDAO {
         notificacion.setFecha(new Date());
         notificacion.setIdElementoGenerador(elementoGenerador);
         notificacion.setTipoGenerador(tipo.getValor());
-        notificacion.setTipo(tipo.toString());
+        notificacion.setTipo(tipo.getValor());
         switch (tipo.getValor()) {
             case "A":
                 notificacion.setTexto("Se ha registrado una nueva Asociacion ");
@@ -85,11 +94,16 @@ public class NotificacionDAO {
 
     }
 
+    /**
+     *
+     * @param idUsuario
+     * @return
+     */
     public List<Notificacion> getListaNotificacionPendientes(Long idUsuario) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         List<Notificacion> lista = new ArrayList<Notificacion>();
         try {
-            Query qu = sesion.createQuery("Select N from Notificacion N where N.idUsuario=:id and N.visto=0");
+            Query qu = sesion.createQuery("Select N from Notificacion N where N.idUsuario.idUsuario=:id and N.visto=0");
             qu.setParameter("id", idUsuario);
             
             lista=qu.list();
@@ -102,6 +116,10 @@ public class NotificacionDAO {
         return lista;
     }
 
+    /**
+     *
+     * @param idNotificacion
+     */
     public void marcarComoVista(Long idNotificacion) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
 

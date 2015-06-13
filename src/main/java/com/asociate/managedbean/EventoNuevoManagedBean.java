@@ -63,6 +63,9 @@ public class EventoNuevoManagedBean extends AsociateError implements Serializabl
     public EventoNuevoManagedBean() {
     }
 
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         listaAmigoId = new ArrayList();
@@ -70,6 +73,9 @@ public class EventoNuevoManagedBean extends AsociateError implements Serializabl
         nuevoEvento = new Evento();
     }
 
+    /**
+     *
+     */
     public void subirFotoTemporal() {
         try {
             String ficheroSalida;
@@ -100,6 +106,10 @@ public class EventoNuevoManagedBean extends AsociateError implements Serializabl
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public String moverImagen() {
         try {
             File origen = new File("D:/ASOCIATE/evento/temporal\\" + datosSesion.getUsuarioLogeado().getIdUsuario() + ".jpg");
@@ -113,12 +123,19 @@ public class EventoNuevoManagedBean extends AsociateError implements Serializabl
         return null;
     }
 
+    /**
+     *
+     */
     public void cargarListaAmigos() {
         AmistadDAO amiDAO = new AmistadDAO();
         listaAmigo = amiDAO.getMapaAmigos(this.datosSesion.getUsuarioLogeado().getPersona().getIdPersona());
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String guardarEvento() {
         nuevoEvento.setFinalizado(Estados.NO_FINALIZADO.getValor());
         nuevoEvento.setIdCreador(this.datosSesion.getUsuarioLogeado());
@@ -148,62 +165,122 @@ public class EventoNuevoManagedBean extends AsociateError implements Serializabl
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String irAPerfil() {
         return goToPerfil;
     }
 
+    /**
+     *
+     * @return
+     */
     public Evento getNuevoEvento() {
         return nuevoEvento;
     }
 
+    /**
+     *
+     * @param nuevoEvento
+     */
     public void setNuevoEvento(Evento nuevoEvento) {
         this.nuevoEvento = nuevoEvento;
     }
 
+    /**
+     *
+     * @return
+     */
     public UploadedFile getfEvento() {
         return fEvento;
     }
 
+    /**
+     *
+     * @param fEvento
+     */
     public void setfEvento(UploadedFile fEvento) {
         this.fEvento = fEvento;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getHoy() {
         return hoy;
     }
 
+    /**
+     *
+     * @param hoy
+     */
     public void setHoy(Date hoy) {
         this.hoy = hoy;
     }
 
+    /**
+     *
+     * @return
+     */
     public GeocodeViewManagedBean getGeocode() {
         return geocode;
     }
 
+    /**
+     *
+     * @param geocode
+     */
     public void setGeocode(GeocodeViewManagedBean geocode) {
         this.geocode = geocode;
     }
 
+    /**
+     *
+     * @return
+     */
     public Map<Long, Persona> getListaAmigo() {
         return listaAmigo;
     }
 
+    /**
+     *
+     * @param listaAmigo
+     */
     public void setListaAmigo(Map<Long, Persona> listaAmigo) {
         this.listaAmigo = listaAmigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Long> getListaAmigoId() {
         return listaAmigoId;
     }
 
+    /**
+     *
+     * @param listaAmigoId
+     */
     public void setListaAmigoId(List<Long> listaAmigoId) {
         this.listaAmigoId = listaAmigoId;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<EventoAsistentes> getListaAsistente() {
         return listaAsistente;
     }
 
+    /**
+     *
+     * @param listaAsistente
+     */
     public void setListaAsistente(List<EventoAsistentes> listaAsistente) {
         this.listaAsistente = listaAsistente;
     }

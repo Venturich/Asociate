@@ -20,6 +20,11 @@ import org.hibernate.Session;
  */
 public class AmistadDAO {
 
+    /**
+     *
+     * @param idPersona
+     * @return
+     */
     public List<Amistad> getListaAmigos(Long idPersona) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         List<Amistad> salida = new ArrayList();
@@ -38,6 +43,11 @@ public class AmistadDAO {
         return salida;
     }
 
+    /**
+     *
+     * @param idPersona
+     * @return
+     */
     public Map<Long, Persona> getMapaAmigos(Long idPersona) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Map<Long, Persona> mapa = new HashMap();
@@ -60,6 +70,10 @@ public class AmistadDAO {
         return mapa;
     }
 
+    /**
+     *
+     * @param ami
+     */
     public void guardar(Amistad ami) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -72,6 +86,11 @@ public class AmistadDAO {
         }
     }
 
+    /**
+     *
+     * @param idAmigo
+     * @param idOrigen
+     */
     public void eliminarPorId(Long idAmigo, Long idOrigen) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -87,6 +106,12 @@ public class AmistadDAO {
         }
     }
 
+    /**
+     *
+     * @param idAmigo
+     * @param idOrigen
+     * @return
+     */
     public boolean esAmigo(Long idAmigo, Long idOrigen) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         boolean salida=false;
@@ -105,6 +130,12 @@ public class AmistadDAO {
         return salida;
     }
 
+    /**
+     *
+     * @param idAmigo
+     * @param idOrigen
+     * @return
+     */
     public boolean eraAmigo(Long idAmigo, Long idOrigen) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         boolean salida=false;
@@ -124,6 +155,12 @@ public class AmistadDAO {
         return salida;
     }
 
+    /**
+     *
+     * @param idAmigo
+     * @param idOrigen
+     * @param estado
+     */
     public void actualizarAmistad(Long idAmigo, Long idOrigen, String estado) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         try {

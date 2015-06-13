@@ -16,6 +16,7 @@ import com.asociate.modelo.Mensajeria;
 import com.asociate.modelo.Notificacion;
 import com.asociate.modelo.Socio;
 import com.asociate.modelo.Usuario;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.MenuItem;
@@ -37,13 +40,13 @@ import org.primefaces.model.menu.MenuModel;
  */
 @ManagedBean(name = "perfilMenuMB")
 @SessionScoped
-public class PerfilMenuManagedBean {
+public class PerfilMenuManagedBean extends AsociateError implements Serializable{
 
-    private final String goToBuscador = "";
-    private final String goToPerfilPrincipal = "";
-    private final String goToMensajes = "";
-    private final String goToConfiguracion = "";
-
+    private final String goToBuscador = "buscadorUsuarios";
+    private final String goToPerfilPrincipal = "perfilPrincipal";
+    private final String goToMensajes = "mensajes";
+    private final String goToConfiguracion = "configuracion";
+    private Log logger = LogFactory.getLog(this.getClass().getName());
     private Flash flash;
     private MenuModel menuNotificaciones = new DefaultMenuModel();
             
@@ -64,15 +67,25 @@ public class PerfilMenuManagedBean {
     public PerfilMenuManagedBean() {
     }
 
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
-
+        logger.info("PerfilManageMENUBean");
         if (this.flash.get("User") != null) {
             user = (Usuario) this.flash.get("User");
             menDAO = new MensajeriaDAO();
             mensajesPendientes = menDAO.getMensajesPendientes(user.getIdUsuario());
-            notificaciones = new ArrayList(user.getNotificacionCollection());
+            if(mensajesPendientes ==null || mensajesPendientes.size()==0){
+            mensajesPendientes = new ArrayList();
+            }
+            notiDAO = new NotificacionDAO();
+            notificaciones = notiDAO.getListaNotificacionPendientes(user.getIdUsuario());
+            if(notificaciones ==null || notificaciones.size()==0){
+            notificaciones = new ArrayList();
+            }
             generarMenuNotificaciones();
         } else {
             mensajesPendientes = new ArrayList();
@@ -91,64 +104,128 @@ public class PerfilMenuManagedBean {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public String irMensajes() {
         flash.put("Mensajes", this.mensajesPendientes);
         return goToMensajes;
     }
 
+    /**
+     *
+     * @return
+     */
     public String irBuscador() {
         flash.put("Busqueda",this.busqueda);
         return goToBuscador;
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String irPerfil() {
         return goToPerfilPrincipal;
 
     }
     
+    /**
+     *
+     * @return
+     */
     public String irConfiguracion(){
         return goToConfiguracion;
     }
 
+    /**
+     *
+     * @return
+     */
     public Usuario getUser() {
         return user;
     }
 
+    /**
+     *
+     * @param user
+     */
     public void setUser(Usuario user) {
         this.user = user;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Notificacion> getNotificaciones() {
         return notificaciones;
     }
 
+    /**
+     *
+     * @param notificaciones
+     */
     public void setNotificaciones(List<Notificacion> notificaciones) {
         this.notificaciones = notificaciones;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Mensajeria> getMensajesPendientes() {
         return mensajesPendientes;
     }
 
+    /**
+     *
+     * @param mensajesPendientes
+     */
     public void setMensajesPendientes(List<Mensajeria> mensajesPendientes) {
         this.mensajesPendientes = mensajesPendientes;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBusqueda() {
         return busqueda;
     }
 
+    /**
+     *
+     * @param busqueda
+     */
     public void setBusqueda(String busqueda) {
         this.busqueda = busqueda;
     }
 
+    /**
+     *
+     * @return
+     */
     public MenuModel getMenuNotificaciones() {
         return menuNotificaciones;
     }
 
+    /**
+     *
+     * @param menuNotificaciones
+     */
     public void setMenuNotificaciones(MenuModel menuNotificaciones) {
         this.menuNotificaciones = menuNotificaciones;
+    }
+
+    public DatosSesion getDatosSesion() {
+        return datosSesion;
+    }
+
+    public void setDatosSesion(DatosSesion datosSesion) {
+        this.datosSesion = datosSesion;
     }
 
 

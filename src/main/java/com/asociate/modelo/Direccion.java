@@ -20,6 +20,10 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+/**
+ *
+ * @author Ventura
+ */
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name="direccion")
@@ -50,70 +54,137 @@ public class Direccion implements Serializable {
     @Basic
     private Integer idPueblo;
 
+    /**
+     *
+     */
     public Direccion() {
 
     }
    
+    /**
+     *
+     * @return
+     */
     public Integer getIdDireccion() {
         return this.idDireccion;
     }
 
+    /**
+     *
+     * @param idDireccion
+     */
     public void setIdDireccion(Integer idDireccion) {
         this.idDireccion = idDireccion;
     }
    
+    /**
+     *
+     * @return
+     */
     public Provincia getIdEstado() {
         return this.idEstado;
     }
 
+    /**
+     *
+     * @param idEstado
+     */
     public void setIdEstado(Provincia idEstado) {
         this.idEstado = idEstado;
     }
    
+    /**
+     *
+     * @return
+     */
     public Collection<Persona> getPersonaCollection() {
         return this.personaCollection;
     }
 
+    /**
+     *
+     * @param personaCollection
+     */
     public void setPersonaCollection(Collection<Persona> personaCollection) {
         this.personaCollection = personaCollection;
     }
    
+    /**
+     *
+     * @return
+     */
     public Pais getIdPais() {
         return this.idPais;
     }
 
+    /**
+     *
+     * @param idPais
+     */
     public void setIdPais(Pais idPais) {
         this.idPais = idPais;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getDireccion() {
         return this.direccion;
     }
 
+    /**
+     *
+     * @param direccion
+     */
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getIdTipodireccion() {
         return this.idTipodireccion;
     }
 
+    /**
+     *
+     * @param idTipodireccion
+     */
     public void setIdTipodireccion(String idTipodireccion) {
         this.idTipodireccion = idTipodireccion;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getIdPrivacidad() {
         return this.idPrivacidad;
     }
 
+    /**
+     *
+     * @param idPrivacidad
+     */
     public void setIdPrivacidad(String idPrivacidad) {
         this.idPrivacidad = idPrivacidad;
     }
    
+    /**
+     *
+     * @return
+     */
     public Integer getIdPueblo() {
         return this.idPueblo;
     }
 
+    /**
+     *
+     * @param idPueblo
+     */
     public void setIdPueblo(Integer idPueblo) {
         this.idPueblo = idPueblo;
     }

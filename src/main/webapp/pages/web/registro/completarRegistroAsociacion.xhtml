@@ -6,24 +6,36 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head></h:head>
+    <h:head>
+       
+    </h:head>
     <h:body>
+       
         <ui:composition  template="../../template/indexTemplate.xhtml">
             <ui:define name="header">
-                <p>Un último paso para registrar tu asociacion</p>
-                <p:graphicImage name="logo.svg" library="css/images"/>
-
+                <div class="menuTop">
+                   
+                    <p:graphicImage name="logo.svg" library="css/images" styleClass="logoMain"/>
+                    <span class="tituloMolon center" style="display: inline-block ; margin-left: 25px;"><h:outputText value="#{completarRegistroAsocMB.prueba}"/></span>
+                </div>
             </ui:define>
             <ui:define name="bodyleft">
-                <h:form>
-                    <p:fileUpload value="#{completarRegistroAsocMB.comprobante}" id="subeComprobante" fileUploadListener="#{completarRegistroAsocMB.subirComprobante}"
-                                  multiple="false" fileLimit="1" auto="false" mode="advanced"  process="subeComprobante" update="subeComprobante"  allowTypes="/(\.|\/)(JPG|jpg|pdf|PDF|doc|docx|odt)$/"
-                                  cancelLabel="#{msg.cancelar}" uploadLabel="Subir" dragDropSupport="true" requiredMessage="Necesitas subir un documento para completar el registro"  >
+                <div class="panelCentral center" id="panelcentral">
+                    <p>Cuentanos algo sobre tu asociacion, si quieres:</p>
+                    <p:inputTextarea value="#{completarRegistroAsocMB.regAsoc.descripcion}" maxlength="500"/>
+                    <h:form enctype="multipart/form-data">
+                        <p class="tituloMolon2">Envianos algo que demuestre que tu asociación es real</p>
+                        <p:fileUpload id="subeComprobante" fileUploadListener="#{completarRegistroAsocMB.subirComprobante}" label="Examinar"  
+                                      multiple="false" fileLimit="1" auto="true" mode="advanced"  process="@this" update="@this"  allowTypes="/(\.|\/)(JPG|jpg|pdf|PDF|doc|docx|odt)$/"
+                                      cancelLabel="#{msg.cancelar}" uploadLabel="Subir" dragDropSupport="true" requiredMessage="Necesitas subir un documento para completar el registro"  >
 
-                    </p:fileUpload>
-                    <p:commandButton action="#{completarRegistroAsocMB.completarRegistroAsociacion}" actionListener="#{completarRegistroAsocMB.subirComprobante}" value="Confirmar"/>
-                    <p:commandButton action="#{completarRegistroAsocMB.atras}"value="Volver"/>
-                </h:form>
+                        </p:fileUpload>
+                        <div class="dialogoBoton center">
+                            <p:commandButton action="#{completarRegistroAsocMB.completarRegistroAsociacion}"  value="Confirmar" styleClass="dialogoBoton der margenBoton" update="growlGlob"/>
+                        <p:commandButton action="#{completarRegistroAsocMB.atras}" value="Volver" styleClass="dialogoBoton izq margenBoton"/>
+                        </div>
+                    </h:form>
+                </div>
             </ui:define>
         </ui:composition>
     </h:body>

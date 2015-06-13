@@ -45,6 +45,9 @@ public class EventoManagedBean extends AsociateError implements Serializable {
     public EventoManagedBean() {
     }
 
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
@@ -65,11 +68,20 @@ public class EventoManagedBean extends AsociateError implements Serializable {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String volver() {
         flash.put("ListaEvento", this.flash.get("ListaEvento"));
         return goToCalendarioEventos;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public String irAPerfil(Long id) {
         flash.put("asociacion",false);
         flash.put("idPersona", id);
@@ -77,18 +89,34 @@ public class EventoManagedBean extends AsociateError implements Serializable {
         return goToPerfil;
     }
 
+    /**
+     *
+     * @return
+     */
     public Evento getEvento() {
         return evento;
     }
 
+    /**
+     *
+     * @param evento
+     */
     public void setEvento(Evento evento) {
         this.evento = evento;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Persona> getListaAsistente() {
         return listaAsistente;
     }
 
+    /**
+     *
+     * @param listaAsistente
+     */
     public void setListaAsistente(List<Persona> listaAsistente) {
         this.listaAsistente = listaAsistente;
     }

@@ -21,6 +21,10 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+/**
+ *
+ * @author Ventura
+ */
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name="post")
@@ -48,54 +52,105 @@ public class Post implements Serializable {
     @JoinColumn(name="ID_HILO",referencedColumnName="ID_HILO")
     private Hilo idHilo;
 
+    /**
+     *
+     */
     public Post() {
 
     }
    
+    /**
+     *
+     * @return
+     */
     public String getTexto() {
         return this.texto;
     }
 
+    /**
+     *
+     * @param texto
+     */
     public void setTexto(String texto) {
         this.texto = texto;
     }
    
+    /**
+     *
+     * @return
+     */
     public Integer getIdSubforo() {
         return this.idSubforo;
     }
 
+    /**
+     *
+     * @param idSubforo
+     */
     public void setIdSubforo(Integer idSubforo) {
         this.idSubforo = idSubforo;
     }
    
+    /**
+     *
+     * @return
+     */
     public Date getFhcreacion() {
         return this.fhcreacion;
     }
 
+    /**
+     *
+     * @param fhcreacion
+     */
     public void setFhcreacion(Date fhcreacion) {
         this.fhcreacion = fhcreacion;
     }
    
+    /**
+     *
+     * @return
+     */
     public Usuario getAutor() {
         return this.autor;
     }
 
+    /**
+     *
+     * @param autor
+     */
     public void setAutor(Usuario autor) {
         this.autor = autor;
     }
    
+    /**
+     *
+     * @return
+     */
     public Long getIdPost() {
         return this.idPost;
     }
 
+    /**
+     *
+     * @param idPost
+     */
     public void setIdPost(Long idPost) {
         this.idPost = idPost;
     }
    
+    /**
+     *
+     * @return
+     */
     public Hilo getIdHilo() {
         return this.idHilo;
     }
 
+    /**
+     *
+     * @param idHilo
+     */
     public void setIdHilo(Hilo idHilo) {
         this.idHilo = idHilo;
     }

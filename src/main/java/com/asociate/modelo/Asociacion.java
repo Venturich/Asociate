@@ -20,10 +20,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+/**
+ *
+ * @author Ventura
+ */
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name="asociacion",uniqueConstraints=@UniqueConstraint(columnNames={"CIF"}))
@@ -38,12 +43,14 @@ public class Asociacion implements Serializable {
     @Basic
     private String cif;
     
-    @ManyToOne(optional=false,targetEntity = Persona.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="RESPONSABLE",referencedColumnName="ID_PERSONA")
-    private Persona responsable;
     
-    @ManyToOne(targetEntity = Directorio.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="ID_DIRECTORIO",referencedColumnName="ID_DIRECTORIO")
+    @Column(name="RESPONSABLE",table="asociacion")
+    @Basic
+    private Long responsable;
+    
+    //@ManyToOne(targetEntity = Directorio.class, fetch = FetchType.LAZY)
+    //@JoinColumn(name="ID_DIRECTORIO",referencedColumnName="ID_DIRECTORIO")
+    @Transient
     private Directorio idDirectorio;
     
     @ManyToOne(optional=false,targetEntity = Usuario.class, fetch = FetchType.LAZY)
@@ -88,119 +95,233 @@ public class Asociacion implements Serializable {
     @Basic
     private String completa;
     
-
+    /**
+     *
+     */
     public Asociacion() {
 
     }
    
+    /**
+     *
+     * @return
+     */
     public String getDescripcion() {
         return this.descripcion;
     }
 
+    /**
+     *
+     * @param descripcion
+     */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getCif() {
         return this.cif;
     }
 
+    /**
+     *
+     * @param cif
+     */
     public void setCif(String cif) {
         this.cif = cif;
     }
    
-    public Persona getResponsable() {
+    /**
+     *
+     * @return
+     */
+    public Long getResponsable() {
         return this.responsable;
     }
 
-    public void setResponsable(Persona responsable) {
+    /**
+     *
+     * @param responsable
+     */
+    public void setResponsable(Long responsable) {
         this.responsable = responsable;
     }
    
+    /**
+     *
+     * @return
+     */
     public Directorio getIdDirectorio() {
         return this.idDirectorio;
     }
 
+    /**
+     *
+     * @param idDirectorio
+     */
     public void setIdDirectorio(Directorio idDirectorio) {
         this.idDirectorio = idDirectorio;
     }
    
+    /**
+     *
+     * @return
+     */
     public Usuario getIdUsuario() {
         return this.idUsuario;
     }
 
+    /**
+     *
+     * @param idUsuario
+     */
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
     }
    
+    /**
+     *
+     * @return
+     */
     public Long getIdAsociacion() {
         return this.idAsociacion;
     }
 
+    /**
+     *
+     * @param idAsociacion
+     */
     public void setIdAsociacion(Long idAsociacion) {
         this.idAsociacion = idAsociacion;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getWeb() {
         return this.web;
     }
 
+    /**
+     *
+     * @param web
+     */
     public void setWeb(String web) {
         this.web = web;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getRazonsocial() {
         return this.razonsocial;
     }
 
+    /**
+     *
+     * @param razonsocial
+     */
     public void setRazonsocial(String razonsocial) {
         this.razonsocial = razonsocial;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getLogo() {
         return this.logo;
     }
 
+    /**
+     *
+     * @param logo
+     */
     public void setLogo(String logo) {
         this.logo = logo;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getAmbito() {
         return this.ambito;
     }
 
+    /**
+     *
+     * @param ambito
+     */
     public void setAmbito(String ambito) {
         this.ambito = ambito;
     }
    
+    /**
+     *
+     * @return
+     */
     public Date getFhcreacion() {
         return this.fhcreacion;
     }
 
+    /**
+     *
+     * @param fhcreacion
+     */
     public void setFhcreacion(Date fhcreacion) {
         this.fhcreacion = fhcreacion;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getTelefono() {
         return this.telefono;
     }
 
+    /**
+     *
+     * @param telefono
+     */
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return this.email;
     }
 
+    /**
+     *
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCompleta() {
         return completa;
     }
 
+    /**
+     *
+     * @param completa
+     */
     public void setCompleta(String completa) {
         this.completa = completa;
     }

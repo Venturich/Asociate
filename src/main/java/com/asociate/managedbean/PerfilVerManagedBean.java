@@ -64,6 +64,9 @@ public class PerfilVerManagedBean extends AsociateError implements Serializable 
     public PerfilVerManagedBean() {
     }
 
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
@@ -97,16 +100,27 @@ public class PerfilVerManagedBean extends AsociateError implements Serializable 
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String volverEvento() {
         flash.put("Evento", evento);
         return goToEvento;
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String volverBuscador() {
         return goToBuscador;
     }
 
+    /**
+     *
+     */
     public void agregarAmigo() {
         
         amiDAO = new AmistadDAO();
@@ -134,6 +148,9 @@ public class PerfilVerManagedBean extends AsociateError implements Serializable 
         //notificar
     }
 
+    /**
+     *
+     */
     public void eliminarAmigo() {
         amiDAO = new AmistadDAO();
         amiDAO.eliminarPorId(user.getIdPersona(), datosSesion.getUsuarioLogeado().getPersona().getIdPersona());
@@ -142,6 +159,9 @@ public class PerfilVerManagedBean extends AsociateError implements Serializable 
         this.btnAmigo = "Amigos + ";
     }
 
+    /**
+     *
+     */
     public void peticionSocio() {
         socDAO = new SocioDAO();
         Socio socio = new Socio();
@@ -154,88 +174,171 @@ public class PerfilVerManagedBean extends AsociateError implements Serializable 
         btnAsociate = "Pendiente";
     }
 
+    /**
+     *
+     */
     public void peticionBaja() {
         //notificar
         addInfo("Tu petición ha sido enviada, será atendida por el administrador de la asociacion lo mas pronto posible");
         btnAsociate = "Pendiente";
     }
 
+    /**
+     *
+     * @return
+     */
     public Persona getUser() {
         return user;
     }
 
+    /**
+     *
+     * @param user
+     */
     public void setUser(Persona user) {
         this.user = user;
     }
 
+    /**
+     *
+     * @return
+     */
     public Evento getEvento() {
         return evento;
     }
 
+    /**
+     *
+     * @param evento
+     */
     public void setEvento(Evento evento) {
         this.evento = evento;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isDeEvento() {
         return deEvento;
     }
 
+    /**
+     *
+     * @param deEvento
+     */
     public void setDeEvento(boolean deEvento) {
         this.deEvento = deEvento;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isDeBusqueda() {
         return deBusqueda;
     }
 
+    /**
+     *
+     * @param deBusqueda
+     */
     public void setDeBusqueda(boolean deBusqueda) {
         this.deBusqueda = deBusqueda;
     }
 
+    /**
+     *
+     * @return
+     */
     public Asociacion getAsoc() {
         return asoc;
     }
 
+    /**
+     *
+     * @param asoc
+     */
     public void setAsoc(Asociacion asoc) {
         this.asoc = asoc;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getImagen() {
         return imagen;
     }
 
+    /**
+     *
+     * @param imagen
+     */
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isAsociacion() {
         return asociacion;
     }
 
+    /**
+     *
+     * @param asociacion
+     */
     public void setAsociacion(boolean asociacion) {
         this.asociacion = asociacion;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBtnAsociate() {
         return btnAsociate;
     }
 
+    /**
+     *
+     * @param btnAsociate
+     */
     public void setBtnAsociate(String btnAsociate) {
         this.btnAsociate = btnAsociate;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBtnAmigo() {
         return btnAmigo;
     }
 
+    /**
+     *
+     * @param btnAmigo
+     */
     public void setBtnAmigo(String btnAmigo) {
         this.btnAmigo = btnAmigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isAmigos() {
         return amigos;
     }
 
+    /**
+     *
+     * @param amigos
+     */
     public void setAmigos(boolean amigos) {
         this.amigos = amigos;
     }

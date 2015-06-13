@@ -21,6 +21,10 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+/**
+ *
+ * @author Ventura
+ */
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name="mensajeria")
@@ -48,54 +52,105 @@ public class Mensajeria implements Serializable {
     @JoinColumn(name="ID_DESTINO",referencedColumnName="ID_USUARIO")
     private Usuario idDestino;
 
+    /**
+     *
+     */
     public Mensajeria() {
 
     }
    
+    /**
+     *
+     * @return
+     */
     public Long getIdMensaje() {
         return this.idMensaje;
     }
 
+    /**
+     *
+     * @param idMensaje
+     */
     public void setIdMensaje(Long idMensaje) {
         this.idMensaje = idMensaje;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getTexto() {
         return this.texto;
     }
 
+    /**
+     *
+     * @param texto
+     */
     public void setTexto(String texto) {
         this.texto = texto;
     }
    
+    /**
+     *
+     * @return
+     */
     public Usuario getIdOrigen() {
         return this.idOrigen;
     }
 
+    /**
+     *
+     * @param idOrigen
+     */
     public void setIdOrigen(Usuario idOrigen) {
         this.idOrigen = idOrigen;
     }
    
+    /**
+     *
+     * @return
+     */
     public Date getFhenvio() {
         return this.fhenvio;
     }
 
+    /**
+     *
+     * @param fhenvio
+     */
     public void setFhenvio(Date fhenvio) {
         this.fhenvio = fhenvio;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getLeido() {
         return this.leido;
     }
 
+    /**
+     *
+     * @param leido
+     */
     public void setLeido(String leido) {
         this.leido = leido;
     }
    
+    /**
+     *
+     * @return
+     */
     public Usuario getIdDestino() {
         return this.idDestino;
     }
 
+    /**
+     *
+     * @param idDestino
+     */
     public void setIdDestino(Usuario idDestino) {
         this.idDestino = idDestino;
     }

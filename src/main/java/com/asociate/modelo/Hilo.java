@@ -23,6 +23,10 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+/**
+ *
+ * @author Ventura
+ */
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name="hilo")
@@ -55,70 +59,137 @@ public class Hilo implements Serializable {
     @Basic
     private String visibilidad;
 
+    /**
+     *
+     */
     public Hilo() {
 
     }
    
+    /**
+     *
+     * @return
+     */
     public String getTexto() {
         return this.texto;
     }
 
+    /**
+     *
+     * @param texto
+     */
     public void setTexto(String texto) {
         this.texto = texto;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getIcono() {
         return this.icono;
     }
 
+    /**
+     *
+     * @param icono
+     */
     public void setIcono(String icono) {
         this.icono = icono;
     }
    
+    /**
+     *
+     * @return
+     */
     public Subforo getIdSubforo() {
         return this.idSubforo;
     }
 
+    /**
+     *
+     * @param idSubforo
+     */
     public void setIdSubforo(Subforo idSubforo) {
         this.idSubforo = idSubforo;
     }
    
+    /**
+     *
+     * @return
+     */
     public Collection<Post> getPostCollection() {
         return this.postCollection;
     }
 
+    /**
+     *
+     * @param postCollection
+     */
     public void setPostCollection(Collection<Post> postCollection) {
         this.postCollection = postCollection;
     }
    
+    /**
+     *
+     * @return
+     */
     public Date getFhcreacion() {
         return this.fhcreacion;
     }
 
+    /**
+     *
+     * @param fhcreacion
+     */
     public void setFhcreacion(Date fhcreacion) {
         this.fhcreacion = fhcreacion;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return this.nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
    
+    /**
+     *
+     * @return
+     */
     public Integer getIdHilo() {
         return this.idHilo;
     }
 
+    /**
+     *
+     * @param idHilo
+     */
     public void setIdHilo(Integer idHilo) {
         this.idHilo = idHilo;
     }
    
+    /**
+     *
+     * @return
+     */
     public String getVisibilidad() {
         return this.visibilidad;
     }
 
+    /**
+     *
+     * @param visibilidad
+     */
     public void setVisibilidad(String visibilidad) {
         this.visibilidad = visibilidad;
     }

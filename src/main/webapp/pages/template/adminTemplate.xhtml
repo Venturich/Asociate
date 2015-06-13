@@ -63,32 +63,32 @@
             </ui:insert>
         </f:facet>
         <f:facet name="last">
-
+            <h:outputScript library="js" name="prevent.js"/>
         </f:facet>
     </h:head>
-    <h:body>
-        <p:growl globalOnly="true"/>
-        <header class="">
+    <h:body styleClass="bodyAdmin">
+        <p:growl globalOnly="true" id="avisos"/>
+        <ui:insert name="header">
+        <header>
             <div>
-                <ui:insert name="header">
                     <div class="menuAdmin">
                         <h:form>
-                            <p:commandButton action="#{adminGeneralMB.altaAsociacion}" value="Nuevas asociaciones: #{adminGeneralMB.listaAsocPendiente.size()}" immediate="true"></p:commandButton>
-                            <p:commandButton action="#{adminGeneralMB.bloquearUsuarios}" value="Administrar usuarios" immediate="true"></p:commandButton>
-                            <p:commandButton action="#{adminGeneralMB.copiaSeguridad}" value="Backup base de datos" immediate="true"></p:commandButton>
+                            <p:commandButton action="#{adminGeneralMB.altaAsociacion}" value="Nuevas asociaciones: #{adminGeneralMB.listaAsocPendiente.size()}" immediate="true" update="@all"></p:commandButton>
+                            <p:commandButton action="#{adminGeneralMB.bloquearUsuarios}" value="Administrar usuarios" immediate="true" update="@all"></p:commandButton>
+                            <p:commandButton action="#{adminGeneralMB.copiaSeguridad}" value="Backup base de datos" immediate="true" update="@all"></p:commandButton>
                             <p:commandButton action="#{sesionMB.logout()}" value="Cerrar Sesion" immediate="true"></p:commandButton>
                         </h:form>
                     </div>
-                </ui:insert>
             </div>
         </header>
-
+        </ui:insert>
+        <ui:insert name="admin">
         <main>
-            <ui:insert name="admin">
+            
 
-            </ui:insert>
+            
         </main>
-
+        </ui:insert>
         <footer>
             <ui:insert name="footer">
 

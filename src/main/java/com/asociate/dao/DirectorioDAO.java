@@ -15,6 +15,11 @@ import org.hibernate.Session;
  */
 public class DirectorioDAO {
 
+    /**
+     *
+     * @param idAsociacion
+     * @return
+     */
     public boolean hasDirectorioAsociacion(Long idAsociacion) {
           Session sesion = HibernateUtil.getSessionFactory().openSession();
           Directorio dir=null;
@@ -33,6 +38,11 @@ public class DirectorioDAO {
         
     }
 
+    /**
+     *
+     * @param idPersona
+     * @return
+     */
     public boolean hasDirectorioPersona(Long idPersona) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
           Directorio dir=null;
@@ -48,6 +58,25 @@ public class DirectorioDAO {
             sesion.close();
         }
         return dir!=null;
+    }
+
+    /**
+     *
+     * @param dir
+     */
+    public void guardar(Directorio dir) {
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        
+        try {
+            sesion.save(dir);
+            
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        } finally {
+            sesion.flush();
+            sesion.close();
+        }
     }
     
 }

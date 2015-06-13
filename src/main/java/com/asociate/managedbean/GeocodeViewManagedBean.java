@@ -15,6 +15,10 @@ import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
  
+/**
+ *
+ * @author Ventura
+ */
 @ManagedBean(name="geocodeViewMB")
 public class GeocodeViewManagedBean {
      
@@ -22,12 +26,18 @@ public class GeocodeViewManagedBean {
     
     private String centerGeoMap = "38.923436,-6.336959";
     
-     
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         geoModel = new DefaultMapModel();
     }
      
+    /**
+     *
+     * @param event
+     */
     public void onGeocode(GeocodeEvent event) {
         List<GeocodeResult> results = event.getResults();
          
@@ -42,18 +52,34 @@ public class GeocodeViewManagedBean {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public MapModel getGeoModel() {
         return geoModel;
     }
 
+    /**
+     *
+     * @param geoModel
+     */
     public void setGeoModel(MapModel geoModel) {
         this.geoModel = geoModel;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCenterGeoMap() {
         return centerGeoMap;
     }
 
+    /**
+     *
+     * @param centerGeoMap
+     */
     public void setCenterGeoMap(String centerGeoMap) {
         this.centerGeoMap = centerGeoMap;
     }

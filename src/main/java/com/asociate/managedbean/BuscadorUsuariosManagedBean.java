@@ -26,7 +26,7 @@ import javax.faces.context.Flash;
 @ViewScoped
 public class BuscadorUsuariosManagedBean implements Serializable {
 
-    private String goToPerfil = "";
+    private String goToPerfil = "perfilPrincipal";
     private Flash flash;
 
     @ManagedProperty(value = "#{perfilMenuMB}")
@@ -42,6 +42,9 @@ public class BuscadorUsuariosManagedBean implements Serializable {
     public BuscadorUsuariosManagedBean() {
     }
 
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
         flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
@@ -52,6 +55,9 @@ public class BuscadorUsuariosManagedBean implements Serializable {
 
     }
     
+    /**
+     *
+     */
     public void buscar(){
         if(!busqueda.equals("")){
             this.resultado=buscar(busqueda);
@@ -63,6 +69,12 @@ public class BuscadorUsuariosManagedBean implements Serializable {
         return usuDAO.buscarUsuarios(busqueda);
     }
 
+    /**
+     *
+     * @param id
+     * @param asociacion
+     * @return
+     */
     public String irAPerfil(Long id, boolean asociacion) {
         flash.put("asociacion", asociacion);
         if (asociacion) {
@@ -73,20 +85,52 @@ public class BuscadorUsuariosManagedBean implements Serializable {
         return goToPerfil;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Usuario> getResultado() {
         return resultado;
     }
 
+    /**
+     *
+     * @param resultado
+     */
     public void setResultado(List<Usuario> resultado) {
         this.resultado = resultado;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBusqueda() {
         return busqueda;
     }
 
+    /**
+     *
+     * @param busqueda
+     */
     public void setBusqueda(String busqueda) {
         this.busqueda = busqueda;
+    }
+
+    public Flash getFlash() {
+        return flash;
+    }
+
+    public void setFlash(Flash flash) {
+        this.flash = flash;
+    }
+
+    public PerfilMenuManagedBean getPerfilMenu() {
+        return perfilMenu;
+    }
+
+    public void setPerfilMenu(PerfilMenuManagedBean perfilMenu) {
+        this.perfilMenu = perfilMenu;
     }
 
 }

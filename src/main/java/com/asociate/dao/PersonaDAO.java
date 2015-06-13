@@ -17,8 +17,12 @@ import org.hibernate.Transaction;
  */
 public class PersonaDAO {
 
-   
-     public boolean registrar(Persona regPersona) {
+    /**
+     *
+     * @param regPersona
+     * @return
+     */
+    public boolean registrar(Persona regPersona) {
 
         Boolean error = false;
         Transaction transaccion = null;
@@ -50,6 +54,11 @@ public class PersonaDAO {
         return error;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Persona getPersonaById(Long id) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Persona salida=null;

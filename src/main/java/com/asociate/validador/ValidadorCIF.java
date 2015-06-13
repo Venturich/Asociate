@@ -6,6 +6,7 @@
 package com.asociate.validador;
 
 
+import com.asociate.dao.AsociacionDAO;
 import com.asociate.dao.UsuarioDAO;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,18 +21,15 @@ import javax.faces.validator.ValidatorException;
  *
  * @author Ventura
  */
-public class ValidadorEmail implements Validator {
+public class ValidadorCIF implements Validator {
 
-    private final String patron = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-    private Pattern pattern;
-    private Matcher matcher;
+    
     
     /**
      *
      */
-    public ValidadorEmail() {
-        pattern = Pattern.compile(patron);
+    public ValidadorCIF() {
+      
     }
 
     /**
@@ -46,13 +44,9 @@ public class ValidadorEmail implements Validator {
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         String txt = null;
         boolean error = false;
-        if (!formatoEmail(value.toString())) {
+       if (existeCIF(value.toString())) {
             error = true;
-            txt = "Formato de email incorrecto";
-
-        } else if (existeEmail(value.toString())) {
-            error = true;
-            txt = "Email ya registrado";
+            txt = "CIF ya registrado";
         }
         if (error) {
             FacesMessage msg = new FacesMessage(txt);
@@ -61,14 +55,11 @@ public class ValidadorEmail implements Validator {
         }
     }
 
-    private boolean formatoEmail(String value) {
-        matcher= pattern.matcher(value);
-        return matcher.matches();
-    }
+    
 
-    private boolean existeEmail(String value) {
-        UsuarioDAO usdao = new UsuarioDAO();
-        return usdao.comprobarEmail(value);
+    private boolean existeCIF(String value) {
+        AsociacionDAO usdao = new AsociacionDAO();
+        return usdao.comprobarCIF(value);
         
     }
 }

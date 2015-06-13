@@ -7,6 +7,7 @@ package com.asociate.managedbean;
 
 import com.asociate.modelo.Notificacion;
 import com.asociate.modelo.Usuario;
+import com.asociate.utils.Archivos;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,6 +23,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -34,6 +38,7 @@ import org.primefaces.model.UploadedFile;
 public class DatosSesion extends AsociateError implements Serializable {
 
     private Flash flash;
+    private Log logger = LogFactory.getLog(this.getClass().getName());
 
     private Usuario usuarioLogeado;
     private List<Notificacion> notificaciones;
@@ -52,44 +57,38 @@ public class DatosSesion extends AsociateError implements Serializable {
      */
     @PostConstruct
     public void init() {
-
+        flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
         esAsociacion = false;
     }
 
     /**
      *
-     * @param event
      */
     public void subirFotoPerfil() {
         try {
             String ficheroSalida;
-            String urlFotos;
-            //this.urlFotos = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/images/productos");
-
-            urlFotos = "D:/ASOCIATE/usuario/" + usuarioLogeado.getIdUsuario();
-            ficheroSalida = "\\perfil.jpg";
-
-            //String prFoto = fPerfil.getFileName().substring(0, fPerfil.getFileName().lastIndexOf("."));
+            String urlFotos = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/usuarios/"+ this.usuarioLogeado.getIdUsuario());
+            //String urlFotos = "D:/ASOCIATE/usuarios/" + this.usuarioLogeado.getIdUsuario();
+            String prFoto = //event.getFile().getFileName().substring(0, event.getFile().getFileName().lastIndexOf("."));
+                    "perfil";
+            ficheroSalida = "\\" + prFoto + ".jpg";
+            Archivos.comprobarCarpetaUsuario(this.usuarioLogeado.getIdUsuario());
             File targetFolder = new File(urlFotos);
+            logger.info("El prFoto;" + targetFolder.getAbsolutePath() + " y el ficheroSalida;" + ficheroSalida + " lo subido" + fPerfil.getFileName());
             InputStream inputStream = fPerfil.getInputstream();
             OutputStream out = new FileOutputStream(new File(targetFolder, ficheroSalida));
-            int read = 0;
-            byte[] bytes = new byte[1024];
-            while ((read = inputStream.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-            inputStream.close();
-            out.flush();
-            out.close();
-            //if (esAsociacion) {
-            //  this.usuarioLogeado.getAsociacion().setLogo();
-            //} 
+            IOUtils.copy(inputStream, out);
+            IOUtils.closeQuietly(inputStream);
+            IOUtils.closeQuietly(out);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     *
+     */
     public void logout() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
@@ -100,7 +99,7 @@ public class DatosSesion extends AsociateError implements Serializable {
         String contextPath = origRequest.getContextPath();
         try {
             FacesContext.getCurrentInstance().getExternalContext()
-                    .redirect(contextPath + "/index.xhtml");
+                    .redirect(contextPath + "/faces/index.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -154,12 +153,28 @@ public class DatosSesion extends AsociateError implements Serializable {
         this.esAsociacion = esAsociacion;
     }
 
+    /**
+     *
+     * @return
+     */
     public Usuario getUsuarioLogeado() {
         return usuarioLogeado;
     }
 
+    /**
+     *
+     * @param usuarioLogeado
+     */
     public void setUsuarioLogeado(Usuario usuarioLogeado) {
         this.usuarioLogeado = usuarioLogeado;
+    }
+
+    public UploadedFile getfPerfil() {
+        return fPerfil;
+    }
+
+    public void setfPerfil(UploadedFile fPerfil) {
+        this.fPerfil = fPerfil;
     }
 
 }
