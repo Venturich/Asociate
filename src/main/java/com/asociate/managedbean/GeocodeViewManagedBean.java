@@ -7,6 +7,7 @@ package com.asociate.managedbean;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import org.primefaces.event.map.GeocodeEvent;
 import org.primefaces.event.map.ReverseGeocodeEvent;
 import org.primefaces.model.map.DefaultMapModel;
@@ -20,6 +21,7 @@ import org.primefaces.model.map.Marker;
  * @author Ventura
  */
 @ManagedBean(name="geocodeViewMB")
+@ViewScoped
 public class GeocodeViewManagedBean {
      
     private MapModel geoModel;

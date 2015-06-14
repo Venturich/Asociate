@@ -25,29 +25,23 @@ public class EventoDAO {
      * @param nuevo
      * @return
      */
-    public Boolean guardarNuevoEvento(Evento nuevo) {
-         Boolean error = false;
-        Transaction transaccion = null;
+    public Long guardarNuevoEvento(Evento nuevo) {
+        Long error = 0L;
+        
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         try {
-            transaccion = sesion.beginTransaction();
-            sesion.save(nuevo);
-            transaccion.commit();
+        
+            error =(Long) sesion.save(nuevo);
+        
         } catch (JDBCException c) {
             c.printStackTrace();
-            error = true;
-            if (transaccion
-                    != null) {
-                transaccion.rollback();
-            }
+            error = -1L;
+        
 
         } catch (Exception e) {
             e.printStackTrace();
-            error = true;
-            if (transaccion
-                    != null) {
-                transaccion.rollback();
-            }
+            error = -1L;
+        
         } finally {
             sesion.flush();
             sesion.close();
@@ -93,7 +87,7 @@ public class EventoDAO {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         List<Evento> salida=new ArrayList();
         try {
-            Query qu = sesion.createQuery("Select E from Evento E where E.eventoAsistentesCollection.persona.idPersona = :id order by E.fhinicio desc");
+            Query qu = sesion.createQuery("Select E from Evento E join fetch E.eventoAsistentesCollection EA where EA.idPersona = :id order by E.fhinicio desc");
             qu.setParameter("id", idPersona);
             salida= qu.list();
         } catch (JDBCException c) {
@@ -121,7 +115,7 @@ public class EventoDAO {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         List<Evento> salida=new ArrayList();
         try {
-            Query qu = sesion.createQuery("Select E from Evento E where E.eventoAsistentesCollection.idCreador.idUsuario = :id order by E.fhinicio asc");
+            Query qu = sesion.createQuery("Select E from Evento E where E.idCreador.idUsuario = :id order by E.fhinicio asc");
             qu.setParameter("id", idUsuario);
             salida= qu.list();
         } catch (JDBCException c) {

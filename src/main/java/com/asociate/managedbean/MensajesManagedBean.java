@@ -98,6 +98,10 @@ public class MensajesManagedBean extends AsociateError implements Serializable {
         mensajeNuevo.setLeido("N");
     }
 
+    /**
+     *
+     * @param idMensaje
+     */
     public void leerMensaje(Long idMensaje) {
         menDAO = new MensajeriaDAO();
         for (Mensajeria mp : mensajesPendientes) {
@@ -112,6 +116,10 @@ public class MensajesManagedBean extends AsociateError implements Serializable {
         }
     }
     
+    /**
+     *
+     * @param idMensaje
+     */
     public void leerMensajeHistorico(Long idMensaje) {
         
         for (Mensajeria mp : mensajesHistorico) {
@@ -259,18 +267,34 @@ public class MensajesManagedBean extends AsociateError implements Serializable {
         this.idDestinoNuevo = idDestinoNuevo;
     }
 
+    /**
+     *
+     * @return
+     */
     public DatosSesion getDatosSesion() {
         return datosSesion;
     }
 
+    /**
+     *
+     * @param datosSesion
+     */
     public void setDatosSesion(DatosSesion datosSesion) {
         this.datosSesion = datosSesion;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Usuario> getBusquedaContacto() {
         return busquedaContacto;
     }
 
+    /**
+     *
+     * @param busquedaContacto
+     */
     public void setBusquedaContacto(List<Usuario> busquedaContacto) {
         this.busquedaContacto = busquedaContacto;
     }

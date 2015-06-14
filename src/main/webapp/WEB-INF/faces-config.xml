@@ -124,6 +124,10 @@
             <from-outcome>index</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>mensajes</from-outcome>
+            <to-view-id>/pages/web/perfil/mensaje/mensajes.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/pages/web/perfil/directorio.xhtml</from-view-id>
@@ -143,6 +147,10 @@
             <from-outcome>index</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>mensajes</from-outcome>
+            <to-view-id>/pages/web/perfil/mensaje/mensajes.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/pages/web/perfil/perfil.xhtml</from-view-id>
@@ -157,6 +165,10 @@
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>mensajes</from-outcome>
+            <to-view-id>/pages/web/perfil/mensaje/mensajes.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -177,6 +189,10 @@
             <from-outcome>index</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>mensajes</from-outcome>
+            <to-view-id>/pages/web/perfil/mensaje/mensajes.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/pages/web/evento/nuevoEvento.xhtml</from-view-id>
@@ -195,6 +211,10 @@
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>mensajes</from-outcome>
+            <to-view-id>/pages/web/perfil/mensaje/mensajes.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -215,6 +235,10 @@
             <from-outcome>index</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>mensajes</from-outcome>
+            <to-view-id>/pages/web/perfil/mensaje/mensajes.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/pages/web/perfil/mensaje/mensajes.xhtml</from-view-id>
@@ -229,6 +253,10 @@
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>mensajes</from-outcome>
+            <to-view-id>/pages/web/perfil/mensaje/mensajes.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -252,6 +280,10 @@
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>mensajes</from-outcome>
+            <to-view-id>/pages/web/perfil/mensaje/mensajes.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -316,6 +348,13 @@
         <navigation-case>
             <from-outcome>altaAsociacion</from-outcome>
             <to-view-id>/pages/web/admin/altaAsociacion.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/pages/error/error.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

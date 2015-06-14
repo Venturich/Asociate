@@ -100,9 +100,10 @@ public class AdminGeneralManagedBean extends AsociateError implements Serializab
     /**
      *
      * @param cif
+     * @throws java.io.FileNotFoundException
      */
     public void descargarComprobante(String cif) throws FileNotFoundException {
-        File file= new File("D:/ASOCIATE/comprobante/" + cif + ".jpg");
+        File file= new File("/home/daw/ASOCIATE/comprobante/" + cif + ".jpg");
         InputStream stream = new FileInputStream(file);
         //InputStream stream = ((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext()).getResourceAsStream("D:/ASOCIATE/comprobante/" + cif + ".jpg");
         descarga = new DefaultStreamedContent(stream, "image/jpg", "comprobante_" + cif + ".jpg");
@@ -186,34 +187,66 @@ public class AdminGeneralManagedBean extends AsociateError implements Serializab
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public DatosSesion getDatosSesion() {
         return datosSesion;
     }
 
+    /**
+     *
+     * @param datosSesion
+     */
     public void setDatosSesion(DatosSesion datosSesion) {
         this.datosSesion = datosSesion;
     }
 
+    /**
+     *
+     * @return
+     */
     public StreamedContent getDescarga() {
         return descarga;
     }
 
+    /**
+     *
+     * @param descarga
+     */
     public void setDescarga(StreamedContent descarga) {
         this.descarga = descarga;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Asociacion> getListaAsocPendiente() {
         return listaAsocPendiente;
     }
 
+    /**
+     *
+     * @param listaAsocPendiente
+     */
     public void setListaAsocPendiente(List<Asociacion> listaAsocPendiente) {
         this.listaAsocPendiente = listaAsocPendiente;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Usuario> getListaUsuarios() {
         return listaUsuarios;
     }
 
+    /**
+     *
+     * @param listaUsuarios
+     */
     public void setListaUsuarios(List<Usuario> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
     }

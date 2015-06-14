@@ -13,31 +13,32 @@
 
             </ui:define>
             <ui:define name="bodycenter">
-                <h:form>
-                    <p:panelGrid columns="2">
-                    <p:inputText validator="#{buscadorUsuariosMB.busqueda}" required="true"/>
-                    <p:commandButton actionListener="#{buscadorUsuariosMB.buscar()}" update="@form" process="@this"/>
-                    </p:panelGrid>
+                <div class="center w80">
+                    <h:form>
+                        <div class="center block margenTB">
+                            <p:panelGrid columns="2">
+                                <p:inputText value="#{buscadorUsuariosMB.busqueda}" required="true"/>
+                                <p:commandButton actionListener="#{buscadorUsuariosMB.buscar()}" update="@form" process="@this" icon="fa fa-search"/>
+                            </p:panelGrid>
+                        </div>
 
-                    <p:dataList value="#{buscadorUsuariosMB.resultado}" var="res" emptyMessage="No se han encontrado resultados...">
-                        <c:if test="#{res.asociacion eq  null}">
-                            <p:commandLink action="#{buscadorUsuariosMB.irAPerfil(res.persona.idPersona,false)}">
-                                <h:outputText value="#{res.persona.nombre} #{res.persona.apellidop}"/>
-                                <f:facet name="description">
-                                    <p:graphicImage value="D:ASOCIATE/usuario/#{res.idUsuario}/perfil.jpg"/> 
-                                </f:facet>
-                            </p:commandLink>
-                        </c:if>
-                        <c:if test="#{res.asociacion ne null}">
-                            <p:commandLink action="#{buscadorUsuariosMB.irAPerfil(res.asociacion.idAsociacion,true)}" immediate="true">
-                                <h:outputText value="#{res.persona.nombre} #{res.persona.apellidop}"/>
-                                <f:facet name="description">
-                                    <p:graphicImage value="D:ASOCIATE/usuario/#{res.idUsuario}/perfil.jpg"/> 
-                                </f:facet>
-                            </p:commandLink>
-                        </c:if>
-                    </p:dataList>
-                </h:form>
+
+                        <p:dataList value="#{buscadorUsuariosMB.resultado}" var="res" emptyMessage="No se han encontrado resultados...">
+                            <p:panel rendered="#{res.asociacion eq  null}">
+                                <p:commandLink action="#{buscadorUsuariosMB.irAPerfil(res.persona.idPersona,false)}">
+                                    <p:graphicImage library="usuarios/#{res.idUsuario}" name="perfil.jpg"  style="max-height: 50px" alt="Imagen" /> 
+                                    <h:outputText value="#{res.persona.nombre} #{res.persona.apellidop} #{res.persona.apellidom}" />
+                                </p:commandLink>
+                            </p:panel>
+                            <p:panel rendered="#{res.asociacion ne null}">
+                                <p:commandLink action="#{buscadorUsuariosMB.irAPerfil(res.asociacion.idAsociacion,true)}" immediate="true">
+                                    <p:graphicImage library="usuarios/#{res.idUsuario}" name="perfil.jpg" style="max-height: 50px" alt="Imagen"/>
+                                    <h:outputText value="#{res.asociacion.razonsocial} #{res.asociacion.email}"/>
+                                </p:commandLink>
+                            </p:panel>
+                        </p:dataList>
+                    </h:form>
+                </div>
             </ui:define>
             <ui:define name="bodyright">
 

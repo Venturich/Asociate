@@ -41,25 +41,25 @@
                                 <p><h:outputText value='#{msg.cabAsoc}'/></p>
                                 <p:panelGrid columns="3">
 
-                                    <h:outputLabel for='deno' value="#{msg.denominacion}">
+                                    <h:outputLabel for='deno' value="#{msg.denominacion} *">
                                     </h:outputLabel>
                                     <p:inputText label="Denominación" id='deno' value='#{accesoMB.regAsoc.razonsocial}' required="true" requiredMessage="#{msg.campoReq}" maxlength="300">
                                     </p:inputText>
                                     <p:message for="deno"  ></p:message>
-                                    <h:outputLabel for='cif' value='#{msg.CIF}'>
+                                    <h:outputLabel for='cif' value='#{msg.CIF} *'>
                                     </h:outputLabel>
                                     <p:inputText label="CIF" id='cif' value='#{accesoMB.regAsoc.cif}' required="true" maxlength="9" validator="validadorCIF">
                                         <f:validateRegex pattern="([G]\d{7}[a-jA-J0-9]{1}$)?"/>
                                     </p:inputText>
                                     <p:message for="cif"  ></p:message>
-                                    <h:outputLabel for='tipo' value="#{msg.ambito}">
+                                    <h:outputLabel for='tipo' value="#{msg.ambito} *">
                                     </h:outputLabel>
                                     <p:selectOneMenu id="tipo" required="true" value='#{accesoMB.regAsoc.ambito}'  >
                                         <f:selectItems value="#{accesoMB.ambitos}" var="amb" itemValue="#{amb.valor}" itemLabel="#{amb}" noSelectionValue="O">
                                         </f:selectItems>
                                     </p:selectOneMenu>
                                     <p:message for="tipo"  ></p:message>
-                                    <h:outputLabel for='emailAsoc' value='#{msg.email}'>
+                                    <h:outputLabel for='emailAsoc' value='#{msg.email} *'>
                                     </h:outputLabel>
                                     <p:inputText label="Email" id='emailAsoc' value='#{accesoMB.regAsoc.email}' required="true" maxlength="150">
                                         <f:validator validatorId="validadorEmail"/>
@@ -71,17 +71,17 @@
                                 <p><h:outputText value='#{msg.cabAcceso}'/></p>
                                 <p:panelGrid columns="3">
                                     
-                                        <h:outputLabel for='emailAcc' value="#{msg.emAc}">
+                                        <h:outputLabel for='emailAcc' value="#{msg.emAc} *">
                                         </h:outputLabel>
                                         <p:inputText id='emailAcc' value='#{accesoMB.regUser.login}' required="true" requiredMessage="#{msg.campoReq}" placeholder="Email" maxlength="150">
                                             <f:validator validatorId="validadorEmail"/>
                                         </p:inputText>
                                         <p:message for="emailAcc"  ></p:message>
-                                        <h:outputLabel for='pass' value='#{msg.pass}'>
+                                        <h:outputLabel for='pass' value='#{msg.pass} *'>
                                         </h:outputLabel>
                                         <p:password  id='pass' value='#{accesoMB.regUser.password}' required="true" requiredMessage="#{msg.campoReq}" match="reppass"  feedback="true" weakLabel="#{msg.pDebil}" strongLabel="#{msg.pFuerte}" goodLabel="#{msg.pBuena}" label="#{msg.pass}" maxlength="20" promptLabel="Introduce la contraseña"/>
                                         <p:message for="pass"   ></p:message>
-                                        <h:outputLabel for='reppass' value="#{msg.cpass}">
+                                        <h:outputLabel for='reppass' value="#{msg.cpass} *">
                                         </h:outputLabel>
                                         <p:password  id='reppass' value='#{accesoMB.password}' required="true" requiredMessage="#{msg.campoReq}" label="Confirmar"/> 
                                         <p:message for="reppass"  ></p:message>
@@ -118,12 +118,12 @@
                                 <p><h:outputText value='#{msg.cabPersona}'/></p>
                                 <p:panelGrid columns="3">
 
-                                    <h:outputLabel for='nombre' value="#{msg.nombre}">
+                                    <h:outputLabel for='nombre' value="#{msg.nombre} *">
                                     </h:outputLabel>
                                     <p:inputText id='nombre' value='#{accesoMB.regPersona.nombre}' required="true" requiredMessage="#{msg.campoReq}" maxlength="100">
                                     </p:inputText>
                                     <p:message for="nombre"  ></p:message>
-                                    <h:outputLabel for='apellidop' value='#{msg.apellidop}'>
+                                    <h:outputLabel for='apellidop' value='#{msg.apellidop} *'>
                                     </h:outputLabel>
                                     <p:inputText id='apellidop' value='#{accesoMB.regPersona.apellidop}' required="true" maxlength="9" requiredMessage="#{msg.campoReq}">
                                     </p:inputText>
@@ -133,13 +133,13 @@
                                     <p:inputText id='apellidom' value='#{accesoMB.regPersona.apellidom}' maxlength="9">
                                     </p:inputText>
                                     <p:message for="apellidom"  ></p:message>
-                                    <h:outputLabel for='pais' value="#{msg.pais}">
+                                    <h:outputLabel for='pais' value="#{msg.pais} *">
                                     </h:outputLabel>
                                     <p:selectOneMenu id="pais" required="true" requiredMessage="#{msg.campoReq}" value="#{accesoMB.pais}">
                                         <f:selectItems itemLabel="#{pai.nombre}" itemValue="#{pai.codigo}" value="#{accesoMB.paises}" var="pai"/>
                                     </p:selectOneMenu>
                                     <p:message for="pais"  ></p:message>
-                                    <h:outputLabel for='provincia' value="#{msg.provincia}">
+                                    <h:outputLabel for='provincia' value="#{msg.provincia} *">
                                     </h:outputLabel>
                                     <p:selectOneMenu  id="provincia" value="#{accesoMB.provincia}">
                                         <f:selectItems   value="#{accesoMB.provincias}" var="pr" itemValue="#{pr.codigo}" itemLabel="#{pr.nombre}" ></f:selectItems>
@@ -150,17 +150,17 @@
                             <div>
                                 <p><h:outputText value='#{msg.cabAcceso}'/></p>
                                 <p:panelGrid columns="3">  
-                                    <h:outputLabel for='emailAcc' value='#{msg.email}'>
+                                    <h:outputLabel for='emailAcc' value='#{msg.email} *'>
                                     </h:outputLabel>
                                     <p:inputText id='emailAcc' value='#{accesoMB.regUser.login}' required="true" requiredMessage="#{msg.campoReq}" placeholder="Email" maxlength="150">
                                         <f:validator validatorId="validadorEmail"/>
                                     </p:inputText>
                                     <p:message for="emailAcc"  ></p:message>
-                                    <h:outputLabel for='pass' value='#{msg.pass}'>
+                                    <h:outputLabel for='pass' value='#{msg.pass} *'>
                                     </h:outputLabel>
                                     <p:password  id='pass' value='#{accesoMB.regUser.password}' required="true" requiredMessage="#{msg.campoReq}"  match="reppass" feedback="true" weakLabel="#{msg.pDebil}" strongLabel="#{msg.pFuerte}" goodLabel="#{msg.pBuena}" maxlength="20"/>
                                     <p:message for="pass"  ></p:message>
-                                    <h:outputLabel for='reppass' value="#{msg.cpass}">
+                                    <h:outputLabel for='reppass' value="#{msg.cpass} *">
                                     </h:outputLabel>
                                     <p:password  id='reppass' value='#{accesoMB.password}' required="true" requiredMessage="#{msg.campoReq}" /> 
                                     <p:message for="reppass"  ></p:message>

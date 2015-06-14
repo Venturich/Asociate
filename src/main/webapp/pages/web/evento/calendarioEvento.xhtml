@@ -15,28 +15,32 @@ and open the template in the editor.
         <ui:composition  template="../../template/template.xhtml">
             <ui:define name="bodyleft">
                 <div class="info">
-                    
+
                 </div>
             </ui:define>
             <ui:define name="bodycenter">
-                <div class="calendario">
-                    <p:dataGrid value="#{eventoCalendarioMB.listaEvento}" var="evento" columns="1" layout="grid" rows="8" lazy="true" emptyMessage="No hay eventos" 
+                <div class="w80 center margenTB">
+                    <h:form>
+                    <p:dataGrid value="#{eventoCalendarioMB.listaEvento}" var="evento" columns="3" layout="grid" rows="8" lazy="true" emptyMessage="No hay eventos" 
                                 rowsPerPageTemplate="4,8,16" paginatorAlwaysVisible="false" paginator="true" paginatorPosition="bottom">
                         <p:panel header="#{evento.titulo}">
                             <h:panelGrid columns="1">
-                                <p:graphicImage value="D:/ASOCIATE/evento/#{evento.imagen}"/>
-                                <h:outputText value="#{evento.fhinicio}">
-                                    <f:convertDateTime parent="dd/MM/yyyy"/>
-                                </h:outputText>
-                                <p:commandButton value="Detalles" action="#{eventoCalendarioMB.irAEvento(evento.idEvento)}"/>
+                                <p:graphicImage name="#{evento.imagen}" library="eventos" styleClass="imgEventoCalendario"/>
+                                <p>
+                                    <h:outputText value="Fecha: #{evento.fhinicio}">
+                                        <f:convertDateTime parent="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </p>
+                                <p:commandButton value="Detalles" action="#{eventoCalendarioMB.irAEvento(evento.idEvento)}" styleClass="botonAncho"/>
                             </h:panelGrid>
                         </p:panel>
                     </p:dataGrid>
+                    </h:form>
                 </div>
             </ui:define>
             <ui:define name="bodyright">
                 <div class="banner">
-                    
+
                 </div>
             </ui:define>
         </ui:composition>

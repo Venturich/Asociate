@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -127,6 +128,27 @@ public class NotificacionDAO {
             Query qu = sesion.createQuery("Update Notificacion N set N.visto=1 where N.idNotificacion=:id")
                     .setParameter("id", idNotificacion);
             qu.executeUpdate();
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        } finally {
+            sesion.flush();
+            sesion.close();
+        }
+    }
+    
+    /**
+     *
+     * @param lista
+     */
+    public void guardarListaNotificaciones(List<Notificacion> lista){
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            Transaction tx = sesion.beginTransaction();
+                for(int i=0; i<lista.size();i++){
+                    sesion.save(lista.get(i));
+                }
 
         } catch (RuntimeException e) {
             e.printStackTrace();

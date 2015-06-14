@@ -1,6 +1,5 @@
 package com.asociate.modelo;
 
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -26,70 +25,71 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Table(name="usuario")
+@Table(name = "usuario")
 public class Usuario implements Serializable {
 
-    @Column(name="TIPO",table="usuario",nullable=false)
+    @Column(name = "TIPO", table = "usuario", nullable = false)
     @Basic
     private String tipo;
-    
-    @OneToOne(targetEntity = Persona.class,mappedBy = "idUsuario", fetch = FetchType.LAZY)
+
+    @OneToOne(targetEntity = Persona.class, mappedBy = "idUsuario", fetch = FetchType.LAZY)
     private Persona persona;
-    
-    @Column(name="ID_USUARIO",table="usuario",nullable=false)
+
+    @Column(name = "ID_USUARIO", table = "usuario", nullable = false)
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idUsuario;
-    
-    @Column(name="BLOQUEADO",table="usuario",nullable=false)
+
+    @Column(name = "BLOQUEADO", table = "usuario", nullable = false)
     @Basic
     private String bloqueado;
-    
-    @OneToMany(targetEntity = Mensajeria.class,mappedBy = "idDestino",fetch = FetchType.LAZY)
+
+    @OneToMany(targetEntity = Mensajeria.class, mappedBy = "idDestino", fetch = FetchType.LAZY)
     private Collection<Mensajeria> mensajeriaCollection;
-    
-    @Column(name="LOGIN",table="usuario",nullable=false,length=150,unique = true)
+
+    @Column(name = "LOGIN", table = "usuario", nullable = false, length = 150, unique = true)
     @Basic
     private String login;
-    
-    @Column(name="FHALTA",table="usuario")
+
+    @Column(name = "FHALTA", table = "usuario")
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fhalta;
-    
-    @OneToMany(targetEntity = Mensajeria.class,mappedBy = "idOrigen", fetch = FetchType.LAZY)
+
+    @OneToMany(targetEntity = Mensajeria.class, mappedBy = "idOrigen", fetch = FetchType.LAZY)
     private Collection<Mensajeria> mensajeriaCollection1;
-    
-    @Column(name="PASSWORD",table="usuario",nullable=false)
+
+    @Column(name = "PASSWORD", table = "usuario", nullable = false)
     @Lob
     @Basic
     private String password;
-    
-    @OneToMany(targetEntity = Post.class,mappedBy = "autor",fetch = FetchType.LAZY)
+
+    @OneToMany(targetEntity = Post.class, mappedBy = "autor", fetch = FetchType.LAZY)
     private Collection<Post> postCollection;
-    
-    @OneToMany(targetEntity = Notificacion.class,mappedBy = "idUsuario", fetch = FetchType.EAGER)
+
+    @OneToMany(targetEntity = Notificacion.class, mappedBy = "idUsuario", fetch = FetchType.EAGER)
     private Collection<Notificacion> notificacionCollection;
-    
-    @Column(name="CONFIRMADO",table="usuario",nullable=false)
+
+   
+    @Column(name = "CONFIRMADO", table = "usuario", nullable = false)
     @Basic
     private String confirmado;
-    
-    @OneToOne(targetEntity = Asociacion.class,mappedBy = "idUsuario", fetch = FetchType.LAZY)
+
+    @OneToOne(targetEntity = Asociacion.class, mappedBy = "idUsuario", fetch = FetchType.LAZY)
     private Asociacion asociacion;
-    
-    @Column(name="FHULTIMACONEXION",table="usuario",nullable=false)
+
+    @Column(name = "FHULTIMACONEXION", table = "usuario", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @Basic
     private Date fhultimaconexion;
-    
-    @OneToMany(targetEntity = Notificacion.class,mappedBy = "idUsuarioOrigen", fetch = FetchType.LAZY)
+
+    @OneToMany(targetEntity = Notificacion.class, mappedBy = "idUsuarioOrigen", fetch = FetchType.LAZY)
     private Collection<Notificacion> notificacionesPropias;
-    
-    @OneToMany(targetEntity = Comentario.class,mappedBy = "idAutor", fetch = FetchType.LAZY)
+
+    @OneToMany(targetEntity = Comentario.class, mappedBy = "idAutor", fetch = FetchType.LAZY)
     private Collection<Comentario> comentarioCollection;
-    
-    @OneToMany(targetEntity = Evento.class,mappedBy = "idCreador",fetch = FetchType.LAZY)
+
+    @OneToMany(targetEntity = Evento.class, mappedBy = "idCreador", fetch = FetchType.LAZY)
     private Collection<Evento> eventoCollection;
 
     /**
@@ -98,7 +98,7 @@ public class Usuario implements Serializable {
     public Usuario() {
 
     }
-   
+
     /**
      *
      * @return
@@ -114,7 +114,7 @@ public class Usuario implements Serializable {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-   
+
     /**
      *
      * @return
@@ -130,7 +130,7 @@ public class Usuario implements Serializable {
     public void setPersona(Persona persona) {
         this.persona = persona;
     }
-   
+
     /**
      *
      * @return
@@ -146,7 +146,7 @@ public class Usuario implements Serializable {
     public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
-   
+
     /**
      *
      * @return
@@ -162,7 +162,7 @@ public class Usuario implements Serializable {
     public void setBloqueado(String bloqueado) {
         this.bloqueado = bloqueado;
     }
-   
+
     /**
      *
      * @return
@@ -178,7 +178,7 @@ public class Usuario implements Serializable {
     public void setMensajeriaCollection(Collection<Mensajeria> mensajeriaCollection) {
         this.mensajeriaCollection = mensajeriaCollection;
     }
-   
+
     /**
      *
      * @return
@@ -194,7 +194,7 @@ public class Usuario implements Serializable {
     public void setLogin(String login) {
         this.login = login;
     }
-   
+
     /**
      *
      * @return
@@ -210,7 +210,7 @@ public class Usuario implements Serializable {
     public void setFhalta(Date fhalta) {
         this.fhalta = fhalta;
     }
-   
+
     /**
      *
      * @return
@@ -226,12 +226,12 @@ public class Usuario implements Serializable {
     public void setMensajeriaCollection1(Collection<Mensajeria> mensajeriaCollection1) {
         this.mensajeriaCollection1 = mensajeriaCollection1;
     }
-   
+
     /**
      *
      * @return
      */
-    public  String getPassword() {
+    public String getPassword() {
         return this.password;
     }
 
@@ -242,7 +242,7 @@ public class Usuario implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-   
+
     /**
      *
      * @return
@@ -258,7 +258,7 @@ public class Usuario implements Serializable {
     public void setPostCollection(Collection<Post> postCollection) {
         this.postCollection = postCollection;
     }
-   
+
     /**
      *
      * @return
@@ -274,7 +274,7 @@ public class Usuario implements Serializable {
     public void setNotificacionCollection(Collection<Notificacion> notificacionCollection) {
         this.notificacionCollection = notificacionCollection;
     }
-   
+
     /**
      *
      * @return
@@ -290,7 +290,7 @@ public class Usuario implements Serializable {
     public void setConfirmado(String confirmado) {
         this.confirmado = confirmado;
     }
-   
+
     /**
      *
      * @return
@@ -306,7 +306,7 @@ public class Usuario implements Serializable {
     public void setAsociacion(Asociacion asociacion) {
         this.asociacion = asociacion;
     }
-   
+
     /**
      *
      * @return
@@ -322,7 +322,7 @@ public class Usuario implements Serializable {
     public void setFhultimaconexion(Date fhultimaconexion) {
         this.fhultimaconexion = fhultimaconexion;
     }
-   
+
     /**
      *
      * @return
@@ -338,7 +338,7 @@ public class Usuario implements Serializable {
     public void setNotificacionesPropias(Collection<Notificacion> notificacionCollection1) {
         this.notificacionesPropias = notificacionCollection1;
     }
-   
+
     /**
      *
      * @return
@@ -354,7 +354,7 @@ public class Usuario implements Serializable {
     public void setComentarioCollection(Collection<Comentario> comentarioCollection) {
         this.comentarioCollection = comentarioCollection;
     }
-   
+
     /**
      *
      * @return
@@ -370,4 +370,7 @@ public class Usuario implements Serializable {
     public void setEventoCollection(Collection<Evento> eventoCollection) {
         this.eventoCollection = eventoCollection;
     }
+
+
+    
 }

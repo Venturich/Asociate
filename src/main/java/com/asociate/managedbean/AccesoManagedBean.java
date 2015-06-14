@@ -227,7 +227,7 @@ public class AccesoManagedBean extends AsociateError implements Serializable {
         } else if (aux != null && "U".equals(aux.getTipo())) {
             logger.info("Login de usuario");
             this.flash.put("User", aux);
-            this.datosSesion.setEsAsociacion(false);
+            this.datosSesion.setEsAsociacion(false);            
             return goToPerfil;
         } else if (aux != null && "S".equals(aux.getTipo())) {
             logger.info("Login de asociacion");

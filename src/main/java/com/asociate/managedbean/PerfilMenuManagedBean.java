@@ -220,10 +220,18 @@ public class PerfilMenuManagedBean extends AsociateError implements Serializable
         this.menuNotificaciones = menuNotificaciones;
     }
 
+    /**
+     *
+     * @return
+     */
     public DatosSesion getDatosSesion() {
         return datosSesion;
     }
 
+    /**
+     *
+     * @param datosSesion
+     */
     public void setDatosSesion(DatosSesion datosSesion) {
         this.datosSesion = datosSesion;
     }

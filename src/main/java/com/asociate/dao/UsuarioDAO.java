@@ -5,6 +5,7 @@
  */
 package com.asociate.dao;
 
+import com.asociate.modelo.Amistad;
 import com.asociate.modelo.Usuario;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,9 @@ import org.hibernate.Session;
  * @author Ventura
  */
 public class UsuarioDAO {
-       private Log logger = LogFactory.getLog(this.getClass().getName());
+
+    private Log logger = LogFactory.getLog(this.getClass().getName());
+
     /**
      * Comprueba que un email no esté en la base de datos
      *
@@ -37,7 +40,7 @@ public class UsuarioDAO {
         }
         sesion.flush();
         sesion.close();
-        logger.info("fin comprobar "+ existe);
+        logger.info("fin comprobar " + existe);
         return existe;
     }
 
@@ -144,10 +147,11 @@ public class UsuarioDAO {
                     + "join amistad A on A.id_amigo=U.id_usuario"
                     + " where A.id_origen = :idUsuario  and "
                     + "A.id_amigo in("
-                    + "(Select P.id_usuario from persona P where nombre like '%:query%' or apellidop like '%:query%') union "
-                    + "(Select S.id_usuario from asociacion S where razonsocial like '%:query%' )"
+                    + "(Select P.id_usuario from persona P where lower(nombre) like lower('%" + query + "%') "
+                    + " or lower(apellidop) like lower('%" + query + "%')) union "
+                    + "(Select S.id_usuario from asociacion S where lower(razonsocial) like lower('%" + query + "%') )"
                     + ")");
-            qu.setParameter("query", query).setParameter("query", query).setParameter("query", query);
+            qu.setParameter("idUsuario", idUsuario);
             salida = qu.list();
 
         } catch (RuntimeException e) {
@@ -167,10 +171,17 @@ public class UsuarioDAO {
     public List<Usuario> buscarUsuarios(String busqueda) {
         List<Usuario> salida = new ArrayList();
         Session sesion = HibernateUtil.getSessionFactory().openSession();
-        
+
         try {
-            Query qu = sesion.createQuery("Select U from Usuario U where U.asociacion.razonsocial like '%:query%' or U.persona.nombre like '%"+busqueda+"%' or U.persona.apellidop like '%"+busqueda+"%' or U.persona.apellidom like '%"+busqueda+"%' ");
-                    
+            Query qu = sesion.createQuery("Select U from Usuario U join fetch U.persona P"
+                    + " where ("
+                    //+ " lower(A.razonsocial) like lower('%"+busqueda+"%') or "
+                    + " lower(P.nombre) like lower('%" + busqueda + "%') or "
+                    + " lower(P.apellidop) like lower('%" + busqueda + "%') or "
+                    + " lower(P.alias) like lower('%" + busqueda + "%') or "
+                    + " lower(P.apellidom) like lower('%" + busqueda + "%')) and"
+                    + " U.bloqueado = 'N' and U.confirmado = 'S' ");
+
             salida = qu.list();
 
         } catch (RuntimeException e) {
@@ -179,9 +190,7 @@ public class UsuarioDAO {
             sesion.flush();
             sesion.close();
         }
-            
-            
-        
+
         return salida;
     }
 
@@ -190,9 +199,9 @@ public class UsuarioDAO {
      * @return
      */
     public List<Usuario> getTodos() {
-          List<Usuario> salida = new ArrayList();
+        List<Usuario> salida = new ArrayList();
         Session sesion = HibernateUtil.getSessionFactory().openSession();
-        
+
         try {
             Query qu = sesion.createQuery("Select U from Usuario U");
             salida = qu.list();
@@ -211,8 +220,8 @@ public class UsuarioDAO {
      * @param idUsuario
      */
     public void guardar(Usuario idUsuario) {
-         Session sesion = HibernateUtil.getSessionFactory().openSession();
-        
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+
         try {
             sesion.save(idUsuario);
 
@@ -222,5 +231,54 @@ public class UsuarioDAO {
             sesion.flush();
             sesion.close();
         }
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public static Usuario getPorID(Long id) {
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        Usuario salida = null;
+        try {
+            salida = (Usuario) sesion.get(Usuario.class, id);
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        } finally {
+            sesion.flush();
+            sesion.close();
+        }
+        return salida;
+    }
+
+    /**
+     *
+     * @param amigos
+     * @return
+     */
+    public List<Usuario> getAmigosDeLista(List<Amistad> amigos) {
+        List<Usuario> salida = new ArrayList();
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        StringBuffer sb = new StringBuffer();
+        for (Amistad am : amigos) {
+            sb.append(" ");
+            sb.append(am.getIdAmigo());
+            sb.append(" ,");
+        }
+        sb.delete(sb.lastIndexOf(",")-1, sb.length());
+        try {
+            Query qu = sesion.createQuery("Select U from Usuario U where U.persona.idPersona in(:list)");
+            qu.setParameter("list", sb.toString());
+            salida = qu.list();
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        } finally {
+            sesion.flush();
+            sesion.close();
+        }
+        return salida;
     }
 }

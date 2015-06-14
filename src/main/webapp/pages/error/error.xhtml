@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head></h:head>
+    <h:body>
+        <ui:composition  template="../template/template.xhtml">
+            <ui:define name="userHeader">
+                <p></p>
+            </ui:define>
+            <ui:define name="bodycenter">
+                <h:form>
+
+                    <div class="bodyError">
+                        <p class="tituloMolon error">Lo sentimos, ha ocurrido un error inesperado</p>
+                        <p:commandLink action="index" immediate="true" style="text-decoration: none;">
+                            <p:graphicImage library="css/images" name="logo.svg" styleClass="center" width="100%"/>
+                            <p:spacer height="50"/>
+                            <p class="errorMensaje">
+                                <p:graphicImage library="css/images" name="logo.min.svg" height="50"/>
+                                hora debes volver al inicio.
+                            </p>
+                        </p:commandLink>
+                    </div>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

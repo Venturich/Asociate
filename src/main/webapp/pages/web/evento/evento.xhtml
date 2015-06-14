@@ -9,16 +9,18 @@
     <h:body>
         <ui:composition  template="../../template/template.xhtml">
             <ui:define name="bodyleft">
-                <div>
-                <p:gmap  widgetVar="geoMap" center="#{eventoMB.evento.posicion}" zoom="15" type="HYBRID" model="#{geocodeView.geoModel}" style="width:100%;height:400px">
-                    </div>
-                
+                <div class="bodyleft">
+                    <p:gmap  widgetVar="geoMap" center="#{eventoMB.evento.posicion}" zoom="15" type="HYBRID" model="#{geocodeView.geoModel}" style="width:80%;height:400px"/>
+                </div>
             </ui:define>
             <ui:define name="bodycenter">
-                <div>
-                    <p:graphicImage name="D:/ASOCIATE/evento/#{eventoMB.evento.imagen}" alt="#{eventoMB.evento.titulo}"/>
-                </div>
-                <div>
+                <div class="bodycenter">
+                    <h:form>
+                        <div>
+                            <p:graphicImage name="#{eventoMB.evento.imagen}" alt="#{eventoMB.evento.titulo}" library="eventos" styleClass="w80"/>
+                        </div>
+                        <div class="eventoDetalles">
+                            <h:panelGrid columns="2">
                                 <h:outputText value="Titulo:"/>
                                 <h:outputText value="#{eventoMB.evento.titulo}"/>
                                 <h:outputText value="Fecha de inicio:"/>
@@ -31,23 +33,28 @@
                                 </h:outputText>        
                                 <h:outputText value="Descripcion:"/>
                                 <h:outputText  value="#{eventoMB.evento.descripcion}" />
+                            </h:panelGrid>
+                        </div>
+                        <div>
+                            <p:commandButton action="#{eventoMB.volver}" value="Volver"/>
+                        </div>
                 </div>
-                <div>
-                    <p:commandButton action="#{eventoMB.volver}" value="Volver"/>
-                </div>
+                </h:form>
             </ui:define>
             <ui:define name="bodyright">
-                <div>
-                    <p:panel>
-                        <p:dataList value="#{eventoMB.listaAsistente}" var="asistente">
-                            <p:commandLink action="#{eventoMB.irAPerfil(asistente.idPersona)}">
-                                <h:outputText value="#{asistente.nombre} #{asistente.apellidop}"/>
-                                <f:facet name="description">
-                                    <p:graphicImage value="D:ASOCIATE/usuario/#{asistente.idUsuario.idUsuario}/perfil.jpg"/> 
-                                </f:facet>
-                            </p:commandLink>
-                        </p:dataList>
-                    </p:panel>
+                <div class="bodyleft">
+                    <h:form>
+                        <p:panel class="w80">
+                            <p:dataList value="#{eventoMB.listaAsistente}" var="asistente">
+                                <p:commandLink action="#{eventoMB.irAPerfil(asistente.idPersona)}" style="height: 50px">
+                                    <h:outputText value="#{asistente.nombre} #{asistente.apellidop}"/>
+                                    <f:facet name="description">
+                                        <p:graphicImage library="usuarios/#{asistente.idUsuario.idUsuario}" name="perfil.jpg" style="max-height: 50px;"/> 
+                                    </f:facet>
+                                </p:commandLink>
+                            </p:dataList>
+                        </p:panel>
+                    </h:form>
                 </div>
 
             </ui:define>

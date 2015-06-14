@@ -31,3 +31,8 @@ $(document).keydown(function (e) {
     if (preventKeyPress)
         e.preventDefault();
 });
+
+function geocode() {
+    //alert("buscando+"+document.getElementById('j_idt42:address'));
+    PF('geoMap').geocode(document.getElementsByClassName('entrada')[0].value);
+}

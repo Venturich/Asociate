@@ -16,56 +16,69 @@ and open the template in the editor.
     <h:body>
         <ui:composition  template="../../template/template.xhtml">
             <ui:define name="bodyleft">
-                <div class="bodyleft">
-
-                </div>
+               
             </ui:define>
             <ui:define name="bodycenter">
-                <div class="bodycenter">
-                    <h:form id="form1">
-                        <div>
-                            <p:graphicImage value="#{perfilVerMB.imagen}" rendered="#{perilMB.imagen ne '' }" id="imgPerfil"/>
-                            <p:graphicImage value="" rendered="#{perilMB.imagen eq '' }" id="imgBasica"/>
+                 <div class="bodyleftPerfil">
+                     <p:growl sticky="true"/>
+                    <p:panel styleClass="w80">
+                        <div class="fotoPerfil">
+                                <p:graphicImage library="usuarios/#{perfilVerMB.user.idUsuario.idUsuario}" name="perfil.jpg" rendered="#{not empty  perfilVerMB.imagen and not perfilVerMB.asociacion }" id="imgPerfil" styleClass="fotoPerfil"/>
+                                <p:graphicImage rendered="#{empty perfilVerMB.imagen }" id="imgBasica" name="default.svg" library="css/images" styleClass="fotoPerfil"/>
+                                <p:graphicImage library="usuarios/#{perfilVerMB.asoc.idUsuario.idUsuario}" name="perfil.jpg" rendered="#{not empty  perfilVerMB.imagen and perfilVerMB.asociacion }" id="imgPerfil2" styleClass="fotoPerfil"/>
                         </div>
-                        <div>
-                            <p:panelGrid columns="2" id="datosPersona" rendered="#{!perfilVerMB.asociacion}">
-                                <h:outputText value="#{msg.nombre}:"/>
-                                <h:outputText value="#{perfilVerMB.user.nombre}"/>
-                                <h:outputText value="#{msg.apellidop}:"/>
-                                <h:outputText value="#{perfilVerMB.user.apellidop}"/>
-                                <h:outputText value="#{msg.apellidom}:" rendered="#{!perfilVerMB.user.apellidom ne ''}"/>
-                                <h:outputText value="#{perfilVerMB.user.apellidom}" rendered="#{!perfilVerMB.user.apellidom ne ''}"/>
-
-                            </p:panelGrid>
-                            <p:panelGrid columns="4" id="datosAsoc" rendered="#{perfilVerMB.asociacion}">
-                                <h:outputText value="Razón social:"/>
-                                <h:outputText value="#{perfilVerMB.asoc.razonsocial}"
-                                              <h:outputText value="Descripcion:" rendered="#{perfilVerMB.asoc.descripcion ne ''}"/>
-                                    <h:outputText value="#{perfilVerMB.asoc.descripcion}" rendered="#{perfilVerMB.asoc.descripcion ne ''}"/>
-                                    <h:outputText value="Email:" rendered="#{perfilVerMB.asoc.email ne ''}"/>
-                                    <h:outputText value="#{perfilVerMB.asoc.email}"  rendered="#{perfilVerMB.asoc.email ne ''}"/>
-                                    <h:outputText value="Fecha de formación:" rendered="#{perfilVerMB.asoc.fhcreacion ne null}"/>
-                                    <h:outputText value="#{perfilVerMB.asoc.fhcreacion}"  rendered="#{perfilVerMB.asoc.fhcreacion ne null}"/>
-                                    <f:convertDateTime parent="dd/mm/yyyy"/>
-                                </h:outputText>
-                                <h:outputText value="Telefono:" rendered="#{perfilVerMB.asoc.telefono ne ''}"/>
-                                <h:outputText value="#{perfilVerMB.asoc.telefono}"  rendered="#{perfilVerMB.asoc.telefono ne ''}" />
-                            </p:panelGrid>
-
-                            <p:panelGrid columns="2" id="botonera">
-                                <p:commandButton action="#{perfilVerMB.volverEvento()}" rendered="#{perfilVerMB.deEvento}" value="Volver"/>
-                                <p:commandButton action="#{perfilVerMB.volverBuscador()}" rendered="#{perfilVerMB.deBusqueda}" value="Volver"/>
-                                <p:commandButton actionListener="#{perfilVerMB.agregarAmigo()}" rendered="#{!perfilVerMB.asociacion and !perfilVerMB.amigos}" value="#{perfilVerMB.btnAmigo}" update="botonera"/>
-                                <p:commandButton actionListener="#{perfilVerMB.peticionSocio()}" rendered="#{perfilVerMB.asociacion and !perfilVerMB.amigos}" value="#{perfilVerMB.btnAsociate}" update="botonera"/>
-                                <p:commandButton actionListener="#{perfilVerMB.eliminarAmigo()}" rendered="#{!perfilVerMB.asociacion and perfilVerMB.amigos}" value="#{perfilVerMB.btnAmigo}" update="botonera"/>
-                                <p:commandButton actionListener="#{perfilVerMB.peticionBaja()}" rendered="#{perfilVerMB.asociacion and perfilVerMB.amigos}" value="#{perfilVerMB.btnAsociate}" update="botonera"/>
-                            </p:panelGrid>
-                        </div>
-                    </h:form>
+                        <h:form id="form1" id="peticion">
+                            <p:panel rendered="#{!perfilVerMB.amigos}">
+                                <p:commandButton value="#{perfilVerMB.btnAmigo}" icon="fa fa-plus-circle" ajax="true" actionListener="#{perfilVerMB.agregarAmigo()}" iconPos="right" update="peticion" rendered="#{!perfilVerMB.asociacion}"/>
+                                <p:commandButton value="#{perfilVerMB.btnAsociate}" icon="fa fa-plus-circle" ajax="true" actionListener="#{perfilVerMB.peticionSocio()}" iconPos="right" update="peticion" rendered="#{perfilVerMB.asociacion}"/>
+                            </p:panel>
+                            <p:panel rendered="#{perfilVerMB.amigos}">
+                                <p:commandButton value="#{perfilVerMB.btnAmigo}" icon="fa fa-plus-circle" ajax="true" actionListener="#{perfilVerMB.eliminarAmigo()}" iconPos="right" update="peticion" rendered="#{!perfilVerMB.asociacion}"/>
+                                <p:commandButton value="#{perfilVerMB.btnAsociate}" icon="fa fa-plus-circle" ajax="true" actionListener="#{perfilVerMB.peticionBaja()}" iconPos="right" update="peticion" rendered="#{perfilVerMB.asociacion}"/>
+                            </p:panel>
+                        </h:form>
+                    </p:panel>
                 </div>
-            </ui:define>
-            <ui:define name="bodyleft">
-                <div class="bodyleft"></div>
+                <div class="bodycenterPerfil">
+                    <div>
+                        <p:panel id="datosPersona" rendered="#{!perfilVerMB.asociacion}">
+                            <p class="tituloMolon2">
+                                <h:outputText value="#{perfilVerMB.user.nombre} "/>
+
+                                <h:outputText value="#{perfilVerMB.user.apellidop} "/>
+
+                                <h:outputText value="#{perfilVerMB.user.apellidom} " rendered="#{!perfilVerMB.user.apellidom ne ''}"/>
+                            </p>
+                        </p:panel>
+                        <h:panelGrid columns="2" id="datosAsoc" rendered="#{perfilVerMB.asociacion}">
+                            <h:outputText value="Razón social:"/>
+                            <h:outputText value="#{perfilVerMB.asoc.razonsocial}"/>
+                            <h:outputText value="Descripcion:" rendered="#{perfilVerMB.asoc.descripcion ne ''}"/>
+                            <h:outputText value="#{perfilVerMB.asoc.descripcion}" rendered="#{perfilVerMB.asoc.descripcion ne ''}"/>
+                            <h:outputText value="Email:" rendered="#{perfilVerMB.asoc.email ne ''}"/>
+                            <h:outputText value="#{perfilVerMB.asoc.email}"  rendered="#{perfilVerMB.asoc.email ne ''}"/>
+                            <h:outputText value="Fecha de formación:" rendered="#{perfilVerMB.asoc.fhcreacion ne null}"/>
+                            <h:outputText value="#{perfilVerMB.asoc.fhcreacion}"  rendered="#{perfilVerMB.asoc.fhcreacion ne null}">
+                                <f:convertDateTime parent="dd/mm/yyyy"/>
+                            </h:outputText>
+                            <h:outputText value="Telefono:" rendered="#{perfilVerMB.asoc.telefono ne ''}"/>
+                            <h:outputText value="#{perfilVerMB.asoc.telefono}"  rendered="#{perfilVerMB.asoc.telefono ne ''}" />
+                        </h:panelGrid>
+                        <p:panel rendered="#{perfilVerMB.amigos}" style="margin-top: 20px;">
+                             <p:dataGrid columns="1" value="#{perfilVerMB.listaComentarioes}" emptyMessage="No hay publicaciones" var="publi">
+                                <p:panel >
+                                    <f:facet name="header">
+                                        <h:outputText value="#{publi.fhpublicacion}">
+                                            <f:convertDateTime pattern="dd-mm-yyyy/HH:mm"/>
+                                        </h:outputText>
+                                    </f:facet>
+                                    <p><h:outputText value="#{publi.comentario}"/></p>
+                                </p:panel>
+                            </p:dataGrid>
+                            
+                        </p:panel>
+                    </div>
+                </div>
             </ui:define>
         </ui:composition>
     </h:body>

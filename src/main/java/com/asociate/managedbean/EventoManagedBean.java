@@ -121,4 +121,23 @@ public class EventoManagedBean extends AsociateError implements Serializable {
         this.listaAsistente = listaAsistente;
     }
 
+    /**
+     *
+     * @return
+     */
+    public GeocodeViewManagedBean getGeocode() {
+        return geocode;
+    }
+
+    /**
+     *
+     * @param geocode
+     */
+    public void setGeocode(GeocodeViewManagedBean geocode) {
+        this.geocode = geocode;
+    }
+    
+    
+    
+
 }

@@ -9,12 +9,16 @@ import com.asociate.dao.AmistadDAO;
 import com.asociate.dao.DirectorioDAO;
 import com.asociate.dao.MensajeriaDAO;
 import com.asociate.dao.NotificacionDAO;
+import com.asociate.dao.ComentarioDAO;
 import com.asociate.dao.SocioDAO;
 import com.asociate.dao.UsuarioDAO;
 import com.asociate.modelo.Amistad;
+import com.asociate.modelo.Comentario;
 import com.asociate.modelo.Socio;
 import com.asociate.modelo.Usuario;
 import com.asociate.utils.Archivos;
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -31,9 +35,9 @@ import org.apache.commons.logging.LogFactory;
  */
 @ManagedBean(name = "perfilMB")
 @ViewScoped
-public class PerfilManagedBean {
+public class PerfilManagedBean extends AsociateError implements Serializable{
 
-    private final String goToEventos = "calendarioEventos";
+    private final String goToEventos = "calendarioEvento";
     private final String goToForo = "";
     private final String goToDirectorio = "";
     private final String goToNuevoEvento = "nuevoEvento";
@@ -53,6 +57,9 @@ public class PerfilManagedBean {
     private SocioDAO socDAO;
     private MensajeriaDAO menDAO;
     private DirectorioDAO dirDAO;
+    private Comentario comentario;
+    private List<Comentario> listaComentarioes;
+    private ComentarioDAO comDAO;
 
     private String tieneFPerfil;
     private boolean editarDatos = false;
@@ -70,7 +77,8 @@ public class PerfilManagedBean {
     @PostConstruct
     public void init() {
         flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
-
+        comentario= new Comentario();
+        
         this.editarDatos = false;
 
         if (this.flash.get("User") != null) {
@@ -91,6 +99,8 @@ public class PerfilManagedBean {
             amigos = amiDAO.getListaAmigos(user.getPersona().getIdPersona());
             //tieneDirectorio = dirDAO.hasDirectorioPersona(user.getPersona().getIdPersona());
         }
+        comDAO=new ComentarioDAO();
+        listaComentarioes=comDAO.getListaComentarioesPorId(this.user.getIdUsuario());
         logger.info("init de perfilmanagedbean");
         tieneFPerfil = Archivos.comprobarFPerfl(user.getIdUsuario());
         logger.info(tieneFPerfil+" el perfil");
@@ -114,6 +124,18 @@ public class PerfilManagedBean {
     public void marcarComoVista(Long idNotificacion) {
         notiDAO = new NotificacionDAO();
         notiDAO.marcarComoVista(idNotificacion);
+    }
+    
+    /**
+     *
+     */
+    public void crearComentario(){
+        this.comentario.setFhpublicacion(new Date());
+        this.comentario.setIdAutor(user);
+        this.comentario.setBloqueado("P");
+        comDAO.guardar(comentario);
+        this.addInfo("Publicación creada con exito");
+        this.listaComentarioes.add(comentario);
     }
 
     /**
@@ -284,6 +306,38 @@ public class PerfilManagedBean {
      */
     public void setTieneDirectorio(boolean tieneDirectorio) {
         this.tieneDirectorio = tieneDirectorio;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Comentario getComentario() {
+        return comentario;
+    }
+
+    /**
+     *
+     * @param comentario
+     */
+    public void setComentario(Comentario comentario) {
+        this.comentario = comentario;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<Comentario> getListaComentarioes() {
+        return listaComentarioes;
+    }
+
+    /**
+     *
+     * @param listaComentarioes
+     */
+    public void setListaComentarioes(List<Comentario> listaComentarioes) {
+        this.listaComentarioes = listaComentarioes;
     }
 
 }

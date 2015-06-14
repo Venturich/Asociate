@@ -100,7 +100,23 @@
             <ui:define name="bodycenter">
                 <div class="bodycenter">
                     <h:form>
-
+                        <p:panel style="margin-top: 20px;">
+                            <p style="text-align: center">Expresa tu opinión:</p>
+                            <p:editor value="#{perfilMB.comentario.comentario}" style="width:100%"/>
+                            <p:commandButton actionListener="#{perfilMB.crearComentario}" value="Publicar" update="panelPublis" />
+                        </p:panel>
+                        <p:panel id="panelPublis">
+                            <p:dataGrid columns="1" value="#{perfilMB.listaComentarioes}" emptyMessage="No hay publicaciones" var="publi">
+                                <p:panel >
+                                    <f:facet name="header">
+                                        <h:outputText value="#{publi.fhpublicacion}">
+                                            <f:convertDateTime pattern="dd-mm-yyyy/HH:mm"/>
+                                        </h:outputText>
+                                    </f:facet>
+                                    <p><h:outputText value="#{publi.comentario}"/></p>
+                                </p:panel>
+                            </p:dataGrid>
+                        </p:panel>
 
                     </h:form> 
                 </div>
@@ -114,7 +130,7 @@
                                 <p:commandButton value="Amigos (#{perfilMB.amigos.size()})"  action="#{perfilMB.irListaAmigos()}" immediate="true" rendered="#{!sesionMB.esAsociacion}" styleClass="botonAjuste"/>
                                 <p:commandButton value="Socios (#{perfilMB.socios.size()})"  action="#{perfilMB.irListaSocios()}" immediate="true" rendered="#{sesionMB.esAsociacion}" styleClass="botonAjuste"/>
                                 <p:commandButton value="Ver eventos" action="#{perfilMB.irListaEvento()}" immediate="true" styleClass="botonAjuste"/>
-                                <p:commandButton value="Nuevo evento" action="#{perfilMB.irNuevoEvento()}" immediate="true" styleClass="botonAjuste"/>
+                                <p:commandButton value="Nuevo evento" action="#{perfilMB.irNuevoEvento()}" immediate="true" styleClass="botonAjuste" ajax="false"/>
                                 <p:commandButton value="Ir al foro"  action="#{perfilMB.irForo()}" immediate="true" rendered="false" styleClass="botonAjuste"/>
                                 <p:commandButton value="Directorio" rendered="#{perfilMB.tieneDirectorio}" action="#{perfilMB.irDirectorio()}" immediate="true" styleClass="botonAjuste"/>
                             </h:panelGrid>

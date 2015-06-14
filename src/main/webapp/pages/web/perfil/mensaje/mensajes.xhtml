@@ -13,15 +13,15 @@
                 <div class="center w80">
                     <div class="nuevoMsj">
                         <h:form id="nuevoMensaje">
-                            <p:commandButton value="Nuevo mensaje" oncomplete="PF('nuevo').show()" actionListener="#{mensajesMB.nuevoMensaje}" update="nuevo" styleClass="center block" ></p:commandButton>
+                            <p:commandButton value="Nuevo mensaje" oncomplete="PF('nuevoMensaje').show()" actionListener="#{mensajesMB.nuevoMensaje}" update="nuevo" styleClass="center block" ></p:commandButton>
                             <p:dialog widgetVar="nuevoMensaje" modal="true" focus="autocompletar" >
                                 <p:panel  id="nuevo" rendered="#{mensajesMB.mensajeNuevo ne null}">
-                                    <p:autoComplete id="autocompletar" maxResults="5" minQueryLength="3" maxlength="50" 
+                                    <p:autoComplete id="autocompletar" maxResults="5" minQueryLength="3" maxlength="50" style="width:100%;"
                                                     scrollHeight="200" queryDelay="500" completeMethod="#{mensajesMB.buscarContacto}" size="50" 
                                                     valueChangeListener="#{mensajesMB.cargarDatosContacto}" var="cc"
                                                     itemLabel="#{cc.persona.nombre} #{cc.persona.apellidop}" itemValue="#{cc.idUsuario}" 
                                                     value="#{mensajesMB.idDestinoNuevo}"/>
-                                    <p:editor widgetVar="editor" value="#{mensajesMB.mensajeNuevo.texto}" required="true" requiredMessage="El mensaje no puede estar vacio" />
+                                    <p:editor widgetVar="editor" value="#{mensajesMB.mensajeNuevo.texto}" required="true" requiredMessage="El mensaje no puede estar vacío" />
                                     <p:commandButton value="Cancelar" oncomplete="PF('nuevoMensaje').hide()" actionListener="#{mensajesMB.setMensajeNuevo(null)}" update="nuevoMensaje"/>
                                     <p:commandButton value="Enviar" actionListener="#{mensajesMB.enviarMensaje()}" oncomplete="if(!args.validationfailed){PF('nuevoMensaje').hide()}"/>
                                 </p:panel>

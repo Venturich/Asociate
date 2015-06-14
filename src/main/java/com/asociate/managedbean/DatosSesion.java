@@ -169,10 +169,18 @@ public class DatosSesion extends AsociateError implements Serializable {
         this.usuarioLogeado = usuarioLogeado;
     }
 
+    /**
+     *
+     * @return
+     */
     public UploadedFile getfPerfil() {
         return fPerfil;
     }
 
+    /**
+     *
+     * @param fPerfil
+     */
     public void setfPerfil(UploadedFile fPerfil) {
         this.fPerfil = fPerfil;
     }

@@ -167,6 +167,11 @@ public class AsociacionDAO {
         }
     }
 
+    /**
+     *
+     * @param value
+     * @return
+     */
     public boolean comprobarCIF(String value) {
         boolean existe = false;
         Session sesion = HibernateUtil.getSessionFactory().openSession();

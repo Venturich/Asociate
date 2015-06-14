@@ -79,6 +79,10 @@ public class MensajeriaDAO {
         return id > 0L;
     }
 
+    /**
+     *
+     * @param idMensaje
+     */
     public void leido(Long idMensaje) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         try {

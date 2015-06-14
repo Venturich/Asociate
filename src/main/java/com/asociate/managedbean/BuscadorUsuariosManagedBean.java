@@ -6,6 +6,7 @@
 package com.asociate.managedbean;
 
 import com.asociate.dao.UsuarioDAO;
+import com.asociate.modelo.Amistad;
 import com.asociate.modelo.Usuario;
 import java.io.Serializable;
 import java.util.List;
@@ -27,6 +28,7 @@ import javax.faces.context.Flash;
 public class BuscadorUsuariosManagedBean implements Serializable {
 
     private String goToPerfil = "perfilPrincipal";
+    private String goToVerPerfil = "perfil";
     private Flash flash;
 
     @ManagedProperty(value = "#{perfilMenuMB}")
@@ -48,19 +50,25 @@ public class BuscadorUsuariosManagedBean implements Serializable {
     @PostConstruct
     public void init() {
         flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
-        busqueda = perfilMenu.getBusqueda();
-        if (!"".equals(busqueda)) {
-            resultado = buscar(busqueda);
+        if (flash.get("amigos") == null) {
+            busqueda = perfilMenu.getBusqueda();
+            if (!"".equals(busqueda)) {
+                resultado = buscar(busqueda);
+            }
+        } else {
+            List<Amistad> amigos=(List<Amistad>) flash.get("amigos");
+            usuDAO=new UsuarioDAO();
+            resultado= usuDAO.getAmigosDeLista(amigos);
         }
 
     }
-    
+
     /**
      *
      */
-    public void buscar(){
-        if(!busqueda.equals("")){
-            this.resultado=buscar(busqueda);
+    public void buscar() {
+        if (!busqueda.equals("")) {
+            this.resultado = buscar(busqueda);
         }
     }
 
@@ -82,7 +90,7 @@ public class BuscadorUsuariosManagedBean implements Serializable {
         } else {
             flash.put("idPersona", id);
         }
-        return goToPerfil;
+        return goToVerPerfil;
     }
 
     /**
@@ -117,18 +125,34 @@ public class BuscadorUsuariosManagedBean implements Serializable {
         this.busqueda = busqueda;
     }
 
+    /**
+     *
+     * @return
+     */
     public Flash getFlash() {
         return flash;
     }
 
+    /**
+     *
+     * @param flash
+     */
     public void setFlash(Flash flash) {
         this.flash = flash;
     }
 
+    /**
+     *
+     * @return
+     */
     public PerfilMenuManagedBean getPerfilMenu() {
         return perfilMenu;
     }
 
+    /**
+     *
+     * @param perfilMenu
+     */
     public void setPerfilMenu(PerfilMenuManagedBean perfilMenu) {
         this.perfilMenu = perfilMenu;
     }

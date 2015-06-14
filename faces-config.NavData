@@ -2,27 +2,28 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
-        <Node id="index.xhtml" x="1155" y="275" zoom="true"/>
-        <Node id="pages/web/admin/menuPrincipal.xhtml" x="1210" y="474" zoom="true"/>
-        <Node id="pages/web/perfil/directorio.xhtml" x="900" y="300" zoom="true"/>
-        <Node id="pages/web/admin/altaAsociacion.xhtml" x="1426" y="664" zoom="true"/>
-        <Node id="pages/web/admin/bloqueoUsuario.xhtml" x="1126" y="852" zoom="true"/>
-        <Node id="pages/template/template.xhtml" x="346" y="566" zoom="true"/>
-        <Node id="pages/web/evento/nuevoEvento.xhtml" x="400" y="150" zoom="true"/>
-        <Node id="pages/web/registro/completarRegistroAsociacion.xhtml" x="1170" y="143" zoom="true"/>
-        <Node id="pages/template/indexTemplate.xhtml" x="567" y="538" zoom="true"/>
-        <Node id="pages/template/menuTemplate.xhtml" x="925" y="443" zoom="true"/>
-        <Node id="pages/web/perfil/buscadorUsuarios.xhtml" x="150" y="750" zoom="true"/>
-        <Node id="pages/web/evento/evento.xhtml" x="150" y="900" zoom="true"/>
-        <Node id="pages/web/registro/exitoRegistro.xhtml" x="100" y="559" zoom="true"/>
-        <Node id="pages/web/evento/calendarioEvento.xhtml" x="150" y="300" zoom="true"/>
-        <Node id="pages/web/perfil/perfilPrincipal.xhtml" x="60" y="85" zoom="true"/>
-        <Node id="pages/web/perfil/mensaje/mensajes.xhtml" x="400" y="802" zoom="true"/>
-        <Node id="pages/web/perfil/verDocumento.xhtml" x="223" y="660" zoom="true"/>
-        <Node id="pages/web/registro/completarRegistroUsuario.xhtml" x="433" y="370" zoom="true"/>
-        <Node id="pages/template/adminTemplate.xhtml" x="1411" y="372" zoom="true"/>
-        <Node id="pages/web/admin/copiaSeguridad.xhtml" x="871" y="680" zoom="true"/>
+        <Node id="index.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="pages/web/admin/menuPrincipal.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="pages/web/perfil/directorio.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="pages/error/error.xhtml" x="397" y="47" zoom="true"/>
+        <Node id="pages/web/admin/bloqueoUsuario.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="pages/web/admin/altaAsociacion.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="pages/template/template.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="pages/web/registro/completarRegistroAsociacion.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="pages/web/evento/nuevoEvento.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="pages/template/indexTemplate.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="pages/template/menuTemplate.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="pages/web/perfil/buscadorUsuarios.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="pages/web/evento/evento.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="pages/web/evento/calendarioEvento.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="pages/web/registro/exitoRegistro.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="pages/web/perfil/perfilPrincipal.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="pages/web/perfil/mensaje/mensajes.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="pages/web/registro/completarRegistroUsuario.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="pages/web/perfil/verDocumento.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="pages/template/adminTemplate.xhtml" x="650" y="150" zoom="true"/>
         <Node id="pages/web/perfil/perfil.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="pages/web/admin/copiaSeguridad.xhtml" x="150" y="900" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations">
         <Node id="index.xhtml" x="400" y="750" zoom="true"/>

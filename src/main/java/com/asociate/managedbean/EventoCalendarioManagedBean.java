@@ -7,30 +7,35 @@ package com.asociate.managedbean;
 
 import com.asociate.dao.EventoDAO;
 import com.asociate.modelo.Evento;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
-import javax.inject.Named;
-import javax.faces.view.ViewScoped;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
  * @author Ventura
  */
-@Named(value = "eventoCalendarioMB")
+@ManagedBean(name = "eventoCalendarioMB")
 @ViewScoped
-public class EventoCalendarioManagedBean {
+public class EventoCalendarioManagedBean extends AsociateError implements Serializable{
 
-    private String goToEvento = "";
+    private String goToEvento = "evento";
 
-    @ManagedProperty("#{sessionMB}")
+    @ManagedProperty("#{sesionMB}")
     private DatosSesion sesion;
 
     private Flash flash;
-
+    private Log logger = LogFactory.getLog(this.getClass().getName());
+    
     private EventoDAO eveDAO;
     private List<Evento> listaEvento = new ArrayList();
 
@@ -49,13 +54,17 @@ public class EventoCalendarioManagedBean {
         eveDAO = new EventoDAO();
         if (flash.get("ListaEvento") == null) {
             if (sesion.getEsAsociacion()) {
-                this.listaEvento.addAll(eveDAO.getListaEventoPropio(sesion.getUsuarioLogeado().getIdUsuario()));
+                logger.info("no es asoc");
+                this.listaEvento=(eveDAO.getListaEventoPropio(sesion.getUsuarioLogeado().getIdUsuario()));
             } else {
+                logger.info(" es asoc");
+                this.listaEvento=(eveDAO.getListaEventoPropio(sesion.getUsuarioLogeado().getIdUsuario()));
                 this.listaEvento.addAll(eveDAO.getListaEvento(sesion.getUsuarioLogeado().getPersona().getIdPersona()));
 
             }
             //listaEvento.sort(null);
         } else {
+            logger.info("coge del flash");
             this.listaEvento = (List<Evento>) flash.get("ListaEvento");
         }
         
@@ -87,6 +96,22 @@ public class EventoCalendarioManagedBean {
      */
     public void setListaEvento(List<Evento> listaEvento) {
         this.listaEvento = listaEvento;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public DatosSesion getSesion() {
+        return sesion;
+    }
+
+    /**
+     *
+     * @param sesion
+     */
+    public void setSesion(DatosSesion sesion) {
+        this.sesion = sesion;
     }
     
     

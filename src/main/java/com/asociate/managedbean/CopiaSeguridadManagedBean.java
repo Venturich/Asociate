@@ -31,7 +31,7 @@ public class CopiaSeguridadManagedBean extends AsociateError implements Serializ
     private final String database = "ASOCIATE";
     private final String usuario = "userjava";
     private final String pass = "2015";
-    private final String ruta = "D:\\ASOCIATE\\copiasSeguridad";
+    private final String ruta = "/home/daw2/copiasSeguridad";
     private String[] ficheros;
     private String resultado;
 

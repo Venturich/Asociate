@@ -28,6 +28,10 @@ public class Archivos {
         return file.exists()?file.getAbsolutePath():"";
     }
 
+    /**
+     *
+     * @param idUsuario
+     */
     public static void comprobarCarpetaUsuario(Long idUsuario) {
         File file =new File(dir+"/"+idUsuario);
         if(!file.exists()){

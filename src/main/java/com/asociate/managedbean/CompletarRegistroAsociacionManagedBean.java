@@ -128,7 +128,7 @@ public class CompletarRegistroAsociacionManagedBean extends AsociateError implem
         try {
             String ficheroSalida;
             //this.urlFotos = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/images/productos");
-            String urlFotos = "D:/ASOCIATE/comprobante";
+            String urlFotos = "/home/daw/ASOCIATE/comprobante";
             String prFoto = //event.getFile().getFileName().substring(0, event.getFile().getFileName().lastIndexOf("."));
                     this.regAsoc.getCif();
             ficheroSalida = "\\" + prFoto + ".jpg";

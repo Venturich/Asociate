@@ -6,13 +6,17 @@
 package com.asociate.managedbean;
 
 import com.asociate.dao.AmistadDAO;
+import com.asociate.dao.EventoAsistentesDAO;
 import com.asociate.dao.EventoDAO;
+import com.asociate.dao.NotificacionDAO;
 import com.asociate.dao.PersonaDAO;
+import com.asociate.dao.UsuarioDAO;
 import com.asociate.modelo.Evento;
 import com.asociate.modelo.EventoAsistentes;
+import com.asociate.modelo.Notificacion;
 import com.asociate.modelo.Persona;
 import com.asociate.utils.Estados;
-import com.mchange.io.FileUtils;
+import com.asociate.utils.Notificaciones;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,26 +24,35 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.inject.Named;
-import javax.faces.view.ViewScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.primefaces.model.UploadedFile;
 
 /**
  *
  * @author Ventura
  */
-@Named(value = "eventoNuevoMB")
+@ManagedBean(name = "eventoNuevoMB")
 @ViewScoped
 public class EventoNuevoManagedBean extends AsociateError implements Serializable {
 
-    private final String goToPerfil = "";
+    private final String goToPerfil = "perfilPrincipal";
+    private Flash flash;
+    private Log logger = LogFactory.getLog(this.getClass().getName());
 
     @ManagedProperty(value = "#{geocodeViewMB}")
     private GeocodeViewManagedBean geocode;
@@ -57,6 +70,8 @@ public class EventoNuevoManagedBean extends AsociateError implements Serializabl
     private List<EventoAsistentes> listaAsistente;
     private UploadedFile fEvento;
 
+    private Boolean panelAsist;
+
     /**
      * Creates a new instance of EventoNuevoManagedBean
      */
@@ -68,39 +83,39 @@ public class EventoNuevoManagedBean extends AsociateError implements Serializabl
      */
     @PostConstruct
     public void init() {
+        flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+        panelAsist = false;
+        listaAmigo = new HashMap<Long, Persona>();
         listaAmigoId = new ArrayList();
         listaAsistente = new ArrayList();
-        nuevoEvento = new Evento();
+        if (flash.get("evento") != null) {
+            nuevoEvento = (Evento) flash.get("evento");
+        } else {
+            nuevoEvento = new Evento();
+        }
+
+        hoy = new Date();
     }
 
     /**
      *
      */
     public void subirFotoTemporal() {
+
         try {
             String ficheroSalida;
-            String urlFotos;
-            //this.urlFotos = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/images/productos");
-
-            urlFotos = "D:/ASOCIATE/evento/temporal";
-            ficheroSalida = "\\" + datosSesion.getUsuarioLogeado().getIdUsuario() + ".jpg";
-
+            String urlFotos = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/eventos/temporal");
+            //urlFotos = "D:/ASOCIATE/evento/temporal";
+            ficheroSalida = datosSesion.getUsuarioLogeado().getIdUsuario() + ".jpg";
             //String prFoto = fPerfil.getFileName().substring(0, fPerfil.getFileName().lastIndexOf("."));
             File targetFolder = new File(urlFotos);
             InputStream inputStream = fEvento.getInputstream();
-            OutputStream out = new FileOutputStream(new File(targetFolder, ficheroSalida));
-            int read = 0;
-            byte[] bytes = new byte[1024];
-            while ((read = inputStream.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-            inputStream.close();
-            out.flush();
-            out.close();
-            //if (esAsociacion) {
-            //  this.usuarioLogeado.getAsociacion().setLogo();
-            //} 
-
+            OutputStream out = new FileOutputStream(new File(targetFolder, "\\" + ficheroSalida));
+            IOUtils.copy(inputStream, out);
+            IOUtils.closeQuietly(inputStream);
+            IOUtils.closeQuietly(out);
+            this.nuevoEvento.setImagen(ficheroSalida);
+            flash.putNow("evento", nuevoEvento);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -112,8 +127,10 @@ public class EventoNuevoManagedBean extends AsociateError implements Serializabl
      */
     public String moverImagen() {
         try {
-            File origen = new File("D:/ASOCIATE/evento/temporal\\" + datosSesion.getUsuarioLogeado().getIdUsuario() + ".jpg");
-            File destino = new File("D:/ASOCIATE/evento/" + this.nuevoEvento.getIdEvento() + ".jpg");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyymmdd");
+            String nombre = sdf.format(this.nuevoEvento.getFhinicio())+"_"+this.nuevoEvento.getPrivacidad()+"_"+((int)(Math.random()*100));
+            File origen = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/eventos/temporal") + "\\" + datosSesion.getUsuarioLogeado().getIdUsuario() + ".jpg");
+            File destino = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/eventos") + "\\" + nombre + ".jpg");
 
             Files.copy(origen.toPath(), destino.toPath());
             return this.nuevoEvento.getIdEvento() + ".jpg";
@@ -127,6 +144,7 @@ public class EventoNuevoManagedBean extends AsociateError implements Serializabl
      *
      */
     public void cargarListaAmigos() {
+        panelAsist = true;
         AmistadDAO amiDAO = new AmistadDAO();
         listaAmigo = amiDAO.getMapaAmigos(this.datosSesion.getUsuarioLogeado().getPersona().getIdPersona());
 
@@ -141,6 +159,8 @@ public class EventoNuevoManagedBean extends AsociateError implements Serializabl
         nuevoEvento.setIdCreador(this.datosSesion.getUsuarioLogeado());
         nuevoEvento.setPosicion(this.geocode.getCenterGeoMap());
         EventoAsistentes evAs;
+        List<Notificacion> notis = new ArrayList();
+        NotificacionDAO notiDAO;
         for (Long id : listaAmigoId) {
             if (listaAmigo.containsKey(id)) {
                 evAs = new EventoAsistentes();
@@ -149,13 +169,37 @@ public class EventoNuevoManagedBean extends AsociateError implements Serializabl
                 evAs.setPersona(listaAmigo.get(id));
                 evAs.setEstado(Estados.PENDIENTE.getValor());
                 evAs.setEvento(nuevoEvento);
+                listaAsistente.add(evAs);
             }
+        }
+        if (!datosSesion.getEsAsociacion()) {
+            evAs = new EventoAsistentes();
+            evAs.setIdPersona(this.datosSesion.getUsuarioLogeado().getPersona().getIdPersona());
+            evAs.setNotificar("S");
+            evAs.setPersona(this.datosSesion.getUsuarioLogeado().getPersona());
+            evAs.setEstado(Estados.PENDIENTE.getValor());
+            evAs.setEvento(nuevoEvento);
+            listaAsistente.add(evAs);
         }
 
         eveDAO = new EventoDAO();
         nuevoEvento.setEventoAsistentesCollection(listaAsistente);
-        if (eveDAO.guardarNuevoEvento(nuevoEvento)) {
+        if(nuevoEvento.getImagen()!=null && !nuevoEvento.getImagen().equals("")){
             nuevoEvento.setImagen(this.moverImagen());
+        }else{
+            nuevoEvento.setImagen("default.svg");
+        }
+        
+        nuevoEvento.setIdEvento(eveDAO.guardarNuevoEvento(nuevoEvento));
+        if (nuevoEvento.getIdEvento() > 0L) {
+//            EventoAsistentesDAO evasDAO = new EventoAsistentesDAO();
+//            evasDAO.guardarAsistente(asistentes);
+            for (Long id : listaAmigoId) {
+                notiDAO = new NotificacionDAO();
+                notis.add(notiDAO.generarNotificacion(this.datosSesion.getUsuarioLogeado(), Notificaciones.NUEVOEVENTO, UsuarioDAO.getPorID(id), nuevoEvento.getIdEvento(), false));
+            }
+            notiDAO = new NotificacionDAO();
+            notiDAO.guardarListaNotificaciones(notis);
             addInfo("Evento creado con éxito");
             return goToPerfil;
         } else {
@@ -225,6 +269,22 @@ public class EventoNuevoManagedBean extends AsociateError implements Serializabl
      *
      * @return
      */
+    public Boolean getPanelAsist() {
+        return panelAsist;
+    }
+
+    /**
+     *
+     * @param panelAsist
+     */
+    public void setPanelAsist(Boolean panelAsist) {
+        this.panelAsist = panelAsist;
+    }
+
+    /**
+     *
+     * @return
+     */
     public GeocodeViewManagedBean getGeocode() {
         return geocode;
     }
@@ -283,6 +343,22 @@ public class EventoNuevoManagedBean extends AsociateError implements Serializabl
      */
     public void setListaAsistente(List<EventoAsistentes> listaAsistente) {
         this.listaAsistente = listaAsistente;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public DatosSesion getDatosSesion() {
+        return datosSesion;
+    }
+
+    /**
+     *
+     * @param datosSesion
+     */
+    public void setDatosSesion(DatosSesion datosSesion) {
+        this.datosSesion = datosSesion;
     }
 
 }
